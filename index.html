@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#faf8f5" />
+  <title>Tutoring Tracker — Hisham</title>
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    /* ── Reset & Tokens ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #faf8f5;
+      --surface:    #ffffff;
+      --surface-2:  #f5f2ee;
+      --border:     #e8e3db;
+      --border-2:   #d4cdc3;
+      --text:       #1c1917;
+      --text-2:     #57534e;
+      --text-3:     #a8a29e;
+      --accent:     #c2672a;
+      --accent-lt:  #fdeee3;
+      --accent-dk:  #9a4e1e;
+      --green:      #16a34a;
+      --green-lt:   #dcfce7;
+      --radius:     14px;
+      --radius-sm:  8px;
+      --radius-pill:999px;
+      --shadow:     0 1px 4px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+      --shadow-md:  0 2px 8px rgba(0,0,0,.08), 0 8px 32px rgba(0,0,0,.08);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Typography ── */
+    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+    h2 { font-size: 1.15rem; font-weight: 600; }
+    h3 { font-size: 1rem; font-weight: 600; }
+    p  { line-height: 1.6; color: var(--text-2); }
+
+    /* ── Layout ── */
+    .app { max-width: 480px; margin: 0 auto; padding: 0 0 calc(80px + var(--safe-bottom)); }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(250,248,245,.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px 12px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .header-brand { display: flex; align-items: center; gap: 10px; }
+    .header-logo {
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: .9rem;
+    }
+    .header-title { font-size: 1rem; font-weight: 600; line-height: 1.2; }
+    .header-sub   { font-size: .72rem; color: var(--text-3); font-weight: 400; }
+    .header-stats { text-align: right; }
+    .stat-num     { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .stat-label   { font-size: .68rem; color: var(--text-3); }
+
+    /* ── Bottom Nav ── */
+    nav.bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      padding-bottom: var(--safe-bottom);
+    }
+    .nav-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      gap: 4px; padding: 10px 8px; cursor: pointer;
+      border: none; background: transparent;
+      color: var(--text-3); font-family: var(--font); font-size: .68rem; font-weight: 500;
+      transition: color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-item.active { color: var(--accent); }
+    .nav-icon { font-size: 1.3rem; line-height: 1; }
+
+    /* ── Tabs / Views ── */
+    .view { display: none; padding: 20px; animation: fadeUp .25s ease; }
+    .view.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      box-shadow: var(--shadow); margin-bottom: 16px;
+    }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+
+    /* ── Form Elements ── */
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    .field label { font-size: .82rem; font-weight: 600; color: var(--text-2); }
+
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      font-family: var(--font);
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      width: 100%;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(194,103,42,.12);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* ── Student Picker ── */
+    .student-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .student-btn {
+      padding: 12px 10px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      background: var(--surface-2);
+      font-family: var(--font); font-size: .85rem; font-weight: 600;
+      color: var(--text-2); cursor: pointer;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
+      transition: all .15s; position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .student-btn:active { transform: scale(.97); }
+    .student-btn.selected {
+      border-color: var(--accent); background: var(--accent-lt); color: var(--accent-dk);
+    }
+    .student-btn .s-name { font-size: .9rem; }
+    .student-btn .s-rate { font-size: .72rem; font-weight: 400; color: var(--text-3); }
+    .student-btn.selected .s-rate { color: var(--accent); }
+    .student-btn .s-check {
+      position: absolute; top: 6px; right: 6px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--border-2); border: 1.5px solid var(--border-2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .6rem; color: transparent; transition: all .15s;
+    }
+    .student-btn.selected .s-check {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+
+    /* ── Duration Picker ── */
+    .duration-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    }
+    .dur-btn {
+      padding: 12px 6px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      background: var(--surface-2);
+      font-family: var(--font); font-size: .82rem; font-weight: 600;
+      color: var(--text-2); cursor: pointer; text-align: center;
+      transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dur-btn:active { transform: scale(.97); }
+    .dur-btn.selected {
+      border-color: var(--accent); background: var(--accent-lt); color: var(--accent-dk);
+    }
+
+    /* ── Amount Preview ── */
+    .amount-preview {
+      background: var(--accent-lt); border: 1.5px solid rgba(194,103,42,.25);
+      border-radius: var(--radius-sm); padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .amount-preview-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .amount-preview-row + .amount-preview-row {
+      margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(194,103,42,.15);
+    }
+    .amount-label { font-size: .82rem; color: var(--accent-dk); font-weight: 500; }
+    .amount-value { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .amount-sub   { font-size: .78rem; color: var(--accent); font-weight: 600; }
+
+    /* ── Primary Button ── */
+    .btn-primary {
+      width: 100%; padding: 15px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-primary:active { transform: scale(.98); background: var(--accent-dk); }
+    .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+
+    .btn-secondary {
+      padding: 10px 18px;
+      background: var(--surface-2); color: var(--text-2);
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: .875rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-secondary:active { background: var(--border); }
+
+    .btn-danger {
+      padding: 10px 18px;
+      background: #fef2f2; color: #dc2626;
+      border: 1.5px solid #fecaca; border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: .875rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-danger:active { background: #fecaca; }
+
+    /* ── Session List ── */
+    .session-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      margin-bottom: 10px; position: relative;
+      box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .session-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .session-student {
+      font-weight: 700; font-size: 1rem;
+    }
+    .session-meta {
+      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: .72rem; font-weight: 600;
+    }
+    .badge-orange { background: var(--accent-lt); color: var(--accent-dk); }
+    .badge-green  { background: var(--green-lt);  color: var(--green); }
+    .badge-gray   { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .session-date { font-size: .8rem; color: var(--text-3); }
+    .session-notes { font-size: .82rem; color: var(--text-2); line-height: 1.5; }
+    .session-actions { display: flex; gap: 8px; }
+
+    /* ── Reports ── */
+    .report-student-check {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px; border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      background: var(--surface-2);
+      margin-bottom: 8px; cursor: pointer;
+      transition: all .15s;
+    }
+    .report-student-check.selected {
+      border-color: var(--accent); background: var(--accent-lt);
+    }
+    .check-box {
+      width: 22px; height: 22px; border-radius: 6px;
+      border: 2px solid var(--border-2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: .85rem;
+      transition: all .15s;
+    }
+    .report-student-check.selected .check-box {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+    .check-info { flex: 1; }
+    .check-name { font-weight: 600; font-size: .9rem; }
+    .check-stat { font-size: .75rem; color: var(--text-3); }
+    .report-student-check.selected .check-stat { color: var(--accent); }
+
+    .report-range { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+
+    .summary-card {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dk) 100%);
+      border-radius: var(--radius); padding: 20px; color: #fff; margin-bottom: 16px;
+    }
+    .summary-card h3 { color: rgba(255,255,255,.8); font-weight: 500; font-size: .82rem; margin-bottom: 4px; }
+    .summary-val { font-size: 1.8rem; font-weight: 700; margin-bottom: 2px; }
+    .summary-sub { font-size: .8rem; color: rgba(255,255,255,.75); }
+
+    .summary-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .summary-mini {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .summary-mini h3 { font-size: .72rem; color: var(--text-3); font-weight: 500; margin-bottom: 6px; }
+    .summary-mini .val { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center; padding: 48px 24px;
+      color: var(--text-3);
+    }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .empty-title { font-size: 1rem; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+    .empty-desc { font-size: .85rem; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: calc(80px + var(--safe-bottom) + 12px);
+      left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--text); color: #fff;
+      padding: 12px 20px; border-radius: var(--radius-pill);
+      font-size: .875rem; font-weight: 500;
+      opacity: 0; transition: all .3s; z-index: 100;
+      white-space: nowrap; pointer-events: none;
+      box-shadow: var(--shadow-md);
+    }
+    #toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+      margin-bottom: 16px; scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-chip {
+      flex-shrink: 0; padding: 6px 14px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--border);
+      background: var(--surface-2); color: var(--text-2);
+      font-family: var(--font); font-size: .78rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .filter-chip.active {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+
+    /* ── Month Group ── */
+    .month-group-label {
+      font-size: .75rem; font-weight: 700; color: var(--text-3);
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 0 8px; margin-top: 4px;
+    }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    /* ── Settings ── */
+    .setting-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .setting-row:last-child { border-bottom: none; }
+    .setting-label { font-size: .9rem; font-weight: 500; }
+    .setting-desc  { font-size: .75rem; color: var(--text-3); }
+    .setting-val   { font-size: .9rem; font-weight: 600; color: var(--accent); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+
+    /* ── Print / PDF ── */
+    @media print {
+      body { background: #fff; }
+      nav.bottom-nav, header { display: none; }
+      .view { display: block !important; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ────────────────── HEADER ────────────────── -->
+<header>
+  <div class="header-brand">
+    <div class="header-logo">HT</div>
+    <div>
+      <div class="header-title">Tutoring Tracker</div>
+      <div class="header-sub" id="header-date">Loading…</div>
+    </div>
+  </div>
+  <div class="header-stats">
+    <div class="stat-num" id="hdr-total-sar">0 SAR</div>
+    <div class="stat-label">this month</div>
+  </div>
+</header>
+
+<!-- ────────────────── MAIN ────────────────── -->
+<main class="app">
+
+  <!-- ══ VIEW: ADD SESSION ══ -->
+  <div class="view active" id="view-add">
+
+    <!-- Student picker -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Select Students</h2>
+        <span id="selected-count" style="font-size:.78rem;color:var(--text-3);font-weight:500"></span>
+      </div>
+      <div class="student-grid" id="student-grid"></div>
+    </div>
+
+    <!-- Duration picker -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Duration</h2>
+      </div>
+      <div class="duration-grid" id="duration-grid">
+        <button class="dur-btn" data-hours="0.5">½ hr</button>
+        <button class="dur-btn" data-hours="1">1 hr</button>
+        <button class="dur-btn" data-hours="1.5">1½ hr</button>
+        <button class="dur-btn" data-hours="2">2 hr</button>
+        <button class="dur-btn" data-hours="2.5">2½ hr</button>
+        <button class="dur-btn" data-hours="3">3 hr</button>
+        <button class="dur-btn" data-hours="3.5">3½ hr</button>
+        <button class="dur-btn" data-hours="4">4 hr</button>
+      </div>
+    </div>
+
+    <!-- Date -->
+    <div class="card">
+      <div class="card-header"><h2>Date & Details</h2></div>
+
+      <div class="field">
+        <label for="session-date">Date</label>
+        <input type="date" id="session-date" />
+      </div>
+
+      <div class="field">
+        <label for="session-subject">Subject / Topic</label>
+        <input type="text" id="session-subject" placeholder="e.g. Algebra — Chapter 4" />
+      </div>
+
+      <div class="field">
+        <label for="session-notes">Notes (optional)</label>
+        <textarea id="session-notes" placeholder="Homework, next steps, observations…"></textarea>
+      </div>
+    </div>
+
+    <!-- Amount preview -->
+    <div class="amount-preview" id="amount-preview">
+      <div class="amount-preview-row">
+        <span class="amount-label">Session amount</span>
+        <span class="amount-value" id="preview-amount">— SAR</span>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="btn-save">Save Session</button>
+  </div>
+
+  <!-- ══ VIEW: SESSIONS LOG ══ -->
+  <div class="view" id="view-log">
+    <h2 style="margin-bottom:14px;">Session Log</h2>
+
+    <!-- Filter chips -->
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-chip active" data-filter="all">All</button>
+    </div>
+
+    <div id="sessions-list">
+      <div class="empty-state">
+        <div class="empty-icon">📋</div>
+        <div class="empty-title">No sessions yet</div>
+        <div class="empty-desc">Add your first session in the + tab</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ VIEW: REPORTS ══ -->
+  <div class="view" id="view-report">
+    <h2 style="margin-bottom:16px;">Generate Report</h2>
+
+    <div class="card">
+      <h3 style="margin-bottom:14px;">Select Students</h3>
+      <div id="report-student-list"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:14px;">Date Range</h3>
+      <div class="report-range">
+        <div class="field" style="margin-bottom:0">
+          <label>From</label>
+          <input type="date" id="report-from" />
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label>To</label>
+          <input type="date" id="report-to" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary preview -->
+    <div id="report-preview"></div>
+
+    <div style="display:flex;gap:10px;margin-bottom:10px;">
+      <button class="btn-secondary" style="flex:1" id="btn-preview-report">Preview</button>
+      <button class="btn-primary" style="flex:1;width:auto" id="btn-pdf">📄 Export PDF</button>
+    </div>
+  </div>
+
+  <!-- ══ VIEW: SETTINGS ══ -->
+  <div class="view" id="view-settings">
+    <h2 style="margin-bottom:16px;">Settings</h2>
+
+    <div class="card">
+      <h3 style="margin-bottom:0">Students & Rates</h3>
+      <div id="students-settings"></div>
+    </div>
+
+    <div class="card">
+      <div class="setting-row">
+        <div>
+          <div class="setting-label">Clear all data</div>
+          <div class="setting-desc">Remove all session records</div>
+        </div>
+        <button class="btn-danger" id="btn-clear">Clear</button>
+      </div>
+      <div class="setting-row">
+        <div>
+          <div class="setting-label">Export JSON backup</div>
+          <div class="setting-desc">Download all sessions as JSON</div>
+        </div>
+        <button class="btn-secondary" id="btn-export-json">Export</button>
+      </div>
+    </div>
+
+    <div class="card" style="text-align:center;color:var(--text-3);font-size:.8rem;">
+      <div style="font-weight:600;margin-bottom:4px;">Tutoring Tracker v1.0</div>
+      <div>Data saved locally on this device</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ────────────────── BOTTOM NAV ────────────────── -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-view="view-add">
+    <span class="nav-icon">＋</span>
+    <span>Add</span>
+  </button>
+  <button class="nav-item" data-view="view-log">
+    <span class="nav-icon">📋</span>
+    <span>Log</span>
+  </button>
+  <button class="nav-item" data-view="view-report">
+    <span class="nav-icon">📊</span>
+    <span>Report</span>
+  </button>
+  <button class="nav-item" data-view="view-settings">
+    <span class="nav-icon">⚙️</span>
+    <span>Settings</span>
+  </button>
+</nav>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<!-- ────────────────── SCRIPT ────────────────── -->
+<script>
+'use strict';
+
+/* ─── Data ─── */
+const STUDENTS = [
+  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah' },
+  { id: 'shadan',   name: 'Shadan',             rate: 125, shortName: 'Shadan'   },
+  { id: 'elyana',   name: 'Elyana',              rate: 125, shortName: 'Elyana'   },
+  { id: 'talal',    name: 'Talal',               rate: 125, shortName: 'Talal'    },
+  { id: 'nawaf',    name: 'Nawaf',               rate: 125, shortName: 'Nawaf'    },
+];
+
+const STORAGE_KEY = 'tutoring_sessions_v1';
+
+function loadSessions() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveSessions(arr) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+}
+
+let sessions = loadSessions();
+
+/* ─── State ─── */
+let selectedStudents = new Set(); // multi-select
+let selectedDuration = null;
+let activeFilter = 'all';
+let reportSelectedStudents = new Set();
+
+/* ─── Utils ─── */
+function formatDate(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('en-SA', { day:'numeric', month:'short', year:'numeric' });
+}
+function todayISO() {
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+function monthLabel(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('en-SA', { month:'long', year:'numeric' });
+}
+function fmtHours(h) {
+  if (h === 0.5) return '½ hr';
+  if (h === 1)   return '1 hr';
+  if (h === 1.5) return '1½ hr';
+  if (h % 1 === 0) return h + ' hr';
+  return h + ' hr';
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+
+function toast(msg, duration = 2400) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), duration);
+}
+
+/* ─── Header ─── */
+function updateHeader() {
+  const today = new Date();
+  document.getElementById('header-date').textContent =
+    today.toLocaleDateString('en-SA', { weekday:'short', day:'numeric', month:'long' });
+
+  const thisMonth = today.toISOString().slice(0,7);
+  const total = sessions
+    .filter(s => s.date.startsWith(thisMonth))
+    .reduce((sum, s) => sum + s.amount, 0);
+  document.getElementById('hdr-total-sar').textContent = total.toLocaleString() + ' SAR';
+}
+
+/* ─── Student Grid (multi-select) ─── */
+function buildStudentGrid() {
+  const grid = document.getElementById('student-grid');
+  const countEl = document.getElementById('selected-count');
+  grid.innerHTML = '';
+
+  const n = selectedStudents.size;
+  countEl.textContent = n === 0 ? 'tap to select' : n === 1 ? '1 selected' : n + ' selected';
+
+  STUDENTS.forEach(st => {
+    const isSelected = selectedStudents.has(st.id);
+    const btn = document.createElement('button');
+    btn.className = 'student-btn' + (isSelected ? ' selected' : '');
+    btn.innerHTML = `
+      <span class="s-check">✓</span>
+      <span class="s-name">${st.name}</span>
+      <span class="s-rate">${st.rate} SAR/hr</span>
+    `;
+    btn.addEventListener('click', () => {
+      if (selectedStudents.has(st.id)) selectedStudents.delete(st.id);
+      else selectedStudents.add(st.id);
+      buildStudentGrid();
+      updateAmountPreview();
+    });
+    grid.appendChild(btn);
+  });
+}
+
+/* ─── Duration Grid ─── */
+function buildDurationGrid() {
+  document.querySelectorAll('.dur-btn').forEach(btn => {
+    btn.classList.toggle('selected', parseFloat(btn.dataset.hours) === selectedDuration);
+    btn.addEventListener('click', () => {
+      selectedDuration = parseFloat(btn.dataset.hours);
+      buildDurationGrid();
+      updateAmountPreview();
+    });
+  });
+}
+
+/* ─── Amount Preview (multi-student) ─── */
+function updateAmountPreview() {
+  const preview = document.getElementById('amount-preview');
+
+  if (selectedStudents.size === 0 || !selectedDuration) {
+    preview.innerHTML = `
+      <div class="amount-preview-row">
+        <span class="amount-label">Session amount</span>
+        <span class="amount-value">— SAR</span>
+      </div>`;
+    return;
+  }
+
+  const selected = STUDENTS.filter(s => selectedStudents.has(s.id));
+  let html = '';
+
+  if (selected.length === 1) {
+    const st = selected[0];
+    const amt = st.rate * selectedDuration;
+    html = `
+      <div class="amount-preview-row">
+        <span class="amount-label">${st.shortName}</span>
+        <span class="amount-value">${amt.toLocaleString()} SAR</span>
+      </div>`;
+  } else {
+    let total = 0;
+    selected.forEach(st => {
+      const amt = st.rate * selectedDuration;
+      total += amt;
+      html += `
+        <div class="amount-preview-row">
+          <span class="amount-label">${st.shortName} · ${fmtHours(selectedDuration)}</span>
+          <span class="amount-sub">${amt.toLocaleString()} SAR</span>
+        </div>`;
+    });
+    html += `
+      <div class="amount-preview-row" style="margin-top:8px;padding-top:8px;border-top:1.5px solid rgba(194,103,42,.3)">
+        <span class="amount-label" style="font-weight:700">Total (${selected.length} students)</span>
+        <span class="amount-value">${total.toLocaleString()} SAR</span>
+      </div>`;
+  }
+
+  preview.innerHTML = html;
+}
+
+/* ─── Save Session (one per selected student) ─── */
+document.getElementById('btn-save').addEventListener('click', () => {
+  if (selectedStudents.size === 0) { toast('⚠️ Please select at least one student'); return; }
+  if (!selectedDuration)           { toast('⚠️ Please select a duration'); return; }
+
+  const dateVal = document.getElementById('session-date').value;
+  if (!dateVal) { toast('⚠️ Please pick a date'); return; }
+
+  const subject = document.getElementById('session-subject').value.trim();
+  const notes   = document.getElementById('session-notes').value.trim();
+
+  const selectedList = STUDENTS.filter(s => selectedStudents.has(s.id));
+  const newSessions  = selectedList.map(st => ({
+    id: uid(),
+    studentId:   st.id,
+    studentName: st.name,
+    rate:        st.rate,
+    hours:       selectedDuration,
+    amount:      st.rate * selectedDuration,
+    date:        dateVal,
+    subject,
+    notes,
+    createdAt: new Date().toISOString(),
+  }));
+
+  sessions.unshift(...newSessions);
+  saveSessions(sessions);
+
+  // reset
+  selectedStudents = new Set();
+  selectedDuration = null;
+  document.getElementById('session-date').value = todayISO();
+  document.getElementById('session-subject').value = '';
+  document.getElementById('session-notes').value = '';
+  buildStudentGrid();
+  buildDurationGrid();
+  updateAmountPreview();
+  updateHeader();
+  renderSessions();
+
+  const label = newSessions.length === 1
+    ? `✅ Session saved for ${newSessions[0].studentName}!`
+    : `✅ ${newSessions.length} sessions saved!`;
+  toast(label);
+});
+
+/* ─── Sessions Log ─── */
+function buildFilterBar() {
+  const bar = document.getElementById('filter-bar');
+  bar.innerHTML = '<button class="filter-chip' + (activeFilter==='all'?' active':'') + '" data-filter="all">All</button>';
+  STUDENTS.forEach(st => {
+    const count = sessions.filter(s => s.studentId === st.id).length;
+    if (count === 0) return;
+    const chip = document.createElement('button');
+    chip.className = 'filter-chip' + (activeFilter === st.id ? ' active' : '');
+    chip.dataset.filter = st.id;
+    chip.textContent = st.shortName;
+    bar.appendChild(chip);
+  });
+  bar.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      activeFilter = chip.dataset.filter;
+      buildFilterBar();
+      renderSessions();
+    });
+  });
+}
+
+function renderSessions() {
+  buildFilterBar();
+  const list = document.getElementById('sessions-list');
+  let filtered = activeFilter === 'all'
+    ? [...sessions]
+    : sessions.filter(s => s.studentId === activeFilter);
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <div class="empty-title">No sessions yet</div>
+      <div class="empty-desc">Add your first session in the + tab</div>
+    </div>`;
+    return;
+  }
+
+  // Group by month
+  const groups = {};
+  filtered.forEach(s => {
+    const key = monthLabel(s.date);
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(s);
+  });
+
+  list.innerHTML = '';
+  Object.entries(groups).forEach(([month, items]) => {
+    const label = document.createElement('div');
+    label.className = 'month-group-label';
+    label.textContent = month;
+    list.appendChild(label);
+
+    items.forEach(s => {
+      const el = document.createElement('div');
+      el.className = 'session-item';
+      el.innerHTML = `
+        <div class="session-top">
+          <div class="session-student">${s.studentName}</div>
+          <div class="session-date">${formatDate(s.date)}</div>
+        </div>
+        <div class="session-meta">
+          <span class="badge badge-orange">${fmtHours(s.hours)}</span>
+          <span class="badge badge-green">${s.amount.toLocaleString()} SAR</span>
+          ${s.subject ? `<span class="badge badge-gray">${s.subject}</span>` : ''}
+        </div>
+        ${s.notes ? `<div class="session-notes">${s.notes}</div>` : ''}
+        <div class="session-actions">
+          <button class="btn-danger" style="padding:7px 14px;font-size:.78rem" data-delete="${s.id}">Delete</button>
+        </div>
+      `;
+      list.appendChild(el);
+    });
+  });
+
+  list.querySelectorAll('[data-delete]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!confirm('Delete this session?')) return;
+      sessions = sessions.filter(s => s.id !== btn.dataset.delete);
+      saveSessions(sessions);
+      updateHeader();
+      renderSessions();
+      renderReportStudentList();
+      toast('🗑️ Deleted');
+    });
+  });
+}
+
+/* ─── Report View ─── */
+function renderReportStudentList() {
+  const container = document.getElementById('report-student-list');
+  container.innerHTML = '';
+  STUDENTS.forEach(st => {
+    const count = sessions.filter(s => s.studentId === st.id).length;
+    const totalHrs = sessions.filter(s => s.studentId === st.id).reduce((a,b) => a+b.hours, 0);
+    const row = document.createElement('div');
+    row.className = 'report-student-check' + (reportSelectedStudents.has(st.id) ? ' selected' : '');
+    row.innerHTML = `
+      <div class="check-box">${reportSelectedStudents.has(st.id) ? '✓' : ''}</div>
+      <div class="check-info">
+        <div class="check-name">${st.name}</div>
+        <div class="check-stat">${count} sessions · ${totalHrs} hr total</div>
+      </div>
+    `;
+    row.addEventListener('click', () => {
+      if (reportSelectedStudents.has(st.id)) reportSelectedStudents.delete(st.id);
+      else reportSelectedStudents.add(st.id);
+      renderReportStudentList();
+      document.getElementById('report-preview').innerHTML = '';
+    });
+    container.appendChild(row);
+  });
+}
+
+function getReportData() {
+  const from = document.getElementById('report-from').value;
+  const to   = document.getElementById('report-to').value;
+  const students = [...reportSelectedStudents];
+
+  let filtered = sessions.filter(s => students.includes(s.studentId));
+  if (from) filtered = filtered.filter(s => s.date >= from);
+  if (to)   filtered = filtered.filter(s => s.date <= to);
+  return filtered;
+}
+
+document.getElementById('btn-preview-report').addEventListener('click', () => {
+  if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
+  const data = getReportData();
+  const preview = document.getElementById('report-preview');
+
+  if (data.length === 0) {
+    preview.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No sessions in range</div></div>`;
+    return;
+  }
+
+  const totalHrs = data.reduce((a,b) => a+b.hours, 0);
+  const totalAmt = data.reduce((a,b) => a+b.amount, 0);
+
+  // Per-student breakdown
+  const perStudent = {};
+  data.forEach(s => {
+    if (!perStudent[s.studentId]) perStudent[s.studentId] = { name: s.studentName, hrs: 0, amt: 0, count: 0 };
+    perStudent[s.studentId].hrs   += s.hours;
+    perStudent[s.studentId].amt   += s.amount;
+    perStudent[s.studentId].count += 1;
+  });
+
+  let breakdownHTML = '';
+  Object.values(perStudent).forEach(st => {
+    breakdownHTML += `
+      <div class="summary-mini" style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div>
+          <div style="font-weight:600;font-size:.9rem">${st.name}</div>
+          <div style="font-size:.75rem;color:var(--text-3)">${st.count} sessions · ${st.hrs} hr</div>
+        </div>
+        <div style="font-size:1.1rem;font-weight:700;color:var(--accent)">${st.amt.toLocaleString()} SAR</div>
+      </div>
+    `;
+  });
+
+  preview.innerHTML = `
+    <div class="summary-card">
+      <h3>Total Earnings</h3>
+      <div class="summary-val">${totalAmt.toLocaleString()} SAR</div>
+      <div class="summary-sub">${data.length} sessions · ${totalHrs} hours</div>
+    </div>
+    <div style="margin-bottom:16px">
+      ${breakdownHTML}
+    </div>
+  `;
+});
+
+/* ─── PDF Export ─── */
+document.getElementById('btn-pdf').addEventListener('click', () => {
+  if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
+  const data = getReportData();
+  if (data.length === 0) { toast('⚠️ No sessions in range'); return; }
+  generatePDF(data);
+});
+
+function generatePDF(data) {
+  if (!window.jspdf) { toast('PDF library loading…'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+  const from = document.getElementById('report-from').value;
+  const to   = document.getElementById('report-to').value;
+  const totalHrs = data.reduce((a,b) => a+b.hours, 0);
+  const totalAmt = data.reduce((a,b) => a+b.amount, 0);
+
+  // Colors
+  const ORANGE = [194, 103, 42];
+  const DARK   = [28, 25, 23];
+  const GRAY   = [87, 83, 78];
+  const LTGRAY = [245, 242, 238];
+
+  let y = 0;
+
+  // Header bar
+  doc.setFillColor(...ORANGE);
+  doc.rect(0, 0, 210, 30, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(18); doc.setFont('helvetica', 'bold');
+  doc.text('Tutoring Session Report', 15, 13);
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+  doc.text('Prepared by Hisham Mohamed', 15, 22);
+  doc.text('Generated: ' + new Date().toLocaleDateString('en-SA', { day:'numeric', month:'long', year:'numeric' }), 210-15, 22, { align:'right' });
+
+  y = 38;
+
+  // Period
+  if (from || to) {
+    doc.setTextColor(...GRAY);
+    doc.setFontSize(9);
+    doc.text('Period: ' + (from ? formatDate(from) : '—') + '  →  ' + (to ? formatDate(to) : '—'), 15, y);
+    y += 10;
+  }
+
+  // Summary box
+  doc.setFillColor(...LTGRAY);
+  doc.roundedRect(15, y, 180, 22, 3, 3, 'F');
+  doc.setTextColor(...DARK);
+  doc.setFontSize(11); doc.setFont('helvetica', 'bold');
+  doc.text('Total: ' + totalAmt.toLocaleString() + ' SAR', 20, y + 8);
+  doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...GRAY);
+  doc.text(data.length + ' sessions  ·  ' + totalHrs + ' hours total', 20, y + 16);
+  y += 30;
+
+  // Per-student breakdown
+  const perStudent = {};
+  data.forEach(s => {
+    if (!perStudent[s.studentId]) perStudent[s.studentId] = { name: s.studentName, rate: s.rate, sessions: [] };
+    perStudent[s.studentId].sessions.push(s);
+  });
+
+  Object.values(perStudent).forEach(st => {
+    const stHrs = st.sessions.reduce((a,b) => a+b.hours, 0);
+    const stAmt = st.sessions.reduce((a,b) => a+b.amount, 0);
+
+    // Student header
+    doc.setFillColor(...ORANGE);
+    doc.rect(15, y, 180, 9, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+    doc.text(st.name, 18, y + 6.2);
+    doc.text(stAmt.toLocaleString() + ' SAR', 192, y + 6.2, { align:'right' });
+    y += 11;
+
+    // Sub-header row
+    doc.setFillColor(235, 229, 220);
+    doc.rect(15, y, 180, 7, 'F');
+    doc.setTextColor(...GRAY);
+    doc.setFontSize(7.5); doc.setFont('helvetica', 'bold');
+    doc.text('Date',     18, y + 4.8);
+    doc.text('Subject',  70, y + 4.8);
+    doc.text('Hours',   140, y + 4.8);
+    doc.text('Amount',  192, y + 4.8, { align:'right' });
+    y += 9;
+
+    // Session rows
+    st.sessions.forEach((s, i) => {
+      if (y > 260) { doc.addPage(); y = 20; }
+      if (i % 2 === 0) {
+        doc.setFillColor(252, 250, 248);
+        doc.rect(15, y - 1, 180, 8, 'F');
+      }
+      doc.setTextColor(...DARK);
+      doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+      doc.text(formatDate(s.date), 18, y + 4.5);
+      const subj = s.subject || (s.notes ? s.notes.substring(0,25) + (s.notes.length>25?'…':'') : '—');
+      doc.text(subj, 70, y + 4.5);
+      doc.text(fmtHours(s.hours), 140, y + 4.5);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...ORANGE);
+      doc.text(s.amount.toLocaleString() + ' SAR', 192, y + 4.5, { align:'right' });
+      y += 8;
+    });
+
+    // Student subtotal
+    doc.setFillColor(253, 238, 227);
+    doc.rect(15, y, 180, 8, 'F');
+    doc.setTextColor(...ORANGE);
+    doc.setFontSize(9); doc.setFont('helvetica', 'bold');
+    doc.text('Subtotal: ' + stHrs + ' hr · ' + st.sessions.length + ' sessions', 18, y + 5.5);
+    doc.text(stAmt.toLocaleString() + ' SAR', 192, y + 5.5, { align:'right' });
+    y += 14;
+  });
+
+  // Footer
+  const pageCount = doc.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFillColor(...ORANGE);
+    doc.rect(0, 287, 210, 10, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+    doc.text('Tutoring Tracker — Hisham Mohamed', 15, 293);
+    doc.text('Page ' + i + ' of ' + pageCount, 195, 293, { align:'right' });
+  }
+
+  // Student name for filename
+  const names = [...reportSelectedStudents].map(id => STUDENTS.find(s=>s.id===id)?.shortName || id).join('_');
+  const filename = `Tutoring_Report_${names}_${todayISO()}.pdf`;
+  doc.save(filename);
+  toast('📄 PDF saved!');
+}
+
+/* ─── Settings ─── */
+function renderSettings() {
+  const container = document.getElementById('students-settings');
+  container.innerHTML = '';
+  STUDENTS.forEach(st => {
+    const count = sessions.filter(s => s.studentId === st.id).length;
+    const totalAmt = sessions.filter(s => s.studentId === st.id).reduce((a,b) => a+b.amount, 0);
+    const row = document.createElement('div');
+    row.className = 'setting-row';
+    row.innerHTML = `
+      <div>
+        <div class="setting-label">${st.name}</div>
+        <div class="setting-desc">${st.rate} SAR/hr · ${count} sessions · ${totalAmt.toLocaleString()} SAR earned</div>
+      </div>
+      <div class="setting-val">${st.rate} SAR</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+document.getElementById('btn-clear').addEventListener('click', () => {
+  if (!confirm('Delete ALL sessions? This cannot be undone.')) return;
+  sessions = [];
+  saveSessions(sessions);
+  updateHeader();
+  renderSessions();
+  renderReportStudentList();
+  renderSettings();
+  toast('🗑️ All data cleared');
+});
+
+document.getElementById('btn-export-json').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(sessions, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `tutoring_backup_${todayISO()}.json`;
+  a.click(); URL.revokeObjectURL(url);
+  toast('📦 JSON exported');
+});
+
+/* ─── Navigation ─── */
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const viewId = btn.dataset.view;
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(viewId).classList.add('active');
+
+    if (viewId === 'view-log')      { renderSessions(); }
+    if (viewId === 'view-report')   { renderReportStudentList(); }
+    if (viewId === 'view-settings') { renderSettings(); }
+  });
+});
+
+/* ─── Init ─── */
+function init() {
+  // Set today's date
+  document.getElementById('session-date').value = todayISO();
+
+  // Default report range: this month
+  const today = new Date();
+  const firstOfMonth = today.toISOString().slice(0,7) + '-01';
+  document.getElementById('report-from').value = firstOfMonth;
+  document.getElementById('report-to').value = todayISO();
+
+  buildStudentGrid();
+  buildDurationGrid();
+  updateAmountPreview();
+  updateHeader();
+}
+
+init();
+</script>
+</body>
+</html>
