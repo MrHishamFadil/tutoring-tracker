@@ -1,6 +1,6 @@
 # 🎬 Repeatable Educational Video Creation Workflow
-**Target Product**: 5-Minute Bite-Sized English Lessons for Grades 3–6  
-**Audience**: Young learners (Ages 8–12), ESL/ELL students, and supporting parents  
+**Target Product**: 5-Minute Bite-Sized English & Academic Lessons  
+**Audience**: Middle & High School students, ESL/ELL learners, and supporting parents  
 **Project Integration**: Tutoring Tracker Web App (`tutoring-tracker`) & YouTube Unlisted/Public Channel
 
 ---
@@ -19,7 +19,7 @@
   - **Direct Instruction / Concept (0:45–2:15)**: Rule introduction with high-contrast visual examples (e.g., Context Clues: Definition, Synonym, Antonym, Inference).
   - **Guided Practice / "Your Turn" (2:15–3:45)**: Interactive freeze-frame where students pause the video for 10 seconds to solve a problem.
   - **Recap & Action (3:45–4:45)**: Summary bullet points + call to download the attached worksheet and take the 3-question quiz below the video player.
-- **Pacing**: 120–140 words per minute. Elementary learners require clear enunciations, intentional pauses, and zero speed-talking.
+- **Pacing**: 130–150 words per minute. Middle and high school learners require clear enunciations, structured conceptual explanations, and intentional pauses.
 
 ### Step 2: Create High-Legibility Visual Slides
 - **Aspect Ratio**: 16:9 widescreen (`1920×1080` standard).
@@ -43,7 +43,7 @@
 
 ### Step 4: Edit Pauses, Mistakes, Captions, Titles & Music
 - Cut dead air, false starts, and tongue twisters.
-- Add lower-third title card at 0:05: `Grade 4–5 English • Mastering Context Clues`.
+- Add lower-third title card at 0:05: `Grades 9–11 English ELA • Secondary Literacy & Morphology`.
 - Add subtle sound effects (soft chime or "ding") when key definitions or answers appear on screen.
 - Background music: Educational acoustic or lofi background music set at `-26 dB` relative to dialogue (voice must sit at `-14 LUFS` to `-16 LUFS`).
 
@@ -137,7 +137,7 @@ Examples:
 - [ ] File format: UTF-8 plain text `.vtt` with `WEBVTT` header.
 - [ ] Line count: Maximum 2 lines per subtitle cue.
 - [ ] Character length: Maximum 37 characters per line.
-- [ ] Reading speed: 120–140 words per minute for Grade 3–6 students.
+- [ ] Reading speed: 130–150 words per minute for optimal comprehension.
 - [ ] Synchronization: Cues match spoken word start within 100 milliseconds.
 - [ ] Sound effects & pauses indicated in brackets: `[upbeat music]`, `[10-second student pause]`.
 

@@ -1,5 +1,5 @@
 {
-  "last_synced": "2026-09-25T03:33:58.862987",
+  "last_synced": "2026-09-25T03:37:59.733047",
   "school": "Arab International Schools (arabschools.edu.sa)",
   "students": {
     "shadan": {
@@ -311,5 +311,74 @@
         ]
       }
     }
+  },
+  "checkpoint_1_assessments": {
+    "academic_year": "2026 - 2027",
+    "school": "Arab International Schools (arabschools.edu.sa)",
+    "period": "Wednesday, September 30 – Monday, October 12, 2026",
+    "assessment_type": "Paper-based Assessments",
+    "official_study_guides": {
+      "grade_9": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9-Checkpoint-1-Study-Materials-2026-2027.pdf",
+      "grade_11": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11-Checkpoint-1-Study-Materials-2026-2027.pdf"
+    },
+    "schedule": [
+      {
+        "date": "2026-09-30",
+        "day": "Wednesday",
+        "subject": "Saudi History",
+        "time": "8:00 - 8:45 AM",
+        "grade_9": "الوحدة الأولى: جغرافية المملكة العربية السعودية (الموقع ص12-17، مظاهر التضاريس ص18-28، المناخ ص29-32، توزيع السكان ص33-40)",
+        "grade_11": "الوحدة الأولى: مفهوم التاريخ ومصادره (ص12، نشأة التدوين ص16، نماذج من مؤلفات المؤرخين المسلمين ص20)"
+      },
+      {
+        "date": "2026-10-04",
+        "day": "Sunday",
+        "subject": "Mathematics",
+        "grade_9": "Algebra Vol 1 Unit 1: Lesson 1-1 Operations on Real Numbers (pp. 8-19), Lesson 1-2 Solving Linear Equations (pp. 22-31). Textbook, Workbook, Notebook, Revision Booklet.",
+        "grade_11": "Chapter 1 Functions: Lesson 1-1 Functions and Their Graphs (pp. 21-33). Domain & Range, Graphical/Numerical representations, Vertical line test, Piecewise functions, Symmetry, Revision Booklet."
+      },
+      {
+        "date": "2026-10-05",
+        "day": "Monday",
+        "subject": "Arabic Language",
+        "grade_9": "نص وقضى ربك (ص25-32)، دَيْنُ الكريم (ص45-52)، الألف اللينة بالأفعال الثلاثية (ص53-58)، اسم الفاعل (ص62-67)، أسلوب القسم (ص68-71)",
+        "grade_11": "الكفايات اللغوية 5 (الوحدة النحوية): النشاطات التمهيدية (ص12-17)، المتممات المجرورة (ص18-25)، المفاعيل فقط (ص26-28)"
+      },
+      {
+        "date": "2026-10-06",
+        "day": "Tuesday",
+        "subject": "English Language Arts (ELA)",
+        "grade_9": "Selection: \"Two Kinds\" (Alpha Lit SB pp. 2-17); 10 Vocab words (prodigy, reproach, listlessly, mesmerizing, discordant, lamented, reverie, fiasco, internal conflict, dynamic character, displacement); Grammar: Pronoun Agreement (WB pp. 4-5); Inferencing (WB p. 1); Narrative Writing.",
+        "grade_11": "Selection: Unit 1 \"Harlem\" by Langston Hughes; 10 Concept Vocab (segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression, pragmatic, resentment, turmoil); Conventions: Sentence Variety; Craft: Imagery & Theme; Writing: Reflective Essay."
+      },
+      {
+        "date": "2026-10-07",
+        "day": "Wednesday",
+        "subject": "Islamic Studies",
+        "grade_9": "توحيد: الإيمان بالقدر (ص14، 17، 19)؛ تفسير: سورة الحجرات (ص64، 67، 71)؛ حديث: أعمال القلوب (ص118، 121، 124)؛ فقه: الأطعمة والأشربة (ص161، 164)",
+        "grade_11": "توحيد: العقيدة الإسلامية (ص9، 11، 13)؛ توحيد الربوبية (ص19، 21، 24). مراجعة أوراق العمل وأسئلة التقويم."
+      },
+      {
+        "date": "2026-10-08",
+        "day": "Thursday",
+        "subject": "Biology",
+        "grade_9": "Vol 1 Unit 1 Ch 1 Exploring Biology: Lesson 1 Understanding Science (pp. 6-15). Scientific questions, scientific method, comparative studies & control groups, scientific theory.",
+        "grade_11": "Vol 3 Unit 6 Ch 19 Microbiology: Lesson 1 Introduction to Viruses (pp. 6-13). Virus structure & function, reproductive cycles, lytic & lysogenic cycles."
+      },
+      {
+        "date": "2026-10-11",
+        "day": "Sunday",
+        "subject": "Physics",
+        "grade_9": "Vol 1 Unit 1 Ch 1 Foundations of Physics: Lesson 1 Scientific Inquiry & Experimental Design (pp. 6-13). Resolve the unresolved, estimate over guesstimate, exploration & SI units.",
+        "grade_11": "Vol 2 Unit 6 Ch 12 Fluid Mechanics: Lesson 1 Fluid Mechanics (pp. 116-127). Physics of geysers, fluid properties (density, viscosity, pressure), fluid pressure formulas, flow rate."
+      },
+      {
+        "date": "2026-10-12",
+        "day": "Monday",
+        "subject": "Chemistry",
+        "grade_9": "Vol 1 Ch 2: Lesson 1 The Nature of Matter (pp. 36-41). Matter & properties, states of matter, phase changes, intensive & extensive properties.",
+        "grade_11": "Vol 2 Ch 13: Lesson 1 Energy and Chemical Reactions (pp. 92-101). Energy forms, endothermic & exothermic reactions, enthalpy change (ΔH), energy diagrams, activation energy."
+      }
+    ]
   }
 }

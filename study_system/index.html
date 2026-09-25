@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Study & Assessment System | English, Math, Sciences</title>
+  <meta name="description" content="Official Checkpoint 1 curriculum study platform for Arab International Schools Grade 9 & Grade 11. Covering English, Math, and Sciences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Header & Subject Bar -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="app-branding">
+        <span class="brand-icon">🎓</span>
+        <div>
+          <h1 class="brand-title">Interactive Study & Assessment System</h1>
+          <p class="brand-subtitle">Arab International Schools • Checkpoint 1 Assessments (2026–2027)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-header-action" id="btn-toggle-contrast" title="High Contrast Mode">👁️ Contrast</button>
+        <button class="btn-header-action" id="btn-toggle-theme" title="Toggle Dark/Light Mode">🌙 Dark Mode</button>
+        <a href="../index.html" class="btn-header-action" title="Return to Tutoring Tracker">📊 Return to Tracker</a>
+      </div>
+    </div>
+
+    <!-- Strict 7 Subjects Only (English, Math, Sciences) -->
+    <nav class="subject-nav-bar" aria-label="Curriculum Subjects">
+      <span class="subject-nav-label">Subjects:</span>
+      <button class="btn-subject-nav active" data-subject="literature">📖 Literature ("Two Kinds")</button>
+      <button class="btn-subject-nav" data-subject="grammar">✍️ Writing & Grammar</button>
+      <button class="btn-subject-nav" data-subject="math">📐 Mathematics (Algebra & Functions)</button>
+      <button class="btn-subject-nav" data-subject="physics">⚛️ Physics (Inquiry & Fluids)</button>
+      <button class="btn-subject-nav" data-subject="chemistry">🧪 Chemistry (Matter & ΔH)</button>
+      <button class="btn-subject-nav" data-subject="biology">🧬 Biology (Viruses & Inquiry)</button>
+    </nav>
+
+    <!-- Secondary View Navigation Strip -->
+    <nav class="view-nav-strip" aria-label="Study System Features">
+      <button class="btn-view-nav active" data-view="home">🏠 Lesson Overview</button>
+      <button class="btn-view-nav" data-view="viewer">📖 Direct Material Viewer</button>
+      <button class="btn-view-nav" data-view="concept-map">🧠 Concept Map</button>
+      <button class="btn-view-nav" data-view="vocab">🗂️ Vocabulary & Flashcards</button>
+      <button class="btn-view-nav" data-view="writing">📝 Writing Lab (ACE)</button>
+      <button class="btn-view-nav" data-view="math-lab">📊 Math Lab (I Do/We Do/You Do)</button>
+      <button class="btn-view-nav" data-view="physics-lab">🌊 Physics Lab (8-Step)</button>
+      <button class="btn-view-nav" data-view="chem-lab">⚡ Chemistry Lab (Particles/ΔH)</button>
+      <button class="btn-view-nav" data-view="bio-lab">🔬 Biology Lab (Viruses)</button>
+      <button class="btn-view-nav" data-view="assessments">🎯 Quizzes & Exam Mode</button>
+      <button class="btn-view-nav" data-view="resource-bank">🎥 Resource Bank (Grades 9–11)</button>
+      <button class="btn-view-nav" data-view="student-dash">👤 Student Progress</button>
+      <button class="btn-view-nav" data-view="teacher-dash">👨‍🏫 Teacher Analytics</button>
+    </nav>
+  </header>
+
+  <!-- Main Dynamic Viewport -->
+  <main class="main-viewport" id="main-study-viewport" role="main">
+    <!-- Populated by JavaScript Modules -->
+  </main>
+
+  <!-- Module Scripts Loaded in Dependency Sequence -->
+  <script src="modules/source_audit.js"></script>
+  <script src="modules/viewer_engine.js"></script>
+  <script src="modules/resource_bank.js"></script>
+  <script src="modules/literature_two_kinds.js"></script>
+  <script src="modules/writing_grammar.js"></script>
+  <script src="modules/mathematics.js"></script>
+  <script src="modules/physics.js"></script>
+  <script src="modules/chemistry.js"></script>
+  <script src="modules/biology.js"></script>
+  <script src="modules/assessment_engine.js"></script>
+  <script src="modules/mastery_dashboard.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

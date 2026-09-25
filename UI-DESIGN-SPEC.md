@@ -1,6 +1,6 @@
 # 🎨 UI & Design Specification: Tutoring Tracker & Video Learning Hub
-**Project**: Private Tutoring Tracker for Grades 3–6  
-**Audience**: Students (Grades 3–6, Ages 8–12), Parents, and Teachers  
+**Project**: Private Tutoring Tracker & Academic Learning Hub  
+**Audience**: Students (Grade 11A, Grade 9A, Grade 9B, Special Tutoring), Parents, and Tutor  
 **Target Environment**: GitHub Pages (`https://mrhishamfadil.github.io/tutoring-tracker/`), Safari on iOS/iPadOS, Chrome/Firefox/Edge on Desktop  
 **Design Philosophy**: "Warm Classroom Clarity" — combines tactile warmth, friendly micro-typography, high visual contrast, and clear spatial hierarchy without distracting childish clutter.
 
@@ -37,7 +37,7 @@ The color system is engineered to meet WCAG 2.1 AA and AAA standards while offer
 
 ## 2. Typography System
 
-We employ **`Outfit`** (geometric humanist grotesque) paired with native Apple system font fallbacks (`-apple-system`, `BlinkMacSystemFont`, `Segoe UI`). `Outfit` features open letter counters, distinct ascenders, and clear numeral glyphs which greatly aids reading fluency for Grade 3–6 readers.
+We employ **`Outfit`** (geometric humanist grotesque) paired with native Apple system font fallbacks (`-apple-system`, `BlinkMacSystemFont`, `Segoe UI`). `Outfit` features open letter counters, distinct ascenders, and clear numeral glyphs which greatly aids reading fluency and data legibility.
 
 ### Typographic Hierarchy
 
@@ -107,7 +107,7 @@ We employ **`Outfit`** (geometric humanist grotesque) paired with native Apple s
 ## 5. Tutoring Dashboard Modules
 
 1. **Student Overview**:
-   - Roster cards for Abdullah (Grade 6), Shadan (Grade 5), Elyana (Grade 4), Talal (Grade 3), and Nawaf (Grade 5).
+   - Roster cards for Shadan (Grade 11A), Elyana (Grade 9A), Talal (Grade 9B), Nawaf (Grade 9B), and Abdullah (Special Tutoring Secondary Prep).
    - Shows grade level, hourly rate, attended sessions, and progress meter.
 2. **Upcoming Lessons**:
    - Time, subject, student name, and lesson topic with "Join / Prepare" quick action.

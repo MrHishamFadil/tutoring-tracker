@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#faf8f5" />
-  <title>Tutoring Tracker & Video Learning Hub — Grades 3–6</title>
+  <title>Tutoring Tracker & Video Learning Hub</title>
   <link rel="manifest" href="manifest.json" />
 
   <!-- jsPDF for PDF export -->
@@ -137,6 +137,78 @@
     .desktop-nav-btn:hover { background: var(--surface-2); color: var(--text); }
     .desktop-nav-btn.active { background: var(--accent-lt); color: var(--accent-dk); }
 
+    /* Highlighted Checkpoint 1 Tab Button */
+    .checkpoint-tab-btn {
+      background: #fef2f2 !important;
+      border: 1.5px solid #ef4444 !important;
+      color: #b91c1c !important;
+      font-weight: 700 !important;
+      box-shadow: 0 1px 6px rgba(239, 68, 68, 0.2);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .checkpoint-tab-btn:hover {
+      background: #fee2e2 !important;
+      border-color: #dc2626 !important;
+      color: #991b1b !important;
+    }
+    .checkpoint-tab-btn.active {
+      background: #dc2626 !important;
+      border-color: #b91c1c !important;
+      color: #ffffff !important;
+      box-shadow: 0 2px 10px rgba(220, 38, 38, 0.35) !important;
+    }
+    .nav-pulse-badge {
+      background: #ef4444; color: #ffffff;
+      font-size: .62rem; font-weight: 800; padding: 1px 6px;
+      border-radius: 999px; letter-spacing: .04em;
+      animation: pulseAlert 1.6s infinite ease-in-out;
+    }
+    .checkpoint-tab-btn.active .nav-pulse-badge {
+      background: #ffffff; color: #dc2626;
+    }
+    @keyframes pulseAlert {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .checkpoint-nav-item.active { color: #dc2626 !important; }
+
+    /* Checkpoint 1 Dashboard Alert Banner */
+    .checkpoint-dash-banner {
+      background: linear-gradient(135deg, #fff1f2 0%, #fee2e2 100%);
+      border: 1.5px solid #f87171;
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.12);
+      transition: transform .15s ease, box-shadow .15s ease;
+      flex-wrap: wrap;
+    }
+    .checkpoint-dash-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.2);
+    }
+
+    /* Checkpoint 1 Schedule Cards */
+    .exam-date-header {
+      background: #1c1917; color: #fff;
+      padding: 8px 14px; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      font-size: .84rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center;
+    }
+    .exam-card-body {
+      background: var(--surface); border: 1.5px solid var(--border); border-top: none;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      padding: 16px; margin-bottom: 16px; box-shadow: var(--shadow);
+    }
+    .exam-grade-box {
+      background: var(--surface-2); border-radius: var(--radius-sm);
+      padding: 12px 14px; margin-top: 10px; border-left: 3px solid var(--accent);
+    }
+    .exam-grade-box.g11 { border-left-color: #dc2626; }
+    .exam-grade-box.g9  { border-left-color: #2563eb; }
+
     /* ── Bottom Nav (Mobile) ── */
     nav.bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
@@ -177,6 +249,224 @@
       margin-bottom: 14px; gap: 8px; flex-wrap: wrap;
     }
     .card-header h2, .card-header h3 { display: flex; align-items: center; gap: 8px; }
+
+    /* ── Video Showcase Polish & Switcher ── */
+    .card-video-showcase {
+      border: 1.5px solid rgba(194, 103, 42, 0.35);
+      background: linear-gradient(180deg, var(--surface) 0%, rgba(254, 243, 199, 0.14) 100%);
+      box-shadow: 0 4px 20px rgba(194, 103, 42, 0.08), var(--shadow);
+    }
+    .home-yt-player-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* Responsive 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      background: #000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    }
+    .home-yt-player-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .home-yt-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    .home-yt-meta-col {
+      flex: 1;
+      min-width: 240px;
+    }
+    .home-yt-playing-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent-dk);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .pulse-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ef4444;
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      animation: pulseDot 1.5s infinite;
+    }
+    @keyframes pulseDot {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { transform: scale(1.15); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .home-yt-title {
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--text);
+      line-height: 1.35;
+      margin: 0;
+    }
+    .home-yt-meta {
+      font-size: 0.76rem;
+      color: var(--text-3);
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+    .home-yt-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .home-yt-playlist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .home-yt-playlist-title {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-3);
+      letter-spacing: 0.5px;
+    }
+    .home-yt-playlist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 640px) {
+      .home-yt-playlist {
+        grid-template-columns: 1fr;
+      }
+    }
+    .home-yt-thumb {
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 9px;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      outline: none;
+      text-align: left;
+    }
+    .home-yt-thumb:hover {
+      border-color: var(--accent);
+      background: var(--surface-2);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .home-yt-thumb:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .home-yt-thumb.active {
+      border: 1.5px solid var(--accent);
+      background: var(--accent-lt);
+      box-shadow: 0 0 0 2px rgba(194, 103, 42, 0.15), var(--shadow);
+    }
+    .home-yt-thumb-media {
+      position: relative;
+      width: 68px;
+      height: 48px;
+      flex-shrink: 0;
+      background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .home-yt-thumb-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .home-yt-thumb-media .yt-play-icon {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.74rem;
+      transition: background 0.15s;
+    }
+    .home-yt-thumb:hover .yt-play-icon {
+      background: rgba(220, 38, 38, 0.6);
+    }
+    .home-yt-thumb-duration {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+      line-height: 1.1;
+    }
+    .home-yt-thumb-content {
+      overflow: hidden;
+      flex: 1;
+      min-width: 0;
+    }
+    .home-yt-thumb-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text);
+    }
+    .home-yt-thumb-sub {
+      font-size: 0.68rem;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+    .yt-playing-pill {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--accent-dk);
+      background: rgba(194, 103, 42, 0.15);
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      margin-top: 3px;
+      width: fit-content;
+    }
+    .home-yt-thumb.active .yt-playing-pill {
+      display: inline-flex;
+    }
 
     /* ── Bento Grid Layout Helpers ── */
     .bento-grid {
@@ -327,7 +617,7 @@
     .setting-desc  { font-size: .74rem; color: var(--text-3); }
     .setting-val   { font-size: .88rem; font-weight: 600; color: var(--accent); }
 
-    /* ── DASHBOARD SPECIFIC COMPONENTS (Grades 3–6) ── */
+    /* ── DASHBOARD SPECIFIC COMPONENTS ── */
     /* Student Roster Cards */
     .roster-card {
       border: 1.5px solid var(--border); border-radius: var(--radius-sm);
@@ -516,13 +806,16 @@
     <div class="header-logo" aria-hidden="true">HT</div>
     <div>
       <div class="header-title">Tutoring Tracker</div>
-      <div class="header-sub" id="header-date">Grades 3–6 Learning Hub</div>
+      <div class="header-sub" id="header-date">Academic Tutoring & Learning Hub</div>
     </div>
   </div>
 
   <!-- Desktop Header Tabs -->
   <nav class="desktop-nav" role="tablist" aria-label="Main Navigation">
     <button class="desktop-nav-btn active" data-view="view-dashboard" role="tab" aria-selected="true">🏠 Dashboard</button>
+    <button class="desktop-nav-btn checkpoint-tab-btn" data-view="view-checkpoints" role="tab" aria-selected="false">🎯 Checkpoint 1 Exams <span class="nav-pulse-badge">SEP 30</span></button>
+    <button class="desktop-nav-btn" data-view="view-resources" role="tab" aria-selected="false" style="color:#0284c7;font-weight:700;">🎥 High-View Resources</button>
+    <a href="study_system/index.html" class="desktop-nav-btn" style="color:#2563eb;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">🚀 Study System</a>
     <button class="desktop-nav-btn" data-view="view-curriculum" role="tab" aria-selected="false">📚 School Agendas (ELA/Math/Sci)</button>
     <button class="desktop-nav-btn" data-view="view-add" role="tab" aria-selected="false">➕ Log Session</button>
     <button class="desktop-nav-btn" data-view="view-log" role="tab" aria-selected="false">📋 History</button>
@@ -530,30 +823,171 @@
     <button class="desktop-nav-btn" data-view="view-settings" role="tab" aria-selected="false">⚙️ Settings</button>
   </nav>
 
-  <div class="header-stats">
-    <div class="stat-num" id="hdr-total-sar">0 SAR</div>
-    <div class="stat-label">This Month</div>
+  <div class="header-stats" style="display:flex;align-items:center;gap:10px;">
+    <div style="text-align:right;">
+      <div class="stat-num" id="hdr-total-sar">•••• SAR</div>
+      <div class="stat-label">This Month</div>
+    </div>
+    <button id="btn-finance-toggle" class="btn-secondary" title="Unlock financial earnings (Passcode: 1890)" aria-label="Toggle Financial Lock" style="padding:5px 9px;font-size:0.75rem;font-weight:600;display:inline-flex;align-items:center;gap:4px;border-radius:6px;cursor:pointer;white-space:nowrap;">
+      <span id="finance-lock-icon">🔒</span> <span id="finance-lock-text">Unlock</span>
+    </button>
   </div>
 </header>
 
 <!-- ────────────────── MAIN CONTENT CONTAINER ────────────────── -->
 <main class="app" id="main-content">
 
-  <!-- ════ VIEW 1: DASHBOARD (Grades 3–6 Student Overview) ════ -->
+  <!-- ════ VIEW 1: DASHBOARD (Student Overview) ════ -->
   <section class="view active" id="view-dashboard" role="tabpanel" aria-label="Dashboard Overview">
     <div class="card-header" style="margin-bottom:12px;">
       <div>
         <h1>Classroom & Tutoring Dashboard</h1>
-        <p>Parent & Teacher Portal for Abdullah, Shadan, Elyana, Talal & Nawaf</p>
+        <p>Student & Academic Portal for Shadan, Elyana, Talal, Nawaf & Abdullah</p>
       </div>
       <button class="btn-secondary" id="dash-btn-quick-log">➕ Quick Log Session</button>
+    </div>
+
+    <!-- Checkpoint 1 Alert Banner -->
+    <div class="checkpoint-dash-banner" onclick="switchView('view-checkpoints')">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.6rem;" aria-hidden="true">🎯</span>
+        <div>
+          <div style="font-weight:700;color:#991b1b;font-size:.94rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <span>Schedule for Checkpoint 1 - Assessments (2026 - 2027)</span>
+            <span class="badge" style="background:#ef4444;color:#fff;font-size:.65rem;">STARTS WED SEP 30</span>
+          </div>
+          <div style="font-size:.78rem;color:#7f1d1d;margin-top:2px;">
+            Official paper-based assessments: Saudi History, Math, Arabic, ELA, Biology, Physics, Chemistry.
+          </div>
+        </div>
+      </div>
+      <button class="btn-secondary" style="padding:6px 12px;font-size:.76rem;color:#991b1b;border-color:#fca5a5;background:#fff;white-space:nowrap;">
+        View Exam Schedule & Study Guides →
+      </button>
     </div>
 
     <!-- Responsive Bento Layout -->
     <div class="dashboard-layout">
       <!-- Main Column -->
       <div class="dash-main">
-        
+
+        <!-- 🎬 Featured YouTube Channel Video Showcase: Smart Path Academy -->
+        <div class="card card-video-showcase">
+          <div class="card-header" style="flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-size:1.6rem;line-height:1;" aria-hidden="true">🎬</span>
+                <div>
+                  <h2 style="font-size:1.08rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0;">
+                    <span>Smart Path Academy | Checkpoint &amp; IGCSE</span>
+                    <span class="badge badge-orange">Teacher Channel</span>
+                    <span class="badge badge-blue">Grades 9–11 ELA</span>
+                  </h2>
+                  <p style="font-size:0.78rem;color:var(--text-2);margin:3px 0 0 0;">Official Teacher Channel • Masterclasses &amp; literacy breakdowns produced by Mr. Hisham</p>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+              <a href="https://www.youtube.com/channel/UCHcZ9XDF0OgneHrx7Z6oDMw" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:.74rem;padding:5px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;">
+                <span>📺 Visit YT Channel ↗</span>
+              </a>
+              <a href="study_system/index.html" class="btn-secondary" style="font-size:.74rem;padding:5px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#2563eb;font-weight:700;border-color:#bfdbfe;background:#eff6ff;">
+                <span>🚀 Interactive Study System</span>
+              </a>
+              <button class="btn-primary" onclick="switchView('view-resources')" style="width:auto;font-size:.74rem;padding:5px 10px;">
+                Resource Bank →
+              </button>
+            </div>
+          </div>
+
+          <!-- Embedded Responsive 16:9 YouTube Video Player -->
+          <div style="margin: 0 0 14px 0;">
+            <div class="home-yt-player-wrap">
+              <iframe id="home-yt-iframe" src="https://www.youtube-nocookie.com/embed/V6Fcv6ckR-8?rel=0" title="Smart Path Academy Video Masterclass" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="home-yt-details">
+              <div class="home-yt-meta-col">
+                <div class="home-yt-playing-tag">
+                  <span class="pulse-dot"></span> NOW PLAYING
+                </div>
+                <h3 id="home-yt-title" class="home-yt-title">The Three Sound Layers: Syllables, Phonemes, and Morphemes</h3>
+                <div id="home-yt-meta" class="home-yt-meta">Grades 9–11 ELA · Secondary Literacy &amp; Phonological Architecture · 11:42 Masterclass</div>
+              </div>
+              <div class="home-yt-actions">
+                <a id="home-yt-watch-link" href="https://youtu.be/V6Fcv6ckR-8" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:.74rem;padding:6px 12px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Watch on YouTube ↗</a>
+                <a href="study_system/index.html" class="btn-secondary" style="font-size:.74rem;padding:6px 12px;text-decoration:none;color:#2563eb;font-weight:700;border-color:#bfdbfe;background:#eff6ff;display:inline-flex;align-items:center;gap:4px;">Launch Study System 🚀</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Channel Playlist / Video Switcher -->
+          <div>
+            <div class="home-yt-playlist-header">
+              <div class="home-yt-playlist-title">
+                Select Lesson from YouTube Channel:
+              </div>
+              <span class="badge badge-gray" style="font-size:0.68rem;">4 Channel Lessons</span>
+            </div>
+            <div class="home-yt-playlist">
+              <!-- Video Item 1 (Featured Masterclass) -->
+              <div class="home-yt-thumb active" role="button" tabindex="0" aria-pressed="true" onclick="switchHomeVideo('V6Fcv6ckR-8', 'The Three Sound Layers: Syllables, Phonemes, and Morphemes', 'Grades 9–11 ELA · Secondary Literacy &amp; Phonological Architecture · 11:42 Masterclass', 'https://youtu.be/V6Fcv6ckR-8', this)" onkeydown="if(event.key==='Enter'||event.key===' '){switchHomeVideo('V6Fcv6ckR-8', 'The Three Sound Layers: Syllables, Phonemes, and Morphemes', 'Grades 9–11 ELA · Secondary Literacy &amp; Phonological Architecture · 11:42 Masterclass', 'https://youtu.be/V6Fcv6ckR-8', this);event.preventDefault();}">
+                <div class="home-yt-thumb-media">
+                  <img src="https://img.youtube.com/vi/V6Fcv6ckR-8/hqdefault.jpg" alt="The Three Sound Layers Masterclass thumbnail" loading="lazy">
+                  <span class="yt-play-icon" aria-hidden="true">▶</span>
+                  <span class="home-yt-thumb-duration">11:42</span>
+                </div>
+                <div class="home-yt-thumb-content">
+                  <div class="home-yt-thumb-label">The Three Sound Layers</div>
+                  <div class="home-yt-thumb-sub">Masterclass · Syllables &amp; Morphemes</div>
+                  <div class="yt-playing-pill"><span class="pulse-dot" style="width:5px;height:5px;"></span> Playing</div>
+                </div>
+              </div>
+
+              <!-- Video Item 2 (Short 1) -->
+              <div class="home-yt-thumb" role="button" tabindex="0" aria-pressed="false" onclick="switchHomeVideo('_1mjN6AbUJ8', 'Mastering English Phonemes vs Syllables', 'Grades 9–11 ELA · Sound Structures &amp; Pronunciation · Short Lesson', 'https://www.youtube.com/shorts/_1mjN6AbUJ8', this)" onkeydown="if(event.key==='Enter'||event.key===' '){switchHomeVideo('_1mjN6AbUJ8', 'Mastering English Phonemes vs Syllables', 'Grades 9–11 ELA · Sound Structures &amp; Pronunciation · Short Lesson', 'https://www.youtube.com/shorts/_1mjN6AbUJ8', this);event.preventDefault();}">
+                <div class="home-yt-thumb-media">
+                  <img src="https://img.youtube.com/vi/_1mjN6AbUJ8/hqdefault.jpg" alt="Phonemes vs Syllables thumbnail" loading="lazy">
+                  <span class="yt-play-icon" aria-hidden="true">▶</span>
+                  <span class="home-yt-thumb-duration">0:60</span>
+                </div>
+                <div class="home-yt-thumb-content">
+                  <div class="home-yt-thumb-label">Phonemes vs Syllables</div>
+                  <div class="home-yt-thumb-sub">Micro-Lesson · Sound Structures</div>
+                  <div class="yt-playing-pill"><span class="pulse-dot" style="width:5px;height:5px;"></span> Playing</div>
+                </div>
+              </div>
+
+              <!-- Video Item 3 (Short 2) -->
+              <div class="home-yt-thumb" role="button" tabindex="0" aria-pressed="false" onclick="switchHomeVideo('L6mGhJ42klk', 'Morphemes &amp; Root Words in Secondary English', 'Grades 9–11 ELA · Morphology &amp; Academic Vocabulary · Short Lesson', 'https://www.youtube.com/shorts/L6mGhJ42klk', this)" onkeydown="if(event.key==='Enter'||event.key===' '){switchHomeVideo('L6mGhJ42klk', 'Morphemes &amp; Root Words in Secondary English', 'Grades 9–11 ELA · Morphology &amp; Academic Vocabulary · Short Lesson', 'https://www.youtube.com/shorts/L6mGhJ42klk', this);event.preventDefault();}">
+                <div class="home-yt-thumb-media">
+                  <img src="https://img.youtube.com/vi/L6mGhJ42klk/hqdefault.jpg" alt="Morphemes &amp; Root Words thumbnail" loading="lazy">
+                  <span class="yt-play-icon" aria-hidden="true">▶</span>
+                  <span class="home-yt-thumb-duration">0:60</span>
+                </div>
+                <div class="home-yt-thumb-content">
+                  <div class="home-yt-thumb-label">Morphemes &amp; Root Words</div>
+                  <div class="home-yt-thumb-sub">Micro-Lesson · Morphology &amp; Roots</div>
+                  <div class="yt-playing-pill"><span class="pulse-dot" style="width:5px;height:5px;"></span> Playing</div>
+                </div>
+              </div>
+
+              <!-- Video Item 4 (Short 3) -->
+              <div class="home-yt-thumb" role="button" tabindex="0" aria-pressed="false" onclick="switchHomeVideo('wsPny7bOhes', 'Reading Fluency &amp; Vocabulary Breakdown', 'Grades 9–11 ELA · Secondary Literacy · Fluency &amp; Reading Comprehension', 'https://www.youtube.com/shorts/wsPny7bOhes', this)" onkeydown="if(event.key==='Enter'||event.key===' '){switchHomeVideo('wsPny7bOhes', 'Reading Fluency &amp; Vocabulary Breakdown', 'Grades 9–11 ELA · Secondary Literacy · Fluency &amp; Reading Comprehension', 'https://www.youtube.com/shorts/wsPny7bOhes', this);event.preventDefault();}">
+                <div class="home-yt-thumb-media">
+                  <img src="https://img.youtube.com/vi/wsPny7bOhes/hqdefault.jpg" alt="Reading Fluency thumbnail" loading="lazy">
+                  <span class="yt-play-icon" aria-hidden="true">▶</span>
+                  <span class="home-yt-thumb-duration">0:60</span>
+                </div>
+                <div class="home-yt-thumb-content">
+                  <div class="home-yt-thumb-label">Reading Fluency Breakdown</div>
+                  <div class="home-yt-thumb-sub">Micro-Lesson · Fluency &amp; Vocab</div>
+                  <div class="yt-playing-pill"><span class="pulse-dot" style="width:5px;height:5px;"></span> Playing</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Student Overview Roster -->
         <div class="card">
           <div class="card-header">
@@ -575,68 +1009,30 @@
             <div class="assignment-item">
               <div class="assignment-info">
                 <div class="assignment-title">Context Clues Practice Worksheet (10 Sentences)</div>
-                <div class="assignment-meta">Shadan (Grade 5) • English Reading • Due Today</div>
+                <div class="assignment-meta">Shadan (Grade 11A) • English ELA • Due Today</div>
               </div>
               <span class="badge badge-green">Completed (10/10)</span>
             </div>
             <div class="assignment-item">
               <div class="assignment-info">
-                <div class="assignment-title">Persuasive Paragraph Outline: "Should School Start Later?"</div>
-                <div class="assignment-meta">Abdullah (Grade 6) • Writing & Rhetoric • Submitted</div>
+                <div class="assignment-title">Persuasive Paragraph Outline: Rhetorical Analysis</div>
+                <div class="assignment-meta">Abdullah (Special Tutoring Secondary Prep) • Writing & Rhetoric • Submitted</div>
               </div>
               <span class="badge badge-amber">Under Review</span>
             </div>
             <div class="assignment-item">
               <div class="assignment-info">
-                <div class="assignment-title">Prefixes & Root Words Flashcard Drills</div>
-                <div class="assignment-meta">Talal (Grade 3) • Phonics & Vocabulary • Due Sunday</div>
+                <div class="assignment-title">Prefixes & Root Words Vocabulary Drills</div>
+                <div class="assignment-meta">Talal (Grade 9B) • ELA & Vocabulary • Due Sunday</div>
               </div>
               <span class="badge badge-blue">In Progress</span>
             </div>
             <div class="assignment-item">
               <div class="assignment-info">
                 <div class="assignment-title">Reading Log Week 4 (Chapters 3 & 4)</div>
-                <div class="assignment-meta">Elyana (Grade 4) • Guided Reading</div>
+                <div class="assignment-meta">Elyana (Grade 9A) • Guided ELA Reading</div>
               </div>
               <span class="badge badge-green">Completed</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Competency & Skill Progress Indicators -->
-        <div class="card">
-          <div class="card-header">
-            <h2>📈 Key Competency Mastery (Grades 3–6)</h2>
-            <span class="badge badge-green">Overall: 88% Mastery</span>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
-                <span>Reading Comprehension & Context Clues</span>
-                <span style="color:var(--green)">91% (Advanced)</span>
-              </div>
-              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:91%;background:var(--green)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
-                <span>Grammar, Syntax & Sentence Mechanics</span>
-                <span style="color:var(--accent)">84% (Proficient)</span>
-              </div>
-              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:84%;background:var(--accent)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
-                <span>Vocabulary Acquisition & Morphological Awareness</span>
-                <span style="color:var(--blue)">89% (Advanced)</span>
-              </div>
-              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:89%;background:var(--blue)"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
-                <span>Written Composition & Paragraph Structure</span>
-                <span style="color:var(--amber)">78% (Developing)</span>
-              </div>
-              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:78%;background:var(--amber)"></div></div>
             </div>
           </div>
         </div>
@@ -652,7 +1048,7 @@
             <h3>📅 Attendance Tracker</h3>
             <span class="badge badge-green">95.4% Rate</span>
           </div>
-          <p style="font-size:.82rem;margin-bottom:10px;">Attendance records across all active Grade 3–6 students for the current semester.</p>
+          <p style="font-size:.82rem;margin-bottom:10px;">Attendance records across all active students for the current semester.</p>
           <div style="display:flex;gap:8px;margin-bottom:12px;">
             <div style="flex:1;background:var(--surface-2);border-radius:var(--radius-sm);padding:8px;text-align:center;">
               <div style="font-size:1.15rem;font-weight:700;color:var(--green);">21</div>
@@ -679,22 +1075,22 @@
             <div class="timeline-item">
               <span class="timeline-time">Tomorrow 4:30 PM</span>
               <div class="timeline-body">
-                <div class="timeline-student">Abdullah AlRubiyan (Grade 6)</div>
-                <div class="timeline-topic">English Grammar & Thesis Construction</div>
+                <div class="timeline-student">Abdullah AlRubiyan (Special Tutoring Secondary Prep)</div>
+                <div class="timeline-topic">English Grammar & Academic Writing</div>
               </div>
             </div>
             <div class="timeline-item">
               <span class="timeline-time">Sun 5:00 PM</span>
               <div class="timeline-body">
-                <div class="timeline-student">Shadan (Grade 5)</div>
-                <div class="timeline-topic">Context Clues & Reading Comprehension</div>
+                <div class="timeline-student">Shadan (Grade 11A)</div>
+                <div class="timeline-topic">ELA & GAT Verbal Preparation</div>
               </div>
             </div>
             <div class="timeline-item">
               <span class="timeline-time">Mon 4:00 PM</span>
               <div class="timeline-body">
-                <div class="timeline-student">Elyana (Grade 4)</div>
-                <div class="timeline-topic">Vocabulary Word Wall & Sentence Crafting</div>
+                <div class="timeline-student">Elyana (Grade 9A)</div>
+                <div class="timeline-topic">Biology & Science Review</div>
               </div>
             </div>
           </div>
@@ -708,14 +1104,14 @@
           </div>
           <div class="note-bubble">
             <div class="note-meta">
-              <span>Shadan • Grade 5</span>
+              <span>Shadan • Grade 11A</span>
               <span>Sep 22</span>
             </div>
             Demonstrated rapid improvement in decoding antonym clues. Transitioned from needing sentence scaffolds to self-identifying contrasting transition words (e.g., 'however', 'unlike').
           </div>
           <div class="note-bubble">
             <div class="note-meta">
-              <span>Abdullah • Grade 6</span>
+              <span>Abdullah • Special Tutoring Secondary Prep</span>
               <span>Sep 20</span>
             </div>
             Completed algebraic word problem breakdown smoothly. Focus for next session: concise explanatory sentences in paragraph synthesis.
@@ -741,7 +1137,66 @@
     </div>
   </section>
 
-  <!-- ════ VIEW 2: VIDEO LESSON HUB (Educational Video Workflow) ════ -->
+  <!-- ════ VIEW: SCHEDULE FOR CHECKPOINT 1 ASSESSMENTS (Academic Year 2026 - 2027) ════ -->
+  <section class="view" id="view-checkpoints" role="tabpanel" aria-label="Schedule for Checkpoint 1 - Assessments Academic Year 2026 - 2027">
+    <div class="card-header" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <h1 style="color:#b91c1c;">🎯 Schedule for Checkpoint 1 - Assessments</h1>
+          <span class="badge" style="background:#ef4444;color:#fff;font-weight:700;">Academic Year 2026 - 2027</span>
+        </div>
+        <p style="margin-top:2px;">Arab International Schools • Assessments are Paper-Based • September 30 – October 12, 2026</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <a href="study_system/index.html" class="btn-primary" style="background:#2563eb;color:#fff;display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+          🚀 Launch Interactive Study System
+        </a>
+        <a href="https://arabschools.edu.sa/wp-content/uploads/2026/09/G11-Checkpoint-1-Study-Materials-2026-2027.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color:#b91c1c;border-color:#fca5a5;">
+          📄 G11 Study Guide (PDF)
+        </a>
+        <a href="https://arabschools.edu.sa/wp-content/uploads/2026/09/G9-Checkpoint-1-Study-Materials-2026-2027.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color:#2563eb;border-color:#bfdbfe;">
+          📄 G9 Study Guide (PDF)
+        </a>
+      </div>
+    </div>
+
+    <!-- Alert / Countdown Card -->
+    <div class="card" style="background:#fff5f5;border-color:#fecaca;padding:14px 16px;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.4rem;">🚨</span>
+          <div>
+            <strong style="color:#991b1b;font-size:.92rem;">Checkpoint 1 Assessment Window: Sep 30 – Oct 12, 2026</strong>
+            <div style="font-size:.78rem;color:#7f1d1d;">All assessments are paper-based at Arab International Schools. Review textbook pages, notebook problems, and revision booklets below.</div>
+          </div>
+        </div>
+        <span class="badge" style="background:#b91c1c;color:#fff;font-size:.76rem;padding:4px 10px;">8 EXAM DATES SCHEDULED</span>
+      </div>
+    </div>
+
+    <!-- Student Filter Bar -->
+    <div class="filter-bar" id="checkpoint-student-bar">
+      <button class="filter-chip active" data-examstudent="all">All Grades (G11 & G9)</button>
+      <button class="filter-chip" data-examstudent="g11">Shadan (Grade 11A Girls)</button>
+      <button class="filter-chip" data-examstudent="g9">Elyana, Talal & Nawaf (Grade 9)</button>
+    </div>
+
+    <!-- Subject Category Filter Bar -->
+    <div style="display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px;" id="checkpoint-subject-bar">
+      <button class="filter-chip active" data-examsubj="all">All Subjects (8 Exams)</button>
+      <button class="filter-chip" data-examsubj="math">📐 Mathematics (Oct 4)</button>
+      <button class="filter-chip" data-examsubj="english">📖 English ELA (Oct 6)</button>
+      <button class="filter-chip" data-examsubj="science">🔬 Sciences (Bio/Phys/Chem)</button>
+      <button class="filter-chip" data-examsubj="arabic_islamic">📜 Arabic & Islamic Studies</button>
+      <button class="filter-chip" data-examsubj="history">🇸🇦 Saudi History (Sep 30)</button>
+    </div>
+
+    <!-- Checkpoint 1 Schedule & Study Guide Cards -->
+    <div id="checkpoints-list-container">
+      <!-- Dynamically generated via JavaScript -->
+    </div>
+  </section>
+
   <!-- ════ VIEW 2: SCHOOL AGENDAS & CURRICULUM SYNC (Arab International Schools) ════ -->
   <section class="view" id="view-curriculum" role="tabpanel" aria-label="School Curriculum Hub">
     <div class="card-header" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
@@ -772,6 +1227,44 @@
     <!-- Curriculum Display Container -->
     <div id="curriculum-container">
       <!-- Dynamically generated via JavaScript -->
+    </div>
+  </section>
+
+  <!-- ════ VIEW: HIGH-VIEW INSTRUCTIONAL RESOURCE BANK (Grades 9–11) ════ -->
+  <section class="view" id="view-resources" role="tabpanel" aria-label="High-View Instructional Resource Bank">
+    <div class="card-header" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <h1 style="color:#0284c7;">🎥 High-View Instructional Resource Bank</h1>
+          <span class="badge" style="background:#0284c7;color:#fff;font-weight:700;">Grades 9–11</span>
+        </div>
+        <p style="margin-top:2px;">Curriculum-Aligned (American / Savvas Realize Style) • Click ➔ Watch ➔ Study Rules ➔ Practice</p>
+      </div>
+      <a href="study_system/index.html" class="btn-primary" style="background:#2563eb;color:#fff;display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        🚀 Open Full Interactive Study System
+      </a>
+    </div>
+
+    <!-- Subject Filters -->
+    <div class="filter-bar" id="rb-subject-bar" style="margin-bottom:10px;">
+      <button class="filter-chip active" data-rbsubj="all">All Subjects</button>
+      <button class="filter-chip" data-rbsubj="ela">📖 ELA / Literature</button>
+      <button class="filter-chip" data-rbsubj="math">📐 Mathematics</button>
+      <button class="filter-chip" data-rbsubj="physics">⚛️ Physics</button>
+      <button class="filter-chip" data-rbsubj="chemistry">🧪 Chemistry</button>
+      <button class="filter-chip" data-rbsubj="biology">🧬 Biology</button>
+    </div>
+
+    <!-- Grade Filters -->
+    <div style="display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px;" id="rb-grade-bar">
+      <button class="filter-chip active" data-rbgrade="all">All Grades (9–11)</button>
+      <button class="filter-chip" data-rbgrade="g9">Grade 9 (Elyana, Talal, Nawaf)</button>
+      <button class="filter-chip" data-rbgrade="g11">Grade 11 (Shadan)</button>
+    </div>
+
+    <!-- Resources Container -->
+    <div id="resources-grid-container" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(360px, 1fr));gap:16px;">
+      <!-- Populated dynamically by JavaScript -->
     </div>
   </section>
 
@@ -828,7 +1321,7 @@
     <div class="amount-preview" id="amount-preview">
       <div class="amount-preview-row">
         <span class="amount-label">Session amount</span>
-        <span class="amount-value" id="preview-amount">— SAR</span>
+        <span class="amount-value" id="preview-amount">•••• SAR</span>
       </div>
     </div>
 
@@ -916,14 +1409,14 @@
       <div class="setting-row">
         <div>
           <div class="setting-label">Restore Sept 2026 Sessions (PDF)</div>
-          <div class="setting-desc">Reload the 10 recorded sessions (1,500 SAR) from previous report</div>
+          <div class="setting-desc" id="setting-restore-desc">Reload the 10 recorded sessions (•••• SAR) from previous report</div>
         </div>
         <button class="btn-secondary" id="btn-restore-default" style="color:var(--accent);border-color:var(--accent);">Restore</button>
       </div>
     </div>
     <div class="card" style="text-align:center;color:var(--text-3);font-size:.8rem;">
-      <div style="font-weight:600;margin-bottom:4px;">Tutoring Tracker & Video Learning Hub v2.0</div>
-      <div>Designed for Grades 3–6 • Offline-capable & PWA Ready</div>
+      <div style="font-weight:600;margin-bottom:4px;">Tutoring Tracker & Academic Hub v2.0</div>
+      <div>Designed for Private Tutoring • Offline-capable & PWA Ready</div>
     </div>
   </section>
 
@@ -934,6 +1427,14 @@
   <button class="nav-item active" data-view="view-dashboard" role="tab" aria-selected="true">
     <span class="nav-icon">🏠</span>
     <span>Dashboard</span>
+  </button>
+  <button class="nav-item checkpoint-nav-item" data-view="view-checkpoints" role="tab" aria-selected="false">
+    <span class="nav-icon" style="color:#ef4444;">🎯</span>
+    <span style="color:#b91c1c;font-weight:700;">Exams</span>
+  </button>
+  <button class="nav-item" data-view="view-resources" role="tab" aria-selected="false">
+    <span class="nav-icon" style="color:#0284c7;">🎥</span>
+    <span style="color:#0284c7;font-weight:700;">Resources</span>
   </button>
   <button class="nav-item" data-view="view-curriculum" role="tab" aria-selected="false">
     <span class="nav-icon">📚</span>
@@ -963,7 +1464,7 @@
     <button class="modal-close" id="btn-close-quiz" aria-label="Close quiz dialog">×</button>
     <div class="card-header" style="margin-bottom:8px;">
       <h2 id="quiz-modal-title">📝 Context Clues Detective Quiz</h2>
-      <span class="badge badge-orange">Grade 4–5</span>
+      <span class="badge badge-orange">ELA & Reading</span>
     </div>
     <p style="margin-bottom:16px;">Test your knowledge after watching the 5-minute video lesson:</p>
     
@@ -1037,6 +1538,28 @@
   </div>
 </div>
 
+<!-- ────────────────── MODAL: FINANCIAL PASSCODE ────────────────── -->
+<div class="modal-backdrop" id="finance-modal" role="dialog" aria-modal="true" aria-labelledby="finance-modal-title">
+  <div class="modal-card" style="max-width:380px;text-align:center;">
+    <button class="modal-close" id="btn-close-finance" aria-label="Close dialog">×</button>
+    <div style="font-size:2.2rem;margin-bottom:8px;">🔒</div>
+    <h2 id="finance-modal-title" style="font-size:1.15rem;margin-bottom:6px;">Financial Security PIN</h2>
+    <p style="font-size:.82rem;color:var(--text-2);margin-bottom:16px;">
+      Enter the 4-digit passcode to reveal monthly earnings, session revenue, and student hourly rates.
+    </p>
+    
+    <div style="margin-bottom:16px;">
+      <input type="password" id="finance-pin-input" inputmode="numeric" maxlength="8" placeholder="••••" style="width:100%;font-size:1.6rem;letter-spacing:6px;text-align:center;padding:10px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface-2);color:var(--text);font-weight:700;" autocomplete="off" />
+      <div id="finance-pin-error" style="color:var(--danger);font-size:.8rem;margin-top:8px;display:none;font-weight:600;">Incorrect passcode. Please try again.</div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button type="button" class="btn-secondary" id="btn-finance-cancel" style="flex:1;">Cancel</button>
+      <button type="button" class="btn-primary" id="btn-finance-submit" style="flex:1;">Unlock</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast Container -->
 <div id="toast" role="status" aria-live="polite"></div>
 
@@ -1044,13 +1567,201 @@
 <script>
 'use strict';
 
+/* ─── Financial Passcode Protection (PIN: 1890) ─── */
+const FINANCE_PASSCODE = '1890';
+let isFinanceUnlocked = false;
+try {
+  isFinanceUnlocked = sessionStorage.getItem('tutoring_finance_unlocked') === FINANCE_PASSCODE;
+} catch (e) {
+  isFinanceUnlocked = false;
+}
+
+function fmtMoney(amount) {
+  if (isFinanceUnlocked) {
+    return (amount != null ? Number(amount).toLocaleString() : '0') + ' SAR';
+  }
+  return '•••• SAR';
+}
+
+function fmtRate(rate) {
+  if (isFinanceUnlocked) {
+    return (rate != null ? rate : '0') + ' SAR/hr';
+  }
+  return '••••/hr';
+}
+
+function fmtRateShort(rate) {
+  if (isFinanceUnlocked) {
+    return (rate != null ? rate : '0') + ' SAR/h';
+  }
+  return '••••/h';
+}
+
+function updateFinanceUI() {
+  const lockIcon = document.getElementById('finance-lock-icon');
+  const lockText = document.getElementById('finance-lock-text');
+  const btnToggle = document.getElementById('btn-finance-toggle');
+  if (lockIcon && lockText && btnToggle) {
+    if (isFinanceUnlocked) {
+      lockIcon.textContent = '🔓';
+      lockText.textContent = 'Hide Money';
+      btnToggle.setAttribute('title', 'Click to hide financial figures');
+      btnToggle.style.borderColor = 'var(--accent)';
+      btnToggle.style.background = 'rgba(194,103,42,0.1)';
+      btnToggle.style.color = 'var(--accent)';
+    } else {
+      lockIcon.textContent = '🔒';
+      lockText.textContent = 'Unlock';
+      btnToggle.setAttribute('title', 'Unlock financial figures (Passcode: 1890)');
+      btnToggle.style.borderColor = 'var(--border)';
+      btnToggle.style.background = 'var(--surface)';
+      btnToggle.style.color = 'var(--text)';
+    }
+  }
+
+  updateHeader();
+  renderDashboard();
+  buildStudentGrid();
+  updateAmountPreview();
+  renderSessions();
+  renderReportStudentList();
+  renderSettings();
+  if (typeof renderReportPreview === 'function') {
+    const preview = document.getElementById('report-preview');
+    if (preview && preview.children.length > 0 && typeof reportSelectedStudents !== 'undefined' && reportSelectedStudents.size > 0) {
+      renderReportPreview();
+    }
+  }
+}
+
+function openFinanceModal() {
+  const modal = document.getElementById('finance-modal');
+  const input = document.getElementById('finance-pin-input');
+  const err = document.getElementById('finance-pin-error');
+  if (!modal) return;
+  modal.classList.add('active');
+  if (err) err.style.display = 'none';
+  if (input) {
+    input.value = '';
+    input.style.borderColor = 'var(--border)';
+    setTimeout(() => input.focus(), 60);
+  }
+}
+
+function closeFinanceModal() {
+  const modal = document.getElementById('finance-modal');
+  if (modal) modal.classList.remove('active');
+  const err = document.getElementById('finance-pin-error');
+  if (err) err.style.display = 'none';
+}
+
+function submitFinancePasscode() {
+  const input = document.getElementById('finance-pin-input');
+  const err = document.getElementById('finance-pin-error');
+  if (!input) return;
+  const val = input.value.trim();
+  if (val === FINANCE_PASSCODE) {
+    isFinanceUnlocked = true;
+    try {
+      sessionStorage.setItem('tutoring_finance_unlocked', FINANCE_PASSCODE);
+    } catch (e) {}
+    closeFinanceModal();
+    updateFinanceUI();
+    toast('🔓 Financial figures unlocked');
+  } else {
+    if (err) {
+      err.style.display = 'block';
+      err.textContent = 'Incorrect passcode. Please try again.';
+    }
+    input.style.borderColor = 'var(--danger)';
+    input.focus();
+    input.select();
+  }
+}
+
+function lockFinance() {
+  isFinanceUnlocked = false;
+  try {
+    sessionStorage.removeItem('tutoring_finance_unlocked');
+  } catch (e) {}
+  updateFinanceUI();
+  toast('🔒 Financial figures hidden');
+}
+
+// Financial Passcode Event Listeners
+document.getElementById('btn-finance-toggle')?.addEventListener('click', () => {
+  if (isFinanceUnlocked) {
+    lockFinance();
+  } else {
+    openFinanceModal();
+  }
+});
+
+document.getElementById('btn-finance-submit')?.addEventListener('click', submitFinancePasscode);
+document.getElementById('btn-finance-cancel')?.addEventListener('click', closeFinanceModal);
+document.getElementById('btn-close-finance')?.addEventListener('click', closeFinanceModal);
+
+const financePinInput = document.getElementById('finance-pin-input');
+if (financePinInput) {
+  financePinInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      submitFinancePasscode();
+    }
+  });
+  financePinInput.addEventListener('input', () => {
+    const err = document.getElementById('finance-pin-error');
+    if (err) err.style.display = 'none';
+    financePinInput.style.borderColor = 'var(--border)';
+    if (financePinInput.value.trim() === FINANCE_PASSCODE) {
+      submitFinancePasscode();
+    }
+  });
+}
+
+document.getElementById('finance-modal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'finance-modal') {
+    closeFinanceModal();
+  }
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('finance-modal');
+    if (modal && modal.classList.contains('active')) {
+      closeFinanceModal();
+    }
+  }
+});
+
+/* ─── Homepage Video Switcher ─── */
+window.switchHomeVideo = function(videoId, title, meta, url, el) {
+  const iframe = document.getElementById('home-yt-iframe');
+  const titleEl = document.getElementById('home-yt-title');
+  const metaEl = document.getElementById('home-yt-meta');
+  const linkEl = document.getElementById('home-yt-watch-link');
+  if (iframe) iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+  if (titleEl) titleEl.textContent = title;
+  if (metaEl) metaEl.textContent = meta;
+  if (linkEl) linkEl.href = url;
+
+  document.querySelectorAll('.home-yt-thumb').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-pressed', 'false');
+  });
+  if (el) {
+    el.classList.add('active');
+    el.setAttribute('aria-pressed', 'true');
+  }
+};
+
 /* ─── Student Roster & Data Models ─── */
 const STUDENTS = [
   { id: 'shadan',   name: 'Shadan',             rate: 125, shortName: 'Shadan',   grade: 'Grade 11A (Girls)', section: '11A', subjects: 'ELA, Math, Chem, Bio, Phys, GAT', progress: 94, attendance: '100%', avatar: 'SH' },
   { id: 'elyana',   name: 'Elyana',             rate: 125, shortName: 'Elyana',   grade: 'Grade 9A (Girls)',  section: '9A',  subjects: 'ELA, Math, Biology, Science', progress: 88, attendance: '95%', avatar: 'EL' },
   { id: 'talal',    name: 'Talal',              rate: 125, shortName: 'Talal',    grade: 'Grade 9B (Boys)',   section: '9B',  subjects: 'ELA, Math, Chem, Bio, Phys', progress: 84, attendance: '96%', avatar: 'TL' },
   { id: 'nawaf',    name: 'Nawaf',              rate: 125, shortName: 'Nawaf',    grade: 'Grade 9B (Boys)',   section: '9B',  subjects: 'ELA, Math, Chem, Bio, Phys', progress: 87, attendance: '96%', avatar: 'NW' },
-  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah', grade: 'Special Tutoring', section: 'Tutor', subjects: 'English & Math', progress: 89, attendance: '96%', avatar: 'AA' },
+  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah', grade: 'Special Tutoring Secondary Prep', section: 'Sec Prep', subjects: 'English & Math', progress: 89, attendance: '96%', avatar: 'AA' },
 ];
 
 const STORAGE_KEY = 'tutoring_sessions_v1';
@@ -1291,7 +2002,7 @@ function updateHeader() {
   const total = sessions
     .filter(s => s.date && s.date.startsWith(thisMonth))
     .reduce((sum, s) => sum + s.amount, 0);
-  document.getElementById('hdr-total-sar').textContent = total.toLocaleString() + ' SAR';
+  document.getElementById('hdr-total-sar').textContent = fmtMoney(total);
 }
 
 /* ─── Navigation Switcher (Desktop & Mobile) ─── */
@@ -1311,12 +2022,14 @@ function switchView(viewId) {
     targetView.classList.add('active');
   }
 
-  if (viewId === 'view-dashboard')  { renderDashboard(); }
-  if (viewId === 'view-curriculum') { renderCurriculumHub(); }
-  if (viewId === 'view-add')        { populateQuickAgendaTopics(); }
-  if (viewId === 'view-log')        { renderSessions(); }
-  if (viewId === 'view-report')     { renderReportStudentList(); }
-  if (viewId === 'view-settings')   { renderSettings(); }
+  if (viewId === 'view-dashboard')   { renderDashboard(); }
+  if (viewId === 'view-checkpoints') { renderCheckpointsView(); }
+  if (viewId === 'view-resources')   { renderResourcesHub(); }
+  if (viewId === 'view-curriculum')  { renderCurriculumHub(); }
+  if (viewId === 'view-add')         { populateQuickAgendaTopics(); }
+  if (viewId === 'view-log')         { renderSessions(); }
+  if (viewId === 'view-report')      { renderReportStudentList(); }
+  if (viewId === 'view-settings')    { renderSettings(); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1350,7 +2063,7 @@ function renderDashboard() {
           <div class="roster-title">${st.name}</div>
           <div class="roster-grade">${st.grade} • ${st.subjects || 'All Subjects'}</div>
         </div>
-        <span class="badge badge-orange">${st.rate} SAR/h</span>
+        <span class="badge badge-orange">${fmtRateShort(st.rate)}</span>
       </div>
       <div>
         <div style="display:flex;justify-content:space-between;font-size:.74rem;color:var(--text-2);margin-bottom:3px;">
@@ -1396,7 +2109,7 @@ function buildStudentGrid() {
     btn.innerHTML = `
       <span class="s-check" aria-hidden="true">✓</span>
       <span class="s-name">${st.name}</span>
-      <span class="s-rate">${st.grade} · ${st.rate} SAR/hr</span>
+      <span class="s-rate">${st.grade} · ${fmtRate(st.rate)}</span>
     `;
     btn.addEventListener('click', () => {
       if (selectedStudents.has(st.id)) selectedStudents.delete(st.id);
@@ -1429,7 +2142,7 @@ function updateAmountPreview() {
     preview.innerHTML = `
       <div class="amount-preview-row">
         <span class="amount-label">Session amount</span>
-        <span class="amount-value">— SAR</span>
+        <span class="amount-value">${isFinanceUnlocked ? '— SAR' : '•••• SAR'}</span>
       </div>`;
     return;
   }
@@ -1443,7 +2156,7 @@ function updateAmountPreview() {
     html = `
       <div class="amount-preview-row">
         <span class="amount-label">${st.shortName} (${fmtHours(selectedDuration)})</span>
-        <span class="amount-value">${amt.toLocaleString()} SAR</span>
+        <span class="amount-value">${fmtMoney(amt)}</span>
       </div>`;
   } else {
     let total = 0;
@@ -1453,13 +2166,13 @@ function updateAmountPreview() {
       html += `
         <div class="amount-preview-row" style="margin-bottom:4px;">
           <span class="amount-label">${st.shortName} · ${fmtHours(selectedDuration)}</span>
-          <span class="amount-sub" style="font-weight:600;">${amt.toLocaleString()} SAR</span>
+          <span class="amount-sub" style="font-weight:600;">${fmtMoney(amt)}</span>
         </div>`;
     });
     html += `
       <div class="amount-preview-row" style="margin-top:8px;padding-top:8px;border-top:1.5px solid rgba(194,103,42,.3)">
         <span class="amount-label" style="font-weight:700">Total (${selected.length} students)</span>
-        <span class="amount-value">${total.toLocaleString()} SAR</span>
+        <span class="amount-value">${fmtMoney(total)}</span>
       </div>`;
   }
 
@@ -1585,7 +2298,7 @@ function renderSessions() {
         </div>
         <div class="session-meta">
           <span class="badge badge-orange">${fmtHours(s.hours)}</span>
-          <span class="badge badge-green">${s.amount.toLocaleString()} SAR</span>
+          <span class="badge badge-green">${fmtMoney(s.amount)}</span>
           ${s.subject ? `<span class="badge badge-gray">${s.subject}</span>` : ''}
         </div>
         ${s.notes ? `<div class="session-notes">${s.notes}</div>` : ''}
@@ -1625,7 +2338,7 @@ function renderReportStudentList() {
       <div class="check-box" aria-hidden="true">${reportSelectedStudents.has(st.id) ? '✓' : ''}</div>
       <div class="check-info">
         <div class="check-name">${st.name} (${st.grade})</div>
-        <div class="check-stat">${count} sessions · ${totalHrs} hr total · ${st.rate} SAR/hr</div>
+        <div class="check-stat">${count} sessions · ${totalHrs} hr total · ${fmtRate(st.rate)}</div>
       </div>
     `;
     row.addEventListener('click', () => {
@@ -1650,10 +2363,11 @@ function getReportData() {
   return filtered;
 }
 
-document.getElementById('btn-preview-report')?.addEventListener('click', () => {
-  if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
-  const data = getReportData();
+function renderReportPreview() {
   const preview = document.getElementById('report-preview');
+  if (!preview) return;
+  if (reportSelectedStudents.size === 0) return;
+  const data = getReportData();
 
   if (data.length === 0) {
     preview.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No sessions found in range</div></div>`;
@@ -1679,7 +2393,7 @@ document.getElementById('btn-preview-report')?.addEventListener('click', () => {
           <div style="font-weight:600;font-size:.88rem">${st.name}</div>
           <div style="font-size:.74rem;color:var(--text-3)">${st.count} sessions · ${st.hrs} hr</div>
         </div>
-        <div style="font-size:1.05rem;font-weight:700;color:var(--accent)">${st.amt.toLocaleString()} SAR</div>
+        <div style="font-size:1.05rem;font-weight:700;color:var(--accent)">${fmtMoney(st.amt)}</div>
       </div>
     `;
   });
@@ -1687,19 +2401,29 @@ document.getElementById('btn-preview-report')?.addEventListener('click', () => {
   preview.innerHTML = `
     <div class="summary-card">
       <h3>Total Earnings</h3>
-      <div class="summary-val">${totalAmt.toLocaleString()} SAR</div>
+      <div class="summary-val">${fmtMoney(totalAmt)}</div>
       <div class="summary-sub">${data.length} sessions · ${totalHrs} hours</div>
     </div>
     <div style="margin-bottom:14px">
       ${breakdownHTML}
     </div>
   `;
+}
+
+document.getElementById('btn-preview-report')?.addEventListener('click', () => {
+  if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
+  renderReportPreview();
 });
 
 document.getElementById('btn-pdf')?.addEventListener('click', () => {
   if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
   const data = getReportData();
   if (data.length === 0) { toast('⚠️ No sessions in range'); return; }
+  if (!isFinanceUnlocked) {
+    openFinanceModal();
+    toast('🔒 Passcode required to export financial PDF');
+    return;
+  }
   generatePDF(data);
 });
 
@@ -1725,7 +2449,7 @@ function generatePDF(data) {
   doc.setFontSize(18); doc.setFont('helvetica', 'bold');
   doc.text('Tutoring & Learning Report', 15, 13);
   doc.setFontSize(9); doc.setFont('helvetica', 'normal');
-  doc.text('Grades 3–6 Curriculum — Prepared by Hisham Mohamed', 15, 22);
+  doc.text('Academic Tutoring Session Report — Prepared by Hisham Mohamed', 15, 22);
   doc.text('Generated: ' + new Date().toLocaleDateString('en-SA', { day:'numeric', month:'long', year:'numeric' }), 210-15, 22, { align:'right' });
 
   y = 38;
@@ -1808,7 +2532,7 @@ function generatePDF(data) {
     doc.rect(0, 287, 210, 10, 'F');
     doc.setTextColor(255,255,255);
     doc.setFontSize(8); doc.setFont('helvetica', 'normal');
-    doc.text('Tutoring Tracker — Grades 3–6 Learning Hub', 15, 293);
+    doc.text('Tutoring Tracker — Hisham Mohamed', 15, 293);
     doc.text('Page ' + i + ' of ' + pageCount, 195, 293, { align:'right' });
   }
 
@@ -1830,12 +2554,19 @@ function renderSettings() {
     row.innerHTML = `
       <div>
         <div class="setting-label">${st.name} <span class="badge badge-gray">${st.grade}</span></div>
-        <div class="setting-desc">${st.rate} SAR/hr · ${count} sessions · ${totalAmt.toLocaleString()} SAR earned</div>
+        <div class="setting-desc">${fmtRate(st.rate)} · ${count} sessions · ${fmtMoney(totalAmt)} earned</div>
       </div>
-      <div class="setting-val">${st.rate} SAR</div>
+      <div class="setting-val">${fmtRate(st.rate)}</div>
     `;
     container.appendChild(row);
   });
+
+  const restoreDesc = document.getElementById('setting-restore-desc');
+  if (restoreDesc) {
+    restoreDesc.textContent = isFinanceUnlocked
+      ? 'Reload the 10 recorded sessions (1,500 SAR) from previous report'
+      : 'Reload the 10 recorded sessions (•••• SAR) from previous report';
+  }
 }
 
 document.getElementById('btn-clear')?.addEventListener('click', () => {
@@ -2220,6 +2951,1039 @@ document.getElementById('btn-sync-curriculum')?.addEventListener('click', async 
   }
 });
 
+/* ═══════════════════════════════════════════════════════════════════
+   HIGH-VIEW INSTRUCTIONAL RESOURCE BANK (Grades 9–11)
+   American Curriculum (Savvas Realize style) covering ELA, Math, Sciences
+   Standard Template: Click ➔ Watch ➔ Study Rules ➔ Practice
+═══════════════════════════════════════════════════════════════════ */
+let activeRbSubject = 'all';
+let activeRbGrade = 'all';
+
+const HIGH_VIEW_RESOURCES = [
+  // ─── TEACHER PRODUCTION SPOTLIGHT & ELA (GRADES 9–11) ───
+  {
+    id: 'res-ela-smart-path',
+    subject: 'ela',
+    subjectLabel: 'Word Study & Vocabulary (Teacher Channel Spotlight ⭐)',
+    grade: 'g9',
+    gradeLabel: 'Grades 9 & 11 (All Students)',
+    isTeacherVideo: true,
+    topic: 'Word Study & Decoding: Syllables, Phonemes & Morphemes',
+    unit: 'Smart Path Academy | Checkpoint & IGCSE • Produced by Mr. Hisham',
+    watch: [
+      {
+        title: 'The Three Sound Layers: Syllables, Phonemes, and Morphemes (Full Master Lesson)',
+        platform: 'Smart Path Academy (YouTube Channel: @SmartPathAcademy)',
+        url: 'https://youtu.be/V6Fcv6ckR-8',
+        note: '⭐ Mr. Hisham\'s Production: Teaches how to break complex academic words into spoken beats, distinct sounds, and meaning parts (prefixes/roots/suffixes) for SAT, IGCSE & school reading.'
+      },
+      {
+        title: 'Micro-Short: Beat, Sound, or Meaning Part?',
+        platform: 'Smart Path Academy Shorts',
+        url: 'https://youtube.com/shorts/_1mjN6AbUJ8',
+        note: 'Fast 60-second challenge on identifying the right word layer.'
+      },
+      {
+        title: 'Micro-Short: How Many Layers in CATS? Syllables vs. Morphemes',
+        platform: 'Smart Path Academy Shorts',
+        url: 'https://youtube.com/shorts/L6mGhJ42klk',
+        note: 'Explains how inflectional morphemes (-s) modify root words and connect to grammar agreement.'
+      }
+    ],
+    study: {
+      title: 'Smart Path Word Lab & Morphology Toolkit',
+      url: 'https://www.youtube.com/channel/UCHcZ9XDF0OgneHrx7Z6oDMw',
+      secondaryUrl: 'https://youtube.com/shorts/wsPny7bOhes',
+      rules: [
+        'Layer 1 (Syllables): Spoken rhythm beats (e.g., "in-ter-na-tion-al" = 5 syllables). Useful for pacing and pronunciation.',
+        'Layer 2 (Phonemes): Individual acoustic speech sounds that distinguish one word from another (e.g., /k/ /æ/ /t/ /s/).',
+        'Layer 3 (Morphemes): Smallest meaningful units of language (base roots + prefixes like "un-", "dis-", "re-" and suffixes like "-ed", "-ing", "-tion").'
+      ]
+    },
+    elaSelection: {
+      text: '"Can one word have different numbers of syllables, phonemes, and morphemes? Join Maya, Omar, Lina, and Coach Sam in the Word Lab to learn how spoken beats, individual sounds, and meaning parts help us read, spell, and understand unfamiliar words."',
+      vocab: ['syllable (spoken rhythm beat)', 'phoneme (individual speech sound)', 'morpheme (meaningful language unit)', 'morphology (study of word structure)']
+    },
+    practice: [
+      {
+        q: '1. How does morphemic analysis help students decode unfamiliar words in "Two Kinds" and "Harlem" (e.g., "discordant", "disillusioned")?',
+        ans: 'By identifying the prefix "dis-" (apart/opposite), the root (cord = heart/harmony, illusion = vision), and the suffix ("-ant" / "-ed"), students deduce meaning without needing a dictionary.'
+      },
+      {
+        q: '2. In the word "replayed", identify the number of syllables, and list its three morphemes.',
+        ans: 'Syllables: 2 ("re-played"). Morphemes: 3 (prefix "re-" [again] + root "play" [action] + inflectional suffix "-ed" [past tense]).'
+      }
+    ]
+  },
+  {
+    id: 'res-ela-harlem',
+    subject: 'ela',
+    subjectLabel: 'English Language Arts (Literature)',
+    grade: 'g11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    topic: 'Poetry Analysis: "Harlem" by Langston Hughes',
+    unit: 'Unit 1: The Harlem Renaissance & Poetic Devices',
+    watch: [
+      {
+        title: 'Langston Hughes and the Harlem Renaissance',
+        platform: 'CrashCourse Literature',
+        url: 'https://www.khanacademy.org/humanities/grammar',
+        note: 'Covers historical post-WWII context, figurative language, deferred dreams, and social inequality.'
+      },
+      {
+        title: 'Symbolism & Metaphor in Modern American Poetry',
+        platform: 'Khan Academy Literature',
+        url: 'https://www.khanacademy.org/humanities/grammar',
+        note: 'Deconstructs similes (raisin in the sun, festering sore) and the culminating explosive metaphor.'
+      }
+    ],
+    study: {
+      title: 'CommonLit / Poetry Foundation Text Guide & Symbolism Rules',
+      url: 'https://www.commonlit.org/',
+      secondaryUrl: 'https://www.poetryfoundation.org/poems/46548/harlem',
+      rules: [
+        'Tenor vs. Vehicle: A dream deferred (tenor) is compared to physical decay (vehicles: raisin, meat, syrupy sweet).',
+        'Tone Shift: Moves from contemplative questioning to visceral disgust, ending in a violent rhetorical explosion ("Or does it explode?").',
+        'Historical Rationale: Reflects the systemic racial oppression of African Americans unable to realize the American Dream.'
+      ]
+    },
+    elaSelection: {
+      text: '"What happens to a dream deferred? / Does it dry up / like a raisin in the sun? / Or fester like a sore— / And then run? / ... Maybe it just sags / like a heavy load. / Or does it explode?"',
+      vocab: ['deferred (delayed/postponed)', 'fester (become infected/decay)', 'stink (offensive odor)', 'sag (droop under heavy weight)']
+    },
+    practice: [
+      {
+        q: '1. What literary device is used in the line "like a raisin in the sun"?',
+        ans: 'Simile. It directly compares a delayed ambition to a shriveled grape, emphasizing loss of vitality and life.'
+      },
+      {
+        q: '2. Why does the final line "Or does it explode?" stand apart in italics?',
+        ans: 'It switches from passive decay to active destruction, warning of inevitable social upheaval if human rights are continuously denied.'
+      }
+    ]
+  },
+  {
+    id: 'res-ela-two-kinds',
+    subject: 'ela',
+    subjectLabel: 'English Language Arts (Literature)',
+    grade: 'g9',
+    gradeLabel: 'Grade 9 (Elyana, Talal, Nawaf)',
+    topic: 'Narrative Craft: "Two Kinds" by Amy Tan',
+    unit: 'Unit 1: Identity & Relationships (Alpha Lit pp. 2–17)',
+    watch: [
+      {
+        title: 'Character Development & Internal Conflict',
+        platform: 'Khan Academy Reading',
+        url: 'https://www.khanacademy.org/humanities/grammar',
+        note: 'Differentiates internal psychological conflict (Character vs. Self) from external parent-child strife.'
+      }
+    ],
+    study: {
+      title: 'CommonLit: "Two Kinds" Selection Analysis & ACE Organizer',
+      url: 'https://www.commonlit.org/',
+      secondaryUrl: 'https://owl.purdue.edu/',
+      rules: [
+        'Dynamic Character: Jing-mei transforms from defiant rebel to empathetic adult understanding maternal sacrifice.',
+        'Symbolism of the Piano: Evolves from an instrument of forced conformity to a monument of filial reconciliation.',
+        'ACE Paragraph Formula: Answer (claim) + Cite (authentic excerpt) + Explain (thematic analysis).'
+      ]
+    },
+    elaSelection: {
+      text: '"Pleading Child was short, but it took much practice... Perfectly Contented was longer, but easier. And after I played them both a few times, I realized they were two halves of the same song."',
+      vocab: ['prodigy (young genius)', 'discordant (harsh/jarring sound)', 'fiasco (humiliating disaster)', 'reverie (pleasant daydream)']
+    },
+    practice: [
+      {
+        q: '1. How do the titles "Pleading Child" and "Perfectly Contented" reflect Jing-mei\'s character growth?',
+        ans: 'They symbolize her dual identity: childhood longing for parental approval reconciled with adult self-acceptance.'
+      }
+    ]
+  },
+  {
+    id: 'res-ela-grammar',
+    subject: 'ela',
+    subjectLabel: 'Writing and Grammar',
+    grade: 'g9',
+    gradeLabel: 'Grade 9 & 11',
+    topic: 'Conventions: Pronoun-Antecedent Agreement & Vague Pronouns',
+    unit: 'Conventions of Standard English (Workbook pp. 4–5)',
+    watch: [
+      {
+        title: 'Pronoun-Antecedent Agreement Masterclass',
+        platform: 'Khan Academy Grammar',
+        url: 'https://www.khanacademy.org/humanities/grammar',
+        note: 'Rules for matching pronouns in number, person, and gender, including indefinite pronouns.'
+      }
+    ],
+    study: {
+      title: 'Purdue OWL: Pronoun Clarity, Agreement & Reference Rules',
+      url: 'https://owl.purdue.edu/',
+      secondaryUrl: 'https://www.noredink.com/',
+      rules: [
+        'Number Match: Singular antecedents take singular pronouns ("Each of the girls took her seat").',
+        'SANAM Pronouns: Some, Any, None, All, Most depend on the prepositional object ("All of the music had its tempo" vs "All of the notes had their tone").',
+        'Vague Pronouns: Never use "this" or "it" without a specific preceding noun antecedent.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Correct the error: "Each of the students must submit their essay before Friday."',
+        ans: 'Revision: "Each of the students must submit his or her essay before Friday" (or "All students must submit their essays..."). "Each" is singular.'
+      },
+      {
+        q: '2. Correct the vague pronoun: "The piano was out of tune, and this ruined the concert."',
+        ans: 'Revision: "The piano was out of tune, and this defect ruined the concert" (or "The out-of-tune piano ruined the concert").'
+      }
+    ]
+  },
+
+  // ─── MATHEMATICS (GRADES 9–11) ───
+  {
+    id: 'res-math-real-numbers',
+    subject: 'math',
+    subjectLabel: 'Mathematics',
+    grade: 'g9',
+    gradeLabel: 'Grade 9 (Elyana, Talal, Nawaf)',
+    topic: 'Operations on Real Numbers & Linear Equations with Variables on Both Sides',
+    unit: 'EnVision Algebra 1 Unit 1 (pp. 8–31)',
+    watch: [
+      {
+        title: 'Classifying Real Numbers: Rational vs. Irrational',
+        platform: 'The Organic Chemistry Tutor (Math)',
+        url: 'https://www.youtube.com/c/TheOrganicChemistryTutor',
+        note: 'Clear hierarchy of Natural, Whole, Integer, Rational, and Irrational subsets on number lines.'
+      },
+      {
+        title: 'Solving Multi-Step Equations with Variables on Both Sides',
+        platform: 'Khan Academy Algebra 1',
+        url: 'https://www.khanacademy.org/math/algebra',
+        note: 'Distributive property, collecting terms, and identifying Identity vs. No Solution.'
+      }
+    ],
+    study: {
+      title: 'Khan Academy & Math-Drills: Linear Equations Rules & Steps',
+      url: 'https://www.khanacademy.org/math/algebra',
+      secondaryUrl: 'https://www.math-drills.com/',
+      rules: [
+        'Step 1: Simplify both sides (distribute coefficients, combine like terms).',
+        'Step 2: Use addition/subtraction to collect variable terms on one side.',
+        'Step 3: Isolate constant on opposite side and divide by coefficient.',
+        'Identity: If variables cancel and a true statement remains (e.g. 5 = 5), Infinitely Many Solutions.',
+        'Contradiction: If variables cancel and a false statement remains (e.g. -4 = 10), No Solution.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Solve for x: 4(2x - 3) = 2(4x + 1) - 14',
+        ans: '8x - 12 = 8x + 2 - 14 ➔ 8x - 12 = 8x - 12 ➔ -12 = -12. Identity: All Real Numbers (Infinitely many solutions).'
+      },
+      {
+        q: '2. Solve for x: 3(x + 4) = 3x - 5',
+        ans: '3x + 12 = 3x - 5 ➔ 12 = -5 (False statement). Contradiction: No Solution.'
+      }
+    ]
+  },
+  {
+    id: 'res-math-functions',
+    subject: 'math',
+    subjectLabel: 'Mathematics',
+    grade: 'g11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    topic: 'Chapter 1: Functions, Domain, Range & Symmetry',
+    unit: 'Precalculus / Algebra 2 Ch 1 (pp. 21–33)',
+    watch: [
+      {
+        title: 'Finding Domain and Range Algebraically and Graphically',
+        platform: 'The Organic Chemistry Tutor (Precalc)',
+        url: 'https://www.youtube.com/c/TheOrganicChemistryTutor',
+        note: 'Covers radical domain restrictions, fractional denominators, and interval notation.'
+      },
+      {
+        title: 'Vertical Line Test & Even/Odd Function Symmetry',
+        platform: 'Khan Academy Algebra 2',
+        url: 'https://www.khanacademy.org/math/algebra2',
+        note: 'Graphic analysis showing y-axis symmetry (f(-x) = f(x)) and origin symmetry (f(-x) = -f(x)).'
+      }
+    ],
+    study: {
+      title: 'Khan Academy Algebra 2: Functions, Inverses & Piecewise Graphs',
+      url: 'https://www.khanacademy.org/math/algebra2',
+      secondaryUrl: 'https://www.ixl.com/math/',
+      rules: [
+        'Domain Rule 1: Denominators cannot equal zero (set denominator ≠ 0).',
+        'Domain Rule 2: Radicands of even roots cannot be negative (set expression inside √ ≥ 0).',
+        'Vertical Line Test: If any vertical line intersects a graph in more than 1 point, it is NOT a function.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Find the domain of f(x) = 5 / √(x - 7) in interval notation.',
+        ans: 'x - 7 > 0 (strictly positive because it is under a square root in the denominator). Domain: (7, ∞).'
+      }
+    ]
+  },
+
+  // ─── PHYSICS (GRADES 9–11) ───
+  {
+    id: 'res-phys-fluids',
+    subject: 'physics',
+    subjectLabel: 'Physics',
+    grade: 'g11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    topic: 'Fluid Mechanics: Hydrostatic Pressure, Pascal\'s Law & Hydraulic Lifts',
+    unit: 'Vol 2 Unit 6 Ch 12 Fluid Mechanics (pp. 116–127)',
+    watch: [
+      {
+        title: 'Fluid Pressure, Density & Pascal\'s Principle',
+        platform: 'Khan Academy Physics',
+        url: 'https://www.khanacademy.org/science/physics',
+        note: 'Derivation of P = P₀ + ρgh, gauge pressure, absolute pressure, and hydraulic lifts.'
+      },
+      {
+        title: 'Hydraulic Lift and Pressure Calculations',
+        platform: 'The Organic Chemistry Tutor – Physics',
+        url: 'https://www.youtube.com/c/TheOrganicChemistryTutor',
+        note: 'Worked numerical problems utilizing F₁/A₁ = F₂/A₂ and unit conversions.'
+      }
+    ],
+    study: {
+      title: 'The Physics Classroom & HyperPhysics: Fluid Statics Guide',
+      url: 'https://www.physicsclassroom.com/',
+      secondaryUrl: 'http://hyperphysics.phy-astr.gsu.edu/',
+      rules: [
+        'Hydrostatic Pressure: P = P₀ + ρgh (P₀ = 1.013 × 10⁵ Pa, ρ in kg/m³, g = 9.80 m/s², h in meters).',
+        'Gauge Pressure: P_gauge = ρgh (pressure above atmospheric).',
+        'Pascal\'s Principle: F₁ / A₁ = F₂ / A₂ (pressure applied to an enclosed fluid is transmitted undiminished).'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Calculate the gauge pressure at a depth of 20.0 m in freshwater (ρ = 1000 kg/m³, g = 9.80 m/s²).',
+        ans: 'P_gauge = ρgh = (1000 kg/m³)(9.80 m/s²)(20.0 m) = 196,000 Pa = 1.96 × 10⁵ Pa (~1.93 atm).'
+      }
+    ]
+  },
+  {
+    id: 'res-phys-inquiry',
+    subject: 'physics',
+    subjectLabel: 'Physics',
+    grade: 'g9',
+    gradeLabel: 'Grade 9 (Elyana, Talal, Nawaf)',
+    topic: 'Scientific Inquiry, SI Base Units & Significant Figures',
+    unit: 'Vol 1 Unit 1 Ch 1 Foundations of Physics (pp. 6–13)',
+    watch: [
+      {
+        title: 'Scientific Notation, Significant Figures & Unit Conversion',
+        platform: 'The Organic Chemistry Tutor – Physics',
+        url: 'https://www.youtube.com/c/TheOrganicChemistryTutor',
+        note: 'Covers significant figure multiplication/addition rules and metric prefix conversions.'
+      }
+    ],
+    study: {
+      title: 'The Physics Classroom: Measurement, Units & Uncertainty',
+      url: 'https://www.physicsclassroom.com/',
+      secondaryUrl: 'https://www.ck12.org/c/physics/',
+      rules: [
+        '7 Base SI Units: meter (m), kilogram (kg), second (s), ampere (A), kelvin (K), mole (mol), candela (cd).',
+        'Multiplication/Division Rule: Round to the fewest significant figures of any factor.',
+        'Addition/Subtraction Rule: Round to the fewest decimal places of any term.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Calculate (2.45 m) × (1.2 m) to the correct number of significant figures.',
+        ans: '2.45 (3 sig figs) × 1.2 (2 sig figs) = 2.94 m² ➔ Round to 2 sig figs: 2.9 m².'
+      }
+    ]
+  },
+
+  // ─── CHEMISTRY (GRADES 9–11) ───
+  {
+    id: 'res-chem-thermochem',
+    subject: 'chemistry',
+    subjectLabel: 'Chemistry',
+    grade: 'g11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    topic: 'Thermochemistry: Enthalpy (ΔH) & Calorimetry (q = mcΔT)',
+    unit: 'Vol 2 Ch 13 Thermochemistry (pp. 92–101)',
+    watch: [
+      {
+        title: 'Thermochemistry, Specific Heat & Calorimetry Problems',
+        platform: 'The Organic Chemistry Tutor – Chemistry',
+        url: 'https://www.youtube.com/c/TheOrganicChemistryTutor',
+        note: 'Complete guide to solving q = mcΔT, final temperature calculations, and sign conventions.'
+      },
+      {
+        title: 'Energy & Chemistry: CrashCourse Chemistry #17',
+        platform: 'CrashCourse Chemistry',
+        url: 'https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UAPlldT4vCRy',
+        note: 'Explains kinetic vs potential chemical energy, enthalpy change, and reaction coordinate curves.'
+      }
+    ],
+    study: {
+      title: 'LibreTexts & CK-12 Chemistry: Reaction Energetics Guide',
+      url: 'https://chem.libretexts.org/',
+      secondaryUrl: 'https://www.ck12.org/c/chemistry/',
+      rules: [
+        'Specific Heat Equation: q = m · c · ΔT (q in Joules, m in grams, c in J/g°C, ΔT = T_final - T_initial).',
+        'Exothermic Reactions: ΔH < 0, heat is released, products have lower potential energy than reactants.',
+        'Endothermic Reactions: ΔH > 0, heat is absorbed, products have higher potential energy than reactants.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. How much heat is required to warm 50.0 g of water (c = 4.184 J/g°C) from 20.0°C to 60.0°C?',
+        ans: 'q = mcΔT = (50.0 g)(4.184 J/g°C)(60.0°C - 20.0°C) = (50.0)(4.184)(40.0) = 8,368 J = 8.37 kJ.'
+      }
+    ]
+  },
+  {
+    id: 'res-chem-matter',
+    subject: 'chemistry',
+    subjectLabel: 'Chemistry',
+    grade: 'g9',
+    gradeLabel: 'Grade 9 (Elyana, Talal, Nawaf)',
+    topic: 'The Nature of Matter, States & Physical vs. Chemical Changes',
+    unit: 'Vol 1 Ch 2 Chemistry (pp. 36–41)',
+    watch: [
+      {
+        title: 'States of Matter and Phase Changes (Kinetic Molecular Theory)',
+        platform: 'CrashCourse Chemistry',
+        url: 'https://www.youtube.com/playlist?list=PL8dPuuaLjXtN0ge7yDk_UAPlldT4vCRy',
+        note: 'Visualizes molecular arrangements in solid, liquid, and gas phases.'
+      }
+    ],
+    study: {
+      title: 'CK-12 Chemistry: Matter and Change Flexbook',
+      url: 'https://www.ck12.org/c/chemistry/',
+      secondaryUrl: 'https://www.chemguide.co.uk/',
+      rules: [
+        'Intensive Properties: Independent of amount (density, melting point, boiling point). Used to identify substances.',
+        'Extensive Properties: Dependent on sample size (mass, volume).',
+        'Chemical Change: Produces new chemical substances; signs include gas bubbles, precipitate, heat exchange, irreversible color change.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Classify density as an intensive or extensive property and explain why.',
+        ans: 'Intensive. Density (mass/volume) remains constant for a pure substance regardless of sample size.'
+      }
+    ]
+  },
+
+  // ─── BIOLOGY (GRADES 9–11) ───
+  {
+    id: 'res-bio-viruses',
+    subject: 'biology',
+    subjectLabel: 'Biology',
+    grade: 'g11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    topic: 'Microbiology: Viral Anatomy, Capsid & Lytic vs. Lysogenic Cycles',
+    unit: 'Vol 3 Unit 6 Ch 19 Microbiology (pp. 6–13)',
+    watch: [
+      {
+        title: 'Viruses: Lytic vs. Lysogenic Reproductive Cycles',
+        platform: 'Amoeba Sisters',
+        url: 'https://www.youtube.com/c/AmoebaSisters',
+        note: 'Engaging, clear animation detailing bacteriophage infection, prophage integration, and bacterial lysis.'
+      },
+      {
+        title: 'Viruses: CrashCourse Biology #39',
+        platform: 'CrashCourse Biology',
+        url: 'https://www.youtube.com/playlist?list=PL3EED4C1D684D3ADF',
+        note: 'Deeper evolutionary context on why viruses are considered non-living biological entities.'
+      }
+    ],
+    study: {
+      title: 'HHMI BioInteractive & LibreTexts Biology: Viral Mechanics',
+      url: 'https://www.biointeractive.org/',
+      secondaryUrl: 'https://bio.libretexts.org/',
+      rules: [
+        'Non-Living Justification: Lack cell membrane, organelles, and independent metabolism; require host ribosomes.',
+        'Lytic Cycle (5 Stages): Attachment ➔ Penetration ➔ Biosynthesis ➔ Maturation ➔ Lysis and Release.',
+        'Lysogenic Cycle: Phage DNA integrates into host chromosome as a latent prophage, replicating passively until induction.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. Why are antibiotics completely ineffective against viral infections?',
+        ans: 'Antibiotics specifically target bacterial cell walls (peptidoglycan) or 70S bacterial ribosomes. Viruses have neither.'
+      }
+    ]
+  },
+  {
+    id: 'res-bio-inquiry',
+    subject: 'biology',
+    subjectLabel: 'Biology',
+    grade: 'g9',
+    gradeLabel: 'Grade 9 (Elyana, Talal, Nawaf)',
+    topic: 'Exploring Biology: Scientific Method, Variables & Control Groups',
+    unit: 'Vol 1 Unit 1 Ch 1 Exploring Biology (pp. 6–15)',
+    watch: [
+      {
+        title: 'The Scientific Method & Controlled Experiments',
+        platform: 'Amoeba Sisters',
+        url: 'https://www.youtube.com/c/AmoebaSisters',
+        note: 'Clear explanations of independent variables, dependent variables, constants, and control groups.'
+      }
+    ],
+    study: {
+      title: 'CK-12 Biology: Principles of Controlled Scientific Investigation',
+      url: 'https://www.ck12.org/c/biology/',
+      secondaryUrl: 'https://www.khanacademy.org/science/biology',
+      rules: [
+        'Independent Variable: The factor manipulated by the experimenter (cause).',
+        'Dependent Variable: The factor measured to determine the effect (outcome).',
+        'Control Group: Serves as the unaltered benchmark to isolate the effect of the experimental variable.'
+      ]
+    },
+    practice: [
+      {
+        q: '1. A student tests plant growth under red, blue, and green light. Identify the independent and dependent variables.',
+        ans: 'Independent Variable: Light color/wavelength. Dependent Variable: Rate or height of plant growth.'
+      }
+    ]
+  }
+];
+
+function renderResourcesHub() {
+  const container = document.getElementById('resources-grid-container');
+  if (!container) return;
+
+  const filtered = HIGH_VIEW_RESOURCES.filter(item => {
+    const matchSubj = activeRbSubject === 'all' || item.subject === activeRbSubject;
+    const matchGrade = activeRbGrade === 'all' || item.grade === activeRbGrade;
+    return matchSubj && matchGrade;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="grid-column:1/-1;padding:24px;text-align:center;color:var(--text-3);">No matching resources found for this filter.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(item => `
+    <div class="card" style="display:flex;flex-direction:column;justify-content:space-between;border-top:3px solid var(--accent);box-shadow:var(--shadow-sm);">
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span class="badge ${item.subject === 'ela' ? 'badge-orange' : item.subject === 'math' ? 'badge-blue' : item.subject === 'physics' ? 'badge-green' : item.subject === 'chemistry' ? 'badge-amber' : 'badge-purple'}">${item.subject.toUpperCase()}</span>
+          <span class="badge badge-gray" style="font-size:.72rem;">${item.gradeLabel}</span>
+        </div>
+        <h3 style="font-size:1.05rem;color:var(--text);margin-bottom:6px;">${item.topic}</h3>
+        <div style="font-size:.78rem;color:var(--text-3);margin-bottom:12px;">${item.unit}</div>
+
+        <!-- 1. WATCH (Core Video) -->
+        <div style="background:#fef2f2;border-left:3px solid #ef4444;border-radius:4px;padding:8px 10px;margin-bottom:8px;">
+          <div style="font-size:.74rem;font-weight:700;color:#b91c1c;text-transform:uppercase;">🎥 Watch: Core Video</div>
+          ${item.watch.map(w => `
+            <div style="margin-top:4px;">
+              <a href="${w.url}" target="_blank" rel="noopener noreferrer" style="font-weight:600;font-size:.85rem;color:#b91c1c;text-decoration:underline;">
+                ${w.title} ↗
+              </a>
+              <div style="font-size:.74rem;color:#7f1d1d;"><strong>${w.platform}:</strong> <em>${w.note}</em></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- 2. STUDY (Rules & Concepts) -->
+        <div style="background:#eff6ff;border-left:3px solid #2563eb;border-radius:4px;padding:8px 10px;margin-bottom:8px;">
+          <div style="font-size:.74rem;font-weight:700;color:#1d4ed8;text-transform:uppercase;">📖 Study: Rules & Concepts</div>
+          <div style="margin-top:2px;">
+            <a href="${item.study.url}" target="_blank" rel="noopener noreferrer" style="font-weight:600;font-size:.85rem;color:#1d4ed8;text-decoration:underline;">
+              ${item.study.title} ↗
+            </a>
+            ${item.study.secondaryUrl ? ` <span style="font-size:.74rem;">(<a href="${item.study.secondaryUrl}" target="_blank" style="color:#2563eb;">Alt Guide</a>)</span>` : ''}
+          </div>
+          <ul style="margin:4px 0 0 14px;padding:0;font-size:.76rem;color:#1e3a8a;">
+            ${item.study.rules.map(r => `<li style="margin-bottom:2px;">${r}</li>`).join('')}
+          </ul>
+        </div>
+
+        <!-- 3. ELA Selection (if applicable) -->
+        ${item.elaSelection ? `
+          <div style="background:#fffbeb;border-left:3px solid #f59e0b;border-radius:4px;padding:8px 10px;margin-bottom:8px;">
+            <div style="font-size:.74rem;font-weight:700;color:#b45309;text-transform:uppercase;">📝 ELA Selection & Vocab</div>
+            <div style="font-size:.78rem;font-style:italic;color:#78350f;margin-top:2px;">${item.elaSelection.text}</div>
+            <div style="font-size:.74rem;color:#92400e;margin-top:4px;"><strong>Vocabulary:</strong> ${item.elaSelection.vocab.join('; ')}</div>
+          </div>
+        ` : ''}
+
+        <!-- 4. QUICK PRACTICE -->
+        <div style="background:#ecfdf5;border-left:3px solid #10b981;border-radius:4px;padding:8px 10px;margin-bottom:8px;">
+          <div style="font-size:.74rem;font-weight:700;color:#047857;text-transform:uppercase;">🎯 Quick Practice & Solutions</div>
+          <div style="margin-top:4px;">
+            ${item.practice.map((p, pIdx) => `
+              <div style="margin-bottom:6px;">
+                <div style="font-size:.8rem;font-weight:600;color:#064e3b;">${p.q}</div>
+                <details style="margin-top:2px;">
+                  <summary style="font-size:.74rem;color:#059669;cursor:pointer;font-weight:600;">Reveal Step-by-Step Answer</summary>
+                  <div style="font-size:.76rem;color:#065f46;background:#d1fae5;padding:6px;border-radius:4px;margin-top:2px;">
+                    ${p.ans}
+                  </div>
+                </details>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:.72rem;color:var(--text-3);">Savvas Realize Aligned</span>
+        <a href="study_system/index.html" style="font-size:.76rem;color:var(--accent);font-weight:700;text-decoration:none;">
+          Study in Full Platform ➔
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* Event listeners for Resource Bank Filter Bars */
+document.querySelectorAll('#rb-subject-bar .filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#rb-subject-bar .filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeRbSubject = btn.dataset.rbsubj;
+    renderResourcesHub();
+  });
+});
+
+document.querySelectorAll('#rb-grade-bar .filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#rb-grade-bar .filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeRbGrade = btn.dataset.rbgrade;
+    renderResourcesHub();
+  });
+});
+
+
+/* ─── Arab International Schools Schedule for Checkpoint 1 Assessments (2026 - 2027) ─── */
+const CHECKPOINT_SCHEDULE = [
+  {
+    date: "2026-09-30",
+    day: "Wednesday",
+    displayDate: "Wednesday, September 30, 2026",
+    subject: "Saudi History",
+    subjectCategory: "history",
+    icon: "🇸🇦",
+    time: "8:00 - 8:45 AM",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "الوحدة الأولى: جغرافية المملكة العربية السعودية",
+      lessons: [
+        "الدرس الأول: الموقع (ص 12 – 17)",
+        "الدرس الثاني: مظاهر التضاريس (ص 18 – 28)",
+        "الدرس الثالث: المناخ (ص 29 – 32)",
+        "الدرس الرابع: توزيع السكان (ص 33 – 40)"
+      ],
+      concepts: "الموقع الجغرافي والفلكي للمملكة، أهم التضاريس (جبال الحجاز، هضبة نجد، السهول الساحلية)، العوامل المؤثرة في المناخ، الكثافة السكانية وتوزيعها.",
+      materials: "كتاب الدراسات الاجتماعية، أوراق التقويم والأنشطة، مراجعة الدفتر"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "الوحدة الأولى: مفهوم التاريخ ومصادره",
+      lessons: [
+        "الدرس الأول: مفهوم التاريخ ومصادره (ص 12)",
+        "الدرس الثاني: نشأة التدوين التاريخي ومصادره (ص 16)",
+        "الدرس الثالث: نماذج مختارة من مؤلفات المؤرخين المسلمين (ص 20)"
+      ],
+      concepts: "تعريف علم التاريخ، مصادر التاريخ الأولية والثانوية، أطوار التدوين عند المسلمين ومناهج الطبري وابن الأثير والمسعودي.",
+      materials: "كتاب التاريخ، أوراق عمل ومذكرات المراجعة المكتملة"
+    }
+  },
+  {
+    date: "2026-10-04",
+    day: "Sunday",
+    displayDate: "Sunday, October 4, 2026",
+    subject: "Mathematics",
+    subjectCategory: "math",
+    icon: "📐",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "Algebra Volume 1 — Unit 1: Equations and Inequalities",
+      lessons: [
+        "Lesson 1-1: Operations on Real Numbers (pp. 8 – 19)",
+        "Lesson 1-2: Solving Linear Equations (pp. 22 – 31)"
+      ],
+      concepts: "Real number hierarchy, order of operations, absolute value, multi-step linear equations, variables on both sides, rational algebraic manipulation.",
+      materials: "Math Textbook, Math Workbook (pp. 4–15), Notebook problem sets, Revision Booklet"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "Chapter 1: Functions",
+      lessons: [
+        "Lesson 1-1: Functions and Their Graphs (pp. 21 – 33)"
+      ],
+      concepts: "Domain and Range, Graphs of Functions, Representing Functions Numerically, Vertical Line Test, Piecewise-Defined Functions, Increasing and Decreasing Intervals, Even and Odd Functions (Symmetry), Common Library of Functions.",
+      materials: "All related work in Math Notebook, Revision Booklet, Chapter 1 practice exercises"
+    }
+  },
+  {
+    date: "2026-10-05",
+    day: "Monday",
+    displayDate: "Monday, October 5, 2026",
+    subject: "Arabic Language",
+    subjectCategory: "arabic_islamic",
+    icon: "📜",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "لغتي الخالدة — نصوص وقواعد لغوية وبلاغة",
+      lessons: [
+        "نص الفهم القرائي: وقضى ربك (ص 25 – 32)",
+        "نص التحليل الأدبي: دَيْنُ الكريم (ص 45 – 52)",
+        "الرسم الإملائي: الألف اللينة في الأفعال الثلاثية (ص 53 – 58)",
+        "الصنف اللغوي: اسم الفاعل وصياغته من الثلاثي وغير الثلاثي (ص 62 – 67)",
+        "الأسلوب اللغوي: أسلوب القسم (ص 68 – 71)"
+      ],
+      concepts: "معاني المفردات والأفكار الرئيسة، استخراج الصور البلاغية، قواعد كتابة الألف اللينة، اشتقاق اسم الفاعل وإعراب معموله، أركان جملة القسم.",
+      materials: "كتاب الطالب، كتاب النشاط والتطبيقات، أوراق العمل والمراجعة"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "الكفايات اللغوية — الوحدة النحوية",
+      lessons: [
+        "النشاطات التمهيدية (ص 12 – 17)",
+        "المتممات المجرورة: المجرور بحرف الجر والمجرور بالإضافة (ص 18 – 25)",
+        "المفاعيل فقط: المفعول به، المطلق، لأجله، فيه (ظرف الزمان والمكان) (ص 26 – 28)"
+      ],
+      concepts: "علامات الإعراب الأصلية والفرعية، أحكام المجرورات وعلامات جرها، تمييز أنواع المفاعيل وإعرابها الصحيح، ضبط النصوص النحوية بالشكل.",
+      materials: "كتاب الكفايات اللغوية 5، تدريبات الإعراب بالدفتر، ملخص القواعد النحوية"
+    }
+  },
+  {
+    date: "2026-10-06",
+    day: "Tuesday",
+    displayDate: "Tuesday, October 6, 2026",
+    subject: "English Language Arts (ELA)",
+    subjectCategory: "english",
+    icon: "📖",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "Alpha Literature Comprehension, Vocabulary & Writing",
+      lessons: [
+        "Section 1: Reading Comprehension — 'Two Kinds' (Alpha Literature SB pp. 2–17)",
+        "Section 2: Concept Vocabulary Words — prodigy, reproach, listlessly, mesmerizing, discordant, lamented, reverie, fiasco, internal conflict, dynamic character, displacement (SB pp. 2–16)",
+        "Section 3: Grammar — Pronoun Agreement & Clear Antecedents (WB pp. 4–5)",
+        "Section 4: Craft & Structure — Making Textual Inferences (WB p. 1)",
+        "Section 5: Writing Assessment — Narrative structural elements (character motivation, plot arc, dialogue tags)"
+      ],
+      concepts: "Students will answer comprehension questions from the excerpt, define selection vocabulary in context, fix vague pronoun references, and write narrative text.",
+      materials: "Alpha Literature Student Book & Workbook, Vocabulary list definitions, narrative model drafts"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "Literature, Rhetoric, Vocabulary & Reflective Composition",
+      lessons: [
+        "Section 1: Selection Reading Comprehension — Unit 1: 'Harlem' by Langston Hughes (Poem)",
+        "Section 2: Concept Vocabulary (10 Words) — segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression, pragmatic, resentment, turmoil",
+        "Section 3: Conventions & Grammar — Sentence Variety Practice Worksheet",
+        "Section 4: Craft & Structure — Word choice, imagery, historical subtext, and theme",
+        "Section 5: Writing Assessment — The Reflective Essay genre, structural elements, moving from experience to reflection"
+      ],
+      concepts: "Poetry analysis and symbolism, precise vocabulary application, complex/compound sentence variety, thesis clarity, and multi-paragraph reflective essay writing.",
+      materials: "English Notebook, Sentence Variety Worksheet, Unit 1 Poetry Study Guide, Revision Booklet"
+    }
+  },
+  {
+    date: "2026-10-07",
+    day: "Wednesday",
+    displayDate: "Wednesday, October 7, 2026",
+    subject: "Islamic Studies",
+    subjectCategory: "arabic_islamic",
+    icon: "🕌",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "العلوم الإسلامية: توحيد، تفسير، حديث، فقه",
+      lessons: [
+        "توحيد (الوحدة 1): القضاء والقدر — الإيمان بالقدر (ص 14)، الحذر من الضلال في القدر (ص 17)، الصبر (ص 19)",
+        "تفسير (الوحدة 1): تفسير سورة الحجرات — الآيات 1-5 (ص 64)، الآيات 6-10 (ص 67)، الآيات 11-14 (ص 71)",
+        "حديث (الوحدة 1): من أعمال القلوب — إخلاص العمل لله (ص 118)، التفكر في خلق الله (ص 121)، استغلال أوقات الفراغ (ص 124)",
+        "فقه (الوحدة 1): الأطعمة والأشربة — أحكام الأطعمة والأشربة (ص 161)، أنواع الأطعمة وأحكامها (ص 164)"
+      ],
+      concepts: "أركان الإيمان بالقضاء والقدر، آداب المؤمنين مع النبي والمؤمنين بسورة الحجرات، أعمال القلوب وفضائلها، الحلال والحرام من الأطعمة والذكاة الشرعية.",
+      materials: "كتب الدراسات الإسلامية الأربعة، أسئلة التقويم، مذكرات المراجعة الشاملة"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "الدراسات الإسلامية: التوحيد والعقيدة",
+      lessons: [
+        "الوحدة الأولى (العقيدة الإسلامية): معنى العقيدة وأركانها وأهميتها (ص 9)، مصادر تلقي العقيدة (ص 11)، منهج أهل السنة والجماعة في تلقي العقيدة (ص 13)",
+        "الوحدة الثانية (توحيد الربوبية): تعريف التوحيد وأقسامه (ص 19)، توحيد الربوبية (ص 21)، من أدلة وجود الله تعالى (ص 24)"
+      ],
+      concepts: "مصادر العقيدة الصافية (الكتاب والسنة والإجماع)، خصائص منهج أهل السنة، دلالة الفطرة والعقل والشرع على وجود الله وتوحيد ربوبيته.",
+      materials: "كتاب الدراسات الإسلامية، أسئلة التقويم، أوراق المراجعة الدفترية"
+    }
+  },
+  {
+    date: "2026-10-08",
+    day: "Thursday",
+    displayDate: "Thursday, October 8, 2026",
+    subject: "Biology",
+    subjectCategory: "science",
+    icon: "🧬",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "Volume 1 — Unit 1: Fundamentals of Life, Chapter 1: Exploring Biology",
+      lessons: [
+        "Lesson 1: Understanding Science (Book pp. 6 – 15)"
+      ],
+      concepts: "Identification of testable science questions, steps of the scientific method, comparative studies and control groups, independent vs dependent variables, scientific theories vs laws.",
+      materials: "Biology Study Book exercises, Textbook highlights, Revision practice worksheet, Notebook notes"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "Volume 3 — Unit 6, Chapter 19: Microbiology and Classification of Life",
+      lessons: [
+        "Lesson 1: Introduction to Viruses (Book pp. 6 – 13)"
+      ],
+      concepts: "Viral structure (capsid, envelope, genetic material), reproductive cycles, detailed steps of the lytic cycle, stages of the lysogenic cycle, viral latency, comparison with living cells.",
+      materials: "Study Book exercises, Book highlights, Revision practice worksheet, Notebook diagrams"
+    }
+  },
+  {
+    date: "2026-10-11",
+    day: "Sunday",
+    displayDate: "Sunday, October 11, 2026",
+    subject: "Physics",
+    subjectCategory: "science",
+    icon: "⚡",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "Volume 1 — Unit 1: Principles of Physics, Chapter 1: Foundations of Physics and Measurements",
+      lessons: [
+        "Lesson 1: Scientific Inquiry and Experimental Design (Book pp. 6 – 13)"
+      ],
+      concepts: "Resolve the Unresolved, Estimate Over Guesstimate, importance of physical exploration, historical approaches to measurement, technological interventions in scientific inquiry, error analysis.",
+      materials: "Textbook content and highlights, Physics notebook notes, Practice problem worksheet"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "Volume 2 — Unit 6, Chapter 12: Fluid Mechanics",
+      lessons: [
+        "Lesson 1: Fluid Mechanics (Book pp. 116 – 127)"
+      ],
+      concepts: "Physics behind geyser eruptions, fluid properties (Density, Temperature, Viscosity, Pressure), hydrostatic pressure formula, buoyant forces, volumetric flow rate, continuity equation related to cross-sectional area.",
+      materials: "Textbook content and formulas, Notebook lab problem sets, Fluid mechanics revision worksheet"
+    }
+  },
+  {
+    date: "2026-10-12",
+    day: "Monday",
+    displayDate: "Monday, October 12, 2026",
+    subject: "Chemistry",
+    subjectCategory: "science",
+    icon: "🧪",
+    time: "Paper-based exam session",
+    grade9: {
+      studentText: "Elyana (9A), Talal (9B), Nawaf (9B)",
+      scope: "Volume 1 — Chapter 2: The Nature of Matter",
+      lessons: [
+        "Lesson 1: The Nature of Matter (Book pp. 36 – 41)"
+      ],
+      concepts: "Matter and Its Properties, States of Matter (solid, liquid, gas, plasma), Phase changes and energy transitions, Intensive vs Extensive properties, physical vs chemical properties.",
+      materials: "Highlighted parts in textbook, Notes in chemistry notebook, Revision practice worksheet"
+    },
+    grade11: {
+      studentText: "Shadan (11A)",
+      scope: "Volume 2 — Chapter 13: Energy and Chemical Reactions",
+      lessons: [
+        "Lesson 1: Energy and Chemical Reactions (Book pp. 92 – 101)"
+      ],
+      concepts: "Energy and its forms (kinetic, chemical, heat), Endothermic vs Exothermic reactions, Enthalpy Change (ΔH), Energy level diagrams, Activation Energy calculations and reaction coordinates.",
+      materials: "Highlighted textbook sections, Thermochemistry notebook problems, Revision practice booklet"
+    }
+  }
+];
+
+let activeExamStudent = 'all';
+let activeExamSubject = 'all';
+
+function renderCheckpointsView() {
+  const container = document.getElementById('checkpoints-list-container');
+  if (!container) return;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  let filtered = CHECKPOINT_SCHEDULE.filter(item => {
+    // Subject category filter
+    if (activeExamSubject !== 'all') {
+      if (activeExamSubject === 'science' && !['Biology', 'Physics', 'Chemistry'].includes(item.subject)) return false;
+      if (activeExamSubject === 'math' && item.subject !== 'Mathematics') return false;
+      if (activeExamSubject === 'english' && !item.subject.includes('English')) return false;
+      if (activeExamSubject === 'arabic_islamic' && !['Arabic Language', 'Islamic Studies'].includes(item.subject)) return false;
+      if (activeExamSubject === 'history' && item.subject !== 'Saudi History') return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="card" style="text-align:center;padding:36px 16px;color:var(--text-3);">
+        <div style="font-size:2rem;margin-bottom:8px;">🔍</div>
+        <div style="font-weight:600;font-size:1rem;color:var(--text-2);">No assessments match this filter</div>
+        <div style="font-size:.82rem;">Switch to "All Subjects" or "All Grades" to see the full schedule.</div>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  filtered.forEach((exam, idx) => {
+    const examDate = new Date(exam.date + 'T00:00:00');
+    const diffTime = examDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    let countdownBadge = '';
+    if (diffDays === 0) {
+      countdownBadge = `<span class="badge" style="background:#dc2626;color:#fff;font-weight:800;animation:pulseAlert 1.5s infinite;">TODAY</span>`;
+    } else if (diffDays === 1) {
+      countdownBadge = `<span class="badge" style="background:#ef4444;color:#fff;font-weight:800;">TOMORROW</span>`;
+    } else if (diffDays > 1) {
+      countdownBadge = `<span class="badge" style="background:#fef2f2;border:1px solid #f87171;color:#b91c1c;font-weight:700;">In ${diffDays} days</span>`;
+    } else {
+      countdownBadge = `<span class="badge badge-gray">Completed</span>`;
+    }
+
+    const showG11 = (activeExamStudent === 'all' || activeExamStudent === 'g11');
+    const showG9  = (activeExamStudent === 'all' || activeExamStudent === 'g9');
+
+    html += `
+      <div style="margin-bottom:20px;">
+        <div class="exam-date-header" style="${diffDays >= 0 && diffDays <= 5 ? 'background:#991b1b;' : 'background:#1c1917;'}">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span>${exam.icon}</span>
+            <span>${exam.displayDate}</span>
+          </div>
+          <div>
+            ${countdownBadge}
+          </div>
+        </div>
+
+        <div class="exam-card-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <div>
+              <h2 style="font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:2px;">
+                ${exam.subject} Checkpoint Assessment 1
+              </h2>
+              <div style="font-size:.78rem;color:var(--text-3);">
+                🕒 ${exam.time} • Paper-based Assessment • Arab International Schools
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-secondary" style="padding:6px 12px;font-size:.76rem;" onclick="prefillPrepSession('${exam.subject}', '${exam.date}')">
+                ⚡ Log Prep Session
+              </button>
+            </div>
+          </div>
+    `;
+
+    if (showG11 && exam.grade11) {
+      const g11 = exam.grade11;
+      html += `
+        <div class="exam-grade-box g11">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px;">
+            <div style="font-weight:700;font-size:.9rem;color:#991b1b;">
+              👩‍🎓 Grade 11A (Girls) — ${g11.studentText}
+            </div>
+            <span class="badge" style="background:#fee2e2;color:#991b1b;">Scope: ${g11.scope}</span>
+          </div>
+          <div style="font-size:.82rem;margin-bottom:8px;">
+            <strong>📚 Required Chapters & Lessons:</strong>
+            <ul style="padding-left:18px;margin-top:4px;line-height:1.5;">
+              ${g11.lessons.map(l => `<li>${l}</li>`).join('')}
+            </ul>
+          </div>
+          ${g11.concepts ? `
+            <div style="font-size:.8rem;color:var(--text-2);background:rgba(255,255,255,.7);padding:8px 10px;border-radius:6px;margin-bottom:6px;">
+              <strong>🎯 Tested Concepts:</strong> ${g11.concepts}
+            </div>
+          ` : ''}
+          <div style="font-size:.76rem;color:var(--text-3);">
+            <strong>📌 Study Guide Materials:</strong> ${g11.materials}
+          </div>
+        </div>
+      `;
+    }
+
+    if (showG9 && exam.grade9) {
+      const g9 = exam.grade9;
+      html += `
+        <div class="exam-grade-box g9">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:6px;">
+            <div style="font-weight:700;font-size:.9rem;color:#1e40af;">
+              👨‍🎓 Grade 9 (Girls & Boys) — ${g9.studentText}
+            </div>
+            <span class="badge" style="background:#dbeafe;color:#1e40af;">Scope: ${g9.scope}</span>
+          </div>
+          <div style="font-size:.82rem;margin-bottom:8px;">
+            <strong>📚 Required Chapters & Lessons:</strong>
+            <ul style="padding-left:18px;margin-top:4px;line-height:1.5;">
+              ${g9.lessons.map(l => `<li>${l}</li>`).join('')}
+            </ul>
+          </div>
+          ${g9.concepts ? `
+            <div style="font-size:.8rem;color:var(--text-2);background:rgba(255,255,255,.7);padding:8px 10px;border-radius:6px;margin-bottom:6px;">
+              <strong>🎯 Tested Concepts:</strong> ${g9.concepts}
+            </div>
+          ` : ''}
+          <div style="font-size:.76rem;color:var(--text-3);">
+            <strong>📌 Study Guide Materials:</strong> ${g9.materials}
+          </div>
+        </div>
+      `;
+    }
+
+    html += `
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+window.prefillPrepSession = function(subject, examDate) {
+  switchView('view-add');
+  const subjectInput = document.getElementById('session-subject');
+  if (subjectInput) {
+    subjectInput.value = `Checkpoint 1 Prep: ${subject}`;
+  }
+  const dateInput = document.getElementById('session-date');
+  if (dateInput) {
+    dateInput.value = todayISO();
+  }
+  const notesInput = document.getElementById('session-notes');
+  if (notesInput) {
+    notesInput.value = `Intensive review for Checkpoint 1 Exam scheduled on ${examDate}. Focus on required study guide lessons and problem sets.`;
+  }
+  toast(`⚡ Prepared session for ${subject} Exam!`);
+};
+
+/* Filter event listeners for Checkpoints View */
+document.querySelectorAll('#checkpoint-student-bar .filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#checkpoint-student-bar .filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeExamStudent = btn.dataset.examstudent;
+    renderCheckpointsView();
+  });
+});
+
+document.querySelectorAll('#checkpoint-subject-bar .filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#checkpoint-subject-bar .filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeExamSubject = btn.dataset.examsubj;
+    renderCheckpointsView();
+  });
+});
+
 /* ─── Initialization ─── */
 async function init() {
   // Load dynamic curriculum JSON if available
@@ -2248,8 +4012,10 @@ async function init() {
   updateAmountPreview();
   updateHeader();
   renderDashboard();
+  renderCheckpointsView();
   renderCurriculumHub();
   populateQuickAgendaTopics();
+  updateFinanceUI();
 
   // Live Hijri date badge updater
   function refreshSessionHijriBadge() {
