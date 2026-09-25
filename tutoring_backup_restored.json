@@ -1,0 +1,122 @@
+[
+  {
+    "id": "rec_01_shadan_gat",
+    "studentId": "shadan",
+    "studentName": "Shadan",
+    "rate": 125,
+    "hours": 2,
+    "amount": 250,
+    "date": "2026-09-06",
+    "subject": "Setting up Account on ETEC + GAT Warm up",
+    "notes": "Setting up Account on ETEC + GAT Warm up",
+    "createdAt": "2026-09-06T18:00:00.000Z"
+  },
+  {
+    "id": "rec_02_shadan_bio",
+    "studentId": "shadan",
+    "studentName": "Shadan",
+    "rate": 125,
+    "hours": 2,
+    "amount": 250,
+    "date": "2026-09-13",
+    "subject": "Shadan: Biology & Lulu: English",
+    "notes": "Biology and English tutoring session",
+    "createdAt": "2026-09-13T18:00:00.000Z"
+  },
+  {
+    "id": "rec_03_talal_eng",
+    "studentId": "talal",
+    "studentName": "Talal",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-14",
+    "subject": "English for both",
+    "notes": "English tutoring session",
+    "createdAt": "2026-09-14T17:00:00.000Z"
+  },
+  {
+    "id": "rec_04_nawaf_eng",
+    "studentId": "nawaf",
+    "studentName": "Nawaf",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-14",
+    "subject": "English for both",
+    "notes": "English tutoring session",
+    "createdAt": "2026-09-14T17:00:00.000Z"
+  },
+  {
+    "id": "rec_05_talal_math",
+    "studentId": "talal",
+    "studentName": "Talal",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-16",
+    "subject": "Math for both",
+    "notes": "Math tutoring session",
+    "createdAt": "2026-09-16T17:00:00.000Z"
+  },
+  {
+    "id": "rec_06_nawaf_math",
+    "studentId": "nawaf",
+    "studentName": "Nawaf",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-16",
+    "subject": "Math for both",
+    "notes": "Math tutoring session",
+    "createdAt": "2026-09-16T17:00:00.000Z"
+  },
+  {
+    "id": "rec_07_shadan_gat_lulu",
+    "studentId": "shadan",
+    "studentName": "Shadan",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-20",
+    "subject": "Shadan - GAT, Lulu: English",
+    "notes": "GAT and English tutoring session",
+    "createdAt": "2026-09-20T18:00:00.000Z"
+  },
+  {
+    "id": "rec_08_elyana_lulu",
+    "studentId": "elyana",
+    "studentName": "Elyana",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-20",
+    "subject": "Shadan - GAT, Lulu: English",
+    "notes": "English tutoring session",
+    "createdAt": "2026-09-20T18:00:00.000Z"
+  },
+  {
+    "id": "rec_09_shadan_math",
+    "studentId": "shadan",
+    "studentName": "Shadan",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-22",
+    "subject": "Shadan Math-GAT, Talal Math",
+    "notes": "Math and GAT session",
+    "createdAt": "2026-09-22T18:00:00.000Z"
+  },
+  {
+    "id": "rec_10_talal_math",
+    "studentId": "talal",
+    "studentName": "Talal",
+    "rate": 125,
+    "hours": 1,
+    "amount": 125,
+    "date": "2026-09-22",
+    "subject": "Shadan Math-GAT, Talal Math",
+    "notes": "Math session",
+    "createdAt": "2026-09-22T18:00:00.000Z"
+  }
+]
