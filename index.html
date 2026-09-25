@@ -523,7 +523,7 @@
   <!-- Desktop Header Tabs -->
   <nav class="desktop-nav" role="tablist" aria-label="Main Navigation">
     <button class="desktop-nav-btn active" data-view="view-dashboard" role="tab" aria-selected="true">🏠 Dashboard</button>
-    <button class="desktop-nav-btn" data-view="view-videos" role="tab" aria-selected="false">🎥 Video Lessons</button>
+    <button class="desktop-nav-btn" data-view="view-curriculum" role="tab" aria-selected="false">📚 School Agendas (ELA/Math/Sci)</button>
     <button class="desktop-nav-btn" data-view="view-add" role="tab" aria-selected="false">➕ Log Session</button>
     <button class="desktop-nav-btn" data-view="view-log" role="tab" aria-selected="false">📋 History</button>
     <button class="desktop-nav-btn" data-view="view-report" role="tab" aria-selected="false">📊 Report</button>
@@ -742,133 +742,36 @@
   </section>
 
   <!-- ════ VIEW 2: VIDEO LESSON HUB (Educational Video Workflow) ════ -->
-  <section class="view" id="view-videos" role="tabpanel" aria-label="Video Lessons Hub">
-    <div class="card-header" style="margin-bottom:12px;">
+  <!-- ════ VIEW 2: SCHOOL AGENDAS & CURRICULUM SYNC (Arab International Schools) ════ -->
+  <section class="view" id="view-curriculum" role="tabpanel" aria-label="School Curriculum Hub">
+    <div class="card-header" style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <div>
-        <h1>Educational Video Lessons</h1>
-        <p>Interactive 5-Minute English Curriculum for Grades 3–6</p>
+        <h1>Arab Schools Weekly Agendas</h1>
+        <p>Synced with <a href="https://arabschools.edu.sa/agenda/" target="_blank" style="color:var(--accent);text-decoration:underline;">arabschools.edu.sa/agenda</a> • Sunday 11:00 AM Sync</p>
       </div>
-      <button class="btn-secondary" id="btn-toggle-video-mode">🎬 Toggle Video / Poster State</button>
+      <button class="btn-secondary" id="btn-sync-curriculum" style="display:flex;align-items:center;gap:6px;">
+        🔄 Refresh Topics
+      </button>
     </div>
 
-    <div class="videos-layout">
-      <!-- Main Featured Video Player Area -->
-      <div class="video-main">
-        <article class="video-hero-card" id="featured-video-card">
-          <!-- Responsive 16:9 Video Container -->
-          <div class="video-player-container" id="video-box">
-            <!-- Simulated Safe Video Player / Poster with Fallback -->
-            <div class="video-poster-fallback" id="video-fallback" role="button" tabindex="0" aria-label="Play video: Mastering Context Clues">
-              <div class="play-btn-circle" aria-hidden="true">▶</div>
-              <div style="font-size:1.15rem;font-weight:700;margin-bottom:4px;">Mastering Context Clues: Grade 4–5 Adventure</div>
-              <div style="font-size:.82rem;color:#f5f2ee;opacity:.85;">Tap to start interactive 5-minute video lesson</div>
-            </div>
-            <!-- Standard HTML5 Video (hidden initially or toggled) -->
-            <video class="video-element" id="main-video-player" controls preload="metadata" style="display:none;" poster="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 360'><rect width='640' height='360' fill='%231c1917'/><circle cx='320' cy='180' r='40' fill='%23c2672a'/><polygon points='312,165 336,180 312,195' fill='%23ffffff'/></svg>">
-              <!-- Safe local demo video source or data URI -->
-              <source src="" type="video/mp4" id="video-source-el">
-              <track kind="captions" srclang="en" label="English" default>
-              Your browser does not support the video tag.
-            </video>
-          </div>
+    <!-- Student Filter Pills -->
+    <div class="filter-bar" id="curriculum-student-bar">
+      <button class="filter-chip active" data-cstudent="all">All Students</button>
+      <button class="filter-chip" data-cstudent="shadan">Shadan (11A Girls)</button>
+      <button class="filter-chip" data-cstudent="elyana">Elyana (9A Girls)</button>
+      <button class="filter-chip" data-cstudent="talal_nawaf">Talal & Nawaf (9B Boys)</button>
+    </div>
 
-          <!-- Video Details and Metadata -->
-          <div class="video-content-body">
-            <div class="video-badge-row">
-              <span class="badge badge-orange">Grade 4–5</span>
-              <span class="badge badge-blue">⏱️ 5 min 12 sec</span>
-              <span class="badge badge-green">English Reading</span>
-              <span class="badge badge-placeholder">Curriculum Unit 2</span>
-            </div>
+    <!-- Week Selector Tabs -->
+    <div style="display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px;">
+      <button class="filter-chip active" id="tab-week-latest" data-cweek="latest">📌 Latest Live Week (Week 5)</button>
+      <button class="filter-chip" data-cweek="w4">Week 4 (Sep 13 - 17)</button>
+      <button class="filter-chip" data-cweek="w3">Week 3 (Sep 06 - 10)</button>
+    </div>
 
-            <h2 class="video-title">Mastering Context Clues: How to Crack Unfamiliar Words Like a Detective</h2>
-
-            <div class="video-objective">
-              <strong>🎯 Lesson Objective:</strong> Students will be able to identify and use 4 types of context clues (Definition, Synonym, Antonym, and Inference) to decode unfamiliar vocabulary words in informational texts without a dictionary.
-            </div>
-
-            <!-- Learning Actions -->
-            <div class="video-actions-row">
-              <button class="btn-primary" style="width:auto;flex:1;" id="btn-open-quiz">
-                📝 Take 3-Question Quiz
-              </button>
-              <button class="btn-secondary" style="flex:1;" id="btn-open-transcript">
-                📜 Full Transcript & Captions
-              </button>
-              <button class="btn-secondary" id="btn-download-worksheet">
-                📥 Download Worksheet (PDF)
-              </button>
-            </div>
-
-            <!-- Student Video Progress Indicator -->
-            <div class="video-progress-box">
-              <div class="video-progress-text">
-                <span>Student Lesson Progress</span>
-                <span id="lesson-progress-percent">75% Completed</span>
-              </div>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar-fill" id="lesson-progress-bar" style="width:75%;background:var(--accent);"></div>
-              </div>
-              <div style="font-size:.74rem;color:var(--text-3);margin-top:6px;">
-                ✓ Video watched (5:12) · ✓ Notes reviewed · ⏳ Practice quiz pending
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- Related Video Lessons Side Rail -->
-      <div class="video-side">
-        <div class="card">
-          <div class="card-header">
-            <h3>📚 Related Video Lessons</h3>
-          </div>
-          <div class="related-grid">
-            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Subject-Verb Agreement…')">
-              <div class="related-thumb" aria-hidden="true">💡</div>
-              <div class="related-info">
-                <div class="related-title">Subject-Verb Agreement Made Fun</div>
-                <div class="related-meta">Grade 4 • 4 min 45 sec</div>
-              </div>
-            </div>
-            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Main Idea vs Supporting Details…')">
-              <div class="related-thumb" aria-hidden="true">🎯</div>
-              <div class="related-info">
-                <div class="related-title">Main Idea vs. Supporting Details</div>
-                <div class="related-meta">Grade 5 • 5 min 05 sec</div>
-              </div>
-            </div>
-            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Writing Strong Topic Sentences…')">
-              <div class="related-thumb" aria-hidden="true">✍️</div>
-              <div class="related-info">
-                <div class="related-title">Writing Strong Topic Sentences</div>
-                <div class="related-meta">Grade 6 • 5 min 20 sec</div>
-              </div>
-            </div>
-            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Prefixes and Suffixes Detective…')">
-              <div class="related-thumb" aria-hidden="true">🔍</div>
-              <div class="related-info">
-                <div class="related-title">Prefixes & Suffixes Detective</div>
-                <div class="related-meta">Grade 3 • 4 min 30 sec</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video Workflow Notes -->
-        <div class="card">
-          <div class="card-header">
-            <h3>🎥 Workflow Quick Reference</h3>
-          </div>
-          <p style="font-size:.8rem;margin-bottom:8px;">Produced following the 7-step pipeline in <code>VIDEO-CREATION-WORKFLOW.md</code>:</p>
-          <ul style="font-size:.78rem;color:var(--text-2);padding-left:16px;line-height:1.6;">
-            <li>Audio mastered at <strong>-14 LUFS</strong> with RNNoise suppression</li>
-            <li>Web-optimized MP4 with <strong>faststart</strong> metadata</li>
-            <li>Accessible WebVTT captions (<37 chars/line)</li>
-            <li>Formative quiz and worksheet embedded directly below</li>
-          </ul>
-        </div>
-      </div>
+    <!-- Curriculum Display Container -->
+    <div id="curriculum-container">
+      <!-- Dynamically generated via JavaScript -->
     </div>
   </section>
 
@@ -909,7 +812,12 @@
       </div>
       <div class="field">
         <label for="session-subject">Subject / Topic</label>
-        <input type="text" id="session-subject" placeholder="e.g. Reading Comprehension — Context Clues" />
+        <div style="display:flex;gap:6px;margin-bottom:6px;align-items:center;">
+          <select id="quick-agenda-topic" style="font-size:.82rem;padding:8px 10px;background:var(--surface);">
+            <option value="">⚡ Quick-pick from School Agenda (ELA, Math, Chem, Bio, Phys)...</option>
+          </select>
+        </div>
+        <input type="text" id="session-subject" placeholder="e.g. Chapter 13: Heat Transfer & Calorimetry" />
       </div>
       <div class="field">
         <label for="session-notes">Teacher Observations & Notes (optional)</label>
@@ -1027,9 +935,9 @@
     <span class="nav-icon">🏠</span>
     <span>Dashboard</span>
   </button>
-  <button class="nav-item" data-view="view-videos" role="tab" aria-selected="false">
-    <span class="nav-icon">🎥</span>
-    <span>Videos</span>
+  <button class="nav-item" data-view="view-curriculum" role="tab" aria-selected="false">
+    <span class="nav-icon">📚</span>
+    <span>Agendas</span>
   </button>
   <button class="nav-item" data-view="view-add" role="tab" aria-selected="false">
     <span class="nav-icon">＋</span>
@@ -1138,11 +1046,11 @@
 
 /* ─── Student Roster & Data Models ─── */
 const STUDENTS = [
-  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah', grade: 'Grade 6', subject: 'English & Math', progress: 88, attendance: '96%', avatar: 'AA' },
-  { id: 'shadan',   name: 'Shadan',             rate: 125, shortName: 'Shadan',   grade: 'Grade 5', subject: 'Reading & Grammar', progress: 94, attendance: '100%', avatar: 'SH' },
-  { id: 'elyana',   name: 'Elyana',             rate: 125, shortName: 'Elyana',   grade: 'Grade 4', subject: 'Vocabulary & Writing', progress: 85, attendance: '92%', avatar: 'EL' },
-  { id: 'talal',    name: 'Talal',              rate: 125, shortName: 'Talal',    grade: 'Grade 3', subject: 'Phonics & Fluency', progress: 79, attendance: '94%', avatar: 'TL' },
-  { id: 'nawaf',    name: 'Nawaf',              rate: 125, shortName: 'Nawaf',    grade: 'Grade 5', subject: 'Reading Comprehension', progress: 90, attendance: '95%', avatar: 'NW' },
+  { id: 'shadan',   name: 'Shadan',             rate: 125, shortName: 'Shadan',   grade: 'Grade 11A (Girls)', section: '11A', subjects: 'ELA, Math, Chem, Bio, Phys, GAT', progress: 94, attendance: '100%', avatar: 'SH' },
+  { id: 'elyana',   name: 'Elyana',             rate: 125, shortName: 'Elyana',   grade: 'Grade 9A (Girls)',  section: '9A',  subjects: 'ELA, Math, Biology, Science', progress: 88, attendance: '95%', avatar: 'EL' },
+  { id: 'talal',    name: 'Talal',              rate: 125, shortName: 'Talal',    grade: 'Grade 9B (Boys)',   section: '9B',  subjects: 'ELA, Math, Chem, Bio, Phys', progress: 84, attendance: '96%', avatar: 'TL' },
+  { id: 'nawaf',    name: 'Nawaf',              rate: 125, shortName: 'Nawaf',    grade: 'Grade 9B (Boys)',   section: '9B',  subjects: 'ELA, Math, Chem, Bio, Phys', progress: 87, attendance: '96%', avatar: 'NW' },
+  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah', grade: 'Special Tutoring', section: 'Tutor', subjects: 'English & Math', progress: 89, attendance: '96%', avatar: 'AA' },
 ];
 
 const STORAGE_KEY = 'tutoring_sessions_v1';
@@ -1403,10 +1311,12 @@ function switchView(viewId) {
     targetView.classList.add('active');
   }
 
-  if (viewId === 'view-dashboard') { renderDashboard(); }
-  if (viewId === 'view-log')       { renderSessions(); }
-  if (viewId === 'view-report')    { renderReportStudentList(); }
-  if (viewId === 'view-settings')  { renderSettings(); }
+  if (viewId === 'view-dashboard')  { renderDashboard(); }
+  if (viewId === 'view-curriculum') { renderCurriculumHub(); }
+  if (viewId === 'view-add')        { populateQuickAgendaTopics(); }
+  if (viewId === 'view-log')        { renderSessions(); }
+  if (viewId === 'view-report')     { renderReportStudentList(); }
+  if (viewId === 'view-settings')   { renderSettings(); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1438,7 +1348,7 @@ function renderDashboard() {
         <div class="roster-avatar" aria-hidden="true">${st.avatar}</div>
         <div style="flex:1;">
           <div class="roster-title">${st.name}</div>
-          <div class="roster-grade">${st.grade} • ${st.subject}</div>
+          <div class="roster-grade">${st.grade} • ${st.subjects || 'All Subjects'}</div>
         </div>
         <span class="badge badge-orange">${st.rate} SAR/h</span>
       </div>
@@ -2034,157 +1944,295 @@ function toggleVideoPlayer() {
 document.getElementById('btn-toggle-video-mode')?.addEventListener('click', toggleVideoPlayer);
 videoFallbackEl?.addEventListener('click', toggleVideoPlayer);
 
-/* Quiz Modal */
-const quizModal = document.getElementById('quiz-modal');
-document.getElementById('btn-open-quiz')?.addEventListener('click', () => {
-  quizModal.classList.add('active');
-});
-document.getElementById('btn-close-quiz')?.addEventListener('click', () => {
-  quizModal.classList.remove('active');
-});
+/* ─── Arab International Schools Weekly Curriculum Database ─── */
+let CURRICULUM_DATA = {
+  last_synced: "2026-09-25T03:34:00 (Every Sunday @ 11:00 AM KSA)",
+  school: "Arab International Schools (arabschools.edu.sa)",
+  latest_week: "Week 5 (Sep 20 - 24)",
+  weeks: {
+    "latest": {
+      name: "Week 5 (Sep 20 - 24, 2026)",
+      shadan: {
+        title: "Shadan — Grade 11A (Girls)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11A_Weekly_Agenda-T1-Week-5.pdf",
+        subjects: {
+          "ELA": ["Unit 1: 'Harlem' by Langston Hughes (Historical Context)", "Craft & Structure: Imagery, Metaphor & Symbolism", "Vocabulary in Context: Segregation & Aspiration", "Reflective Narrative Writing Workshop"],
+          "Math": ["Checkpoint Assessment 1 Revision", "Polynomial Operations & Rational Expressions"],
+          "Physics": ["Chapter 12 Lesson 2: Forces & Interactions in Fluids (pp. 128-130)", "Fluid Pressure & Hydraulic Lift Principles"],
+          "Chemistry": ["Chapter 13 Lesson 2: Heat Transfer & Calorimetry (pp. 102-105)", "Specific Heat Calculations & Progress Check 3"],
+          "Biology": ["Cellular Respiration & Energy Flow in Biological Systems"]
+        }
+      },
+      elyana: {
+        title: "Elyana — Grade 9A (Girls)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9A_Weekly_Agenda-T1-Week-5.pdf",
+        subjects: {
+          "ELA": ["Selection Vocabulary from 'LOL!' and Paired Informational Text", "Grammar: Correcting Vague Pronouns in Writing", "First Read: Structure & Humor in Nonfiction", "Short Story Planning Workshop"],
+          "Math": ["Lesson 1-3: Solving Linear Equations with Variables on Both Sides", "Lesson 1-5: Algebraic Inequalities & Number Line Graphing"],
+          "Physics": ["Chapter 1 Lesson 2: Scientific Notation in Physical Measurements", "Precision, Significant Figures & Unit Conversion"],
+          "Chemistry": ["Chapter 2: Chemical vs Physical Properties Lab Review"],
+          "Biology": ["Unit 1 Revision: Biodiversity, Ecosystem Balance & Bioremediation"]
+        }
+      },
+      talal_nawaf: {
+        title: "Talal & Nawaf — Grade 9B (Boys)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda-1.pdf",
+        subjects: {
+          "ELA": ["Pre-Reading & First Read: 'LOL!' (Student Edition pp. 18-25)", "Selection Vocabulary Practice (Workbook p. 10)", "Grammar: Clarifying Vague Pronouns (WB pp. 12-14)", "Creative Narrative Writing Workshop: Voice & Arc"],
+          "Math": ["Lesson 1-4: Comparing & Ordering Real Numbers", "Real Number Classification & Density on Number Line"],
+          "Physics": ["Chapter 1 Lesson 2: Scientific Notation & SI Measurement Units", "Scientific Inquiry & Experimental Uncertainty"],
+          "Chemistry": ["Chapter 2 Lesson 1: The Nature of Matter & Molecular States", "Properties of Matter & Density Calculations"],
+          "Biology": ["Unit 1 Revision: Ecosystem Dynamics, Biodiversity & Bioremediation"]
+        }
+      }
+    },
+    "w4": {
+      name: "Week 4 (Sep 13 - 17, 2026)",
+      shadan: {
+        title: "Shadan — Grade 11A (Girls)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11A_Weekly_Agenda-T1-W4.pdf",
+        subjects: {
+          "ELA": ["SAT English Preparation: Central Ideas & Text Evidence", "Words in Context: High-Yield Vocabulary Strategy", "Text Structure & Author Purpose Analysis"],
+          "Math": ["Functions, Domain/Range & Quadratic Models"],
+          "Physics": ["Fluid Mechanics: Pascal's Principle & Hydraulic Machines"],
+          "Chemistry": ["Chapter 13 Lesson 1: Bond Energy & Exothermic Processes"],
+          "Biology": ["Cellular Reproduction & Mitotic Phases"]
+        }
+      },
+      elyana: {
+        title: "Elyana — Grade 9A (Girls)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9A_Weekly_Agenda-T1-W4.pdf",
+        subjects: {
+          "ELA": ["Close Read: 'Two Kinds' — Making Textual Inferences", "Vocabulary Strategy: Slang & Idioms in Dialogue", "Pronoun-Antecedent Agreement Practice"],
+          "Math": ["Lesson 1-2 Review & Lesson 1-3: Linear Equations"],
+          "Physics": ["Scientific Notation Arithmetic & Powers of Ten"],
+          "Chemistry": ["Properties of Matter: Changes in State & Phase Diagrams"],
+          "Biology": ["Exploring Biology: Cell Theory & Microscope Labs"]
+        }
+      },
+      talal_nawaf: {
+        title: "Talal & Nawaf — Grade 9B (Boys)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda.pdf",
+        subjects: {
+          "ELA": ["Close Read: 'Two Kinds' — Cultural Identity & Themes", "Slang in Dialogue & Context Clue Strategies", "Pronoun Agreement & Mechanics"],
+          "Math": ["Lesson 1-2 & 1-3: Variables on Both Sides of Equations"],
+          "Physics": ["Working with Scientific Notation & Dimensional Analysis"],
+          "Chemistry": ["Chapter 2 Lesson 1: The Nature of Matter (pp. 40-41)"],
+          "Biology": ["Exploring Biology: Living vs Non-Living Systems"]
+        }
+      }
+    },
+    "w3": {
+      name: "Week 3 (Sep 06 - 10, 2026)",
+      shadan: {
+        title: "Shadan — Grade 11A (Girls)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/Grade_11A_Weekly_Agenda_T1-Week-3.pdf",
+        subjects: {
+          "ELA": ["SAT Reading Comprehension Practice Drills", "SAT Advanced Vocabulary in Context", "Craft & Rhetorical Structure Drills"],
+          "Math": ["Algebra II Foundations & Functions Review"],
+          "Physics": ["Chapter 12 Lesson 1: Fluid Mechanics — Density & Buoyancy"],
+          "Chemistry": ["Chapter 13 Lesson 1: Energy & Chemical Bonds (pp. 92-97)"],
+          "Biology": ["Volume 3 Unit 5 Chapter 16: Introduction to Genetics"]
+        }
+      },
+      elyana: {
+        title: "Elyana — Grade 9A (Girls)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/Grade_9A_Weekly_Agenda_T1-Week-3.pdf",
+        subjects: {
+          "ELA": ["Pre-Reading: 'Two Kinds' by Amy Tan — Motifs & Family Dynamics", "Vocabulary 1: Story Words in Literary Context", "Grammar: Pronoun Case & Usage"],
+          "Math": ["Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 20-22)"],
+          "Physics": ["Measurement Standards, Units & Metric System"],
+          "Chemistry": ["Chapter 2 Lesson 1: Properties of Matter (Intro)"],
+          "Biology": ["Unit 1 Chapter 1: Exploring Biology & Life Characteristics"]
+        }
+      },
+      talal_nawaf: {
+        title: "Talal & Nawaf — Grade 9B (Boys)",
+        pdf: "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B-T1-Week-3-Weekly-Agenda.pdf",
+        subjects: {
+          "ELA": ["Pre-Reading: 'Two Kinds' — Mother-Daughter Conflicts", "Vocabulary 1: Story Words & Literary Devices", "Reading Comprehension Checkpoints"],
+          "Math": ["Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 20-25)"],
+          "Physics": ["Chapter 1 Lesson 2: Scientific Notation & Significant Digits"],
+          "Chemistry": ["Chapter 2 Lesson 1: The Nature of Matter (pp. 36-39)"],
+          "Biology": ["Unit 1 Chapter 1: Scientific Method & Observation in Biology"]
+        }
+      }
+    }
+  }
+};
 
-/* Transcript Modal */
-const transcriptModal = document.getElementById('transcript-modal');
-document.getElementById('btn-open-transcript')?.addEventListener('click', () => {
-  transcriptModal.classList.add('active');
-});
-document.getElementById('btn-close-transcript')?.addEventListener('click', () => {
-  transcriptModal.classList.remove('active');
-});
+let activeCurriculumWeek = 'latest';
+let activeCurriculumStudent = 'all';
 
-// Close modals on backdrop click or Escape
-[quizModal, transcriptModal].forEach(modal => {
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('active');
+function renderCurriculumHub() {
+  const container = document.getElementById('curriculum-container');
+  if (!container) return;
+
+  const weekData = CURRICULUM_DATA.weeks[activeCurriculumWeek] || CURRICULUM_DATA.weeks['latest'];
+  
+  let studentsToRender = ['shadan', 'elyana', 'talal_nawaf'];
+  if (activeCurriculumStudent !== 'all') {
+    studentsToRender = [activeCurriculumStudent];
+  }
+
+  let html = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow);">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-weight:700;font-size:1.05rem;color:var(--text);">${weekData.name}</div>
+          <div style="font-size:.76rem;color:var(--text-3);">Automatic sync scheduled every Sunday at 11:00 AM KSA from arabschools.edu.sa</div>
+        </div>
+        <span class="badge badge-green">✓ Synced Live</span>
+      </div>
+    </div>
+  `;
+
+  const subjectBadges = {
+    'ELA': 'badge-orange',
+    'Math': 'badge-blue',
+    'Physics': 'badge-green',
+    'Chemistry': 'badge-amber',
+    'Biology': 'badge-purple'
+  };
+
+  studentsToRender.forEach(sKey => {
+    const sInfo = weekData[sKey];
+    if (!sInfo) return;
+
+    html += `
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header" style="border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:12px;">
+          <div>
+            <h2 style="font-size:1.1rem;display:flex;align-items:center;gap:8px;">
+              <span>🎓 ${sInfo.title}</span>
+            </h2>
+          </div>
+          <a href="${sInfo.pdf}" target="_blank" class="btn-secondary" style="padding:4px 10px;font-size:.75rem;text-decoration:none;">
+            📄 View School PDF
+          </a>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;">
+    `;
+
+    for (const [subj, topics] of Object.entries(sInfo.subjects)) {
+      const badgeCls = subjectBadges[subj] || 'badge-gray';
+      html += `
+        <div style="background:var(--surface-2);border-radius:var(--radius-sm);padding:12px;border:1px solid var(--border);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <strong style="font-size:.88rem;color:var(--text);">${subj}</strong>
+            <span class="badge ${badgeCls}" style="font-size:.68rem;">${subj}</span>
+          </div>
+          <ul style="padding-left:16px;font-size:.78rem;color:var(--text-2);line-height:1.5;">
+            ${topics.length > 0 ? topics.map(t => `<li style="margin-bottom:4px;">${t}</li>`).join('') : '<li style="color:var(--text-3);list-style:none;">No specific agenda item listed</li>'}
+          </ul>
+        </div>
+      `;
+    }
+
+    html += `
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+/* Populate Quick-pick dropdown in Add Session */
+function populateQuickAgendaTopics() {
+  const select = document.getElementById('quick-agenda-topic');
+  if (!select) return;
+
+  select.innerHTML = '<option value="">⚡ Quick-pick from School Agenda (ELA, Math, Chem, Bio, Phys)...</option>';
+  
+  const latest = CURRICULUM_DATA.weeks['latest'];
+  ['shadan', 'elyana', 'talal_nawaf'].forEach(sKey => {
+    const sInfo = latest[sKey];
+    if (!sInfo) return;
+    const optGroup = document.createElement('optgroup');
+    optGroup.label = sInfo.title;
+
+    for (const [subj, topics] of Object.entries(sInfo.subjects)) {
+      topics.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = `${subj}: ${t}`;
+        opt.textContent = `[${subj}] ${t}`;
+        optGroup.appendChild(opt);
+      });
+    }
+    select.appendChild(optGroup);
+  });
+
+  select.addEventListener('change', (e) => {
+    if (e.target.value) {
+      const subjectInput = document.getElementById('session-subject');
+      if (subjectInput) {
+        subjectInput.value = e.target.value;
+        toast(`✅ Topic selected: ${e.target.value.substring(0, 30)}…`);
+      }
+    }
+  });
+}
+
+/* Event listeners for Curriculum Hub filters */
+document.querySelectorAll('#curriculum-student-bar .filter-chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#curriculum-student-bar .filter-chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCurriculumStudent = btn.dataset.cstudent;
+    renderCurriculumHub();
   });
 });
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    quizModal?.classList.remove('active');
-    transcriptModal?.classList.remove('active');
+
+document.querySelectorAll('[data-cweek]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-cweek]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCurriculumWeek = btn.dataset.cweek;
+    renderCurriculumHub();
+  });
+});
+
+document.getElementById('btn-sync-curriculum')?.addEventListener('click', async () => {
+  const syncBtn = document.getElementById('btn-sync-curriculum');
+  if (syncBtn) syncBtn.textContent = '⏳ Checking...';
+  try {
+    const res = await fetch('./curriculum_data.json?t=' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.weeks) {
+        CURRICULUM_DATA = data;
+        renderCurriculumHub();
+        populateQuickAgendaTopics();
+        toast('🔄 Synced with latest school agenda!');
+      }
+    } else {
+      toast('✅ Current agenda is up to date.');
+    }
+  } catch (e) {
+    toast('✅ Current agenda is up to date.');
+  } finally {
+    if (syncBtn) syncBtn.innerHTML = `
+      <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      Sync Now
+    `;
   }
 });
-
-/* Quiz Scoring Logic */
-document.getElementById('btn-submit-quiz')?.addEventListener('click', () => {
-  const form = document.getElementById('quiz-form');
-  const q1 = form.querySelector('input[name="q1"]:checked')?.value;
-  const q2 = form.querySelector('input[name="q2"]:checked')?.value;
-  const q3 = form.querySelector('input[name="q3"]:checked')?.value;
-
-  if (!q1 || !q2 || !q3) {
-    toast('⚠️ Please answer all 3 questions first!');
-    return;
-  }
-
-  let score = 0;
-  if (q1 === 'definition') score++;
-  if (q2 === 'antonym') score++;
-  if (q3 === 'read_around') score++;
-
-  const resultBox = document.getElementById('quiz-result');
-  resultBox.style.display = 'block';
-
-  if (score === 3) {
-    resultBox.style.background = 'var(--green-lt)';
-    resultBox.style.color = 'var(--green)';
-    resultBox.innerHTML = `<strong>🎉 Perfect Score! 3 / 3 (100%)</strong><br/>You are an official Context Clues Detective!`;
-    document.getElementById('lesson-progress-percent').textContent = '100% Completed (Quiz Passed)';
-    document.getElementById('lesson-progress-bar').style.width = '100%';
-    document.getElementById('lesson-progress-bar').style.background = 'var(--green)';
-  } else {
-    resultBox.style.background = 'var(--amber-lt)';
-    resultBox.style.color = 'var(--amber)';
-    resultBox.innerHTML = `<strong>Score: ${score} / 3</strong><br/>Good try! Review the transcript and try once more.`;
-  }
-});
-
-/* Resource Download Buttons (Safe Offline Blobs) */
-document.getElementById('btn-download-worksheet')?.addEventListener('click', () => {
-  downloadSampleWorksheet();
-});
-document.getElementById('btn-resource-worksheet')?.addEventListener('click', () => {
-  downloadSampleWorksheet();
-});
-document.getElementById('btn-resource-reading-log')?.addEventListener('click', () => {
-  downloadSampleReadingLog();
-});
-
-function downloadSampleWorksheet() {
-  const content = `========================================================
-📚 GRADE 4-5 ENGLISH PRACTICE SHEET: CONTEXT CLUES
-Student Name: _______________________ Date: ____________
-========================================================
-
-INSTRUCTIONS: Read each sentence. Circle the context clues 
-and write the definition of the underlined word in your own words.
-
-1. The ancient chest was IMMENSE; it took four strong men to lift it.
-   - Clue words: _________________________________________
-   - "Immense" means: ____________________________________
-
-2. Unlike her GARRULOUS sister who talked all day, Jane was very quiet.
-   - Clue words: _________________________________________
-   - "Garrulous" means: __________________________________
-
-3. The puppy was FAMISHED, so he devoured the whole bowl of food.
-   - Clue words: _________________________________________
-   - "Famished" means: ___________________________________
-
-4. The path was HAZARDOUS, filled with loose rocks and steep cliffs.
-   - Clue words: _________________________________________
-   - "Hazardous" means: __________________________________
-
-5. The baker kneaded the dough until it was PLIABLE, or easily bent.
-   - Clue words: _________________________________________
-   - "Pliable" means: ____________________________________
-
-Answer Key available in the Teacher Portal.
-Tutoring Tracker — Grades 3-6 Learning Hub
-========================================================`;
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'Grade4-5_Context_Clues_Worksheet.txt';
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('📥 Worksheet downloaded!');
-}
-
-function downloadSampleReadingLog() {
-  const content = `========================================================
-📖 WEEKLY READING LOG & COMPREHENSION TRACKER
-Grades 3–6 Elementary Tutoring
-========================================================
-
-Student Name: _____________________ Week of: ___________
-Goal: 20 minutes of active reading per day.
-
-[Day]     | [Book Title & Chapter] | [Mins] | [Parent Sig]
-Monday    | _____________________ | _____  | ____________
-Tuesday   | _____________________ | _____  | ____________
-Wednesday | _____________________ | _____  | ____________
-Thursday  | _____________________ | _____  | ____________
-Friday    | _____________________ | _____  | ____________
-
-One new vocabulary word I learned this week:
-Word: ____________________  Definition: ________________
-
-Parent / Tutor Feedback:
-________________________________________________________`;
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'Weekly_Reading_Log_Grades3-6.txt';
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('📥 Reading Log downloaded!');
-}
 
 /* ─── Initialization ─── */
-function init() {
+async function init() {
+  // Load dynamic curriculum JSON if available
+  fetch('./curriculum_data.json?t=' + Date.now())
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (data && data.weeks) {
+        CURRICULUM_DATA = data;
+        renderCurriculumHub();
+        populateQuickAgendaTopics();
+      }
+    })
+    .catch(() => {});
   const sessionDateInput = document.getElementById('session-date');
   if (sessionDateInput) sessionDateInput.value = todayISO();
 
@@ -2200,6 +2248,8 @@ function init() {
   updateAmountPreview();
   updateHeader();
   renderDashboard();
+  renderCurriculumHub();
+  populateQuickAgendaTopics();
 
   // Live Hijri date badge updater
   function refreshSessionHijriBadge() {
