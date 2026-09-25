@@ -901,7 +901,10 @@
     <div class="card">
       <div class="card-header"><h2>Date & Details</h2></div>
       <div class="field">
-        <label for="session-date">Date</label>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <label for="session-date">Date (Gregorian & Hijri)</label>
+          <span id="session-hijri-badge" class="badge badge-orange" style="font-size:.72rem;"></span>
+        </div>
         <input type="date" id="session-date" />
       </div>
       <div class="field">
@@ -1155,9 +1158,44 @@ let reportSelectedStudents = new Set();
 let isVideoPlayerActive = false;
 
 /* ─── Utils ─── */
+function getHijriDate(d) {
+  try {
+    return new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }).format(d);
+  } catch (e) {
+    return '';
+  }
+}
+
+function getHijriArabic(d) {
+  try {
+    return new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    }).format(d);
+  } catch (e) {
+    return '';
+  }
+}
+
 function formatDate(iso) {
+  if (!iso) return '—';
   const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('en-SA', { day:'numeric', month:'short', year:'numeric' });
+  const greg = d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+  const hijri = getHijriDate(d);
+  return hijri ? `${greg} (${hijri})` : greg;
+}
+
+function formatDualDate(iso) {
+  if (!iso) return { greg: '—', hijri: '' };
+  const d = new Date(iso + 'T00:00:00');
+  const greg = d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+  const hijri = getHijriDate(d);
+  return { greg, hijri };
 }
 function todayISO() {
   const d = new Date();
@@ -1165,7 +1203,13 @@ function todayISO() {
 }
 function monthLabel(iso) {
   const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('en-SA', { month:'long', year:'numeric' });
+  const gregMonth = d.toLocaleDateString('en-GB', { month:'long', year:'numeric' });
+  try {
+    const hijriMonth = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { month:'long', year:'numeric' }).format(d);
+    return `${gregMonth} · ${hijriMonth}`;
+  } catch (e) {
+    return gregMonth;
+  }
 }
 function fmtHours(h) {
   if (h === 0.5) return '½ hr';
@@ -1187,8 +1231,9 @@ function toast(msg, duration = 2400) {
 /* ─── Header Total & Date ─── */
 function updateHeader() {
   const today = new Date();
-  document.getElementById('header-date').textContent =
-    today.toLocaleDateString('en-SA', { weekday:'short', day:'numeric', month:'long' });
+  const gregStr = today.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+  const hijriStr = getHijriArabic(today) || getHijriDate(today);
+  document.getElementById('header-date').textContent = hijriStr ? `${gregStr}  ·  ${hijriStr}` : gregStr;
 
   const thisMonth = today.toISOString().slice(0,7);
   const total = sessions
@@ -1401,6 +1446,12 @@ document.getElementById('btn-save')?.addEventListener('click', () => {
   document.getElementById('session-date').value = todayISO();
   document.getElementById('session-subject').value = '';
   document.getElementById('session-notes').value = '';
+  const badge = document.getElementById('session-hijri-badge');
+  if (badge) {
+    const d = new Date();
+    const hijri = getHijriArabic(d) || getHijriDate(d);
+    badge.textContent = hijri ? `🌙 ${hijri}` : '';
+  }
   buildStudentGrid();
   buildDurationGrid();
   updateAmountPreview();
@@ -1473,7 +1524,10 @@ function renderSessions() {
       el.innerHTML = `
         <div class="session-top">
           <div class="session-student">${s.studentName}</div>
-          <div class="session-date">${formatDate(s.date)}</div>
+          <div class="session-date" style="text-align:right;">
+            <div>${formatDualDate(s.date).greg}</div>
+            ${formatDualDate(s.date).hijri ? `<div style="font-size:.68rem;color:var(--accent);">${formatDualDate(s.date).hijri}</div>` : ''}
+          </div>
         </div>
         <div class="session-meta">
           <span class="badge badge-orange">${fmtHours(s.hours)}</span>
@@ -1980,6 +2034,21 @@ function init() {
   updateAmountPreview();
   updateHeader();
   renderDashboard();
+
+  // Live Hijri date badge updater
+  function refreshSessionHijriBadge() {
+    const badge = document.getElementById('session-hijri-badge');
+    const val = sessionDateInput?.value;
+    if (badge && val) {
+      const d = new Date(val + 'T00:00:00');
+      const hijri = getHijriArabic(d) || getHijriDate(d);
+      badge.textContent = hijri ? `🌙 ${hijri}` : '';
+    }
+  }
+  if (sessionDateInput) {
+    sessionDateInput.addEventListener('change', refreshSessionHijriBadge);
+    refreshSessionHijriBadge();
+  }
 }
 
 init();
