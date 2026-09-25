@@ -6,36 +6,46 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#faf8f5" />
-  <title>Tutoring Tracker — Hisham</title>
+  <title>Tutoring Tracker & Video Learning Hub — Grades 3–6</title>
   <link rel="manifest" href="manifest.json" />
 
   <!-- jsPDF for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
-    /* ── Reset & Tokens ── */
+    /* ── Reset & Design Tokens ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:         #faf8f5;
-      --surface:    #ffffff;
-      --surface-2:  #f5f2ee;
-      --border:     #e8e3db;
-      --border-2:   #d4cdc3;
-      --text:       #1c1917;
-      --text-2:     #57534e;
-      --text-3:     #a8a29e;
-      --accent:     #c2672a;
-      --accent-lt:  #fdeee3;
-      --accent-dk:  #9a4e1e;
-      --green:      #16a34a;
-      --green-lt:   #dcfce7;
-      --radius:     14px;
-      --radius-sm:  8px;
-      --radius-pill:999px;
-      --shadow:     0 1px 4px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
-      --shadow-md:  0 2px 8px rgba(0,0,0,.08), 0 8px 32px rgba(0,0,0,.08);
-      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --bg:          #faf8f5;
+      --surface:     #ffffff;
+      --surface-2:   #f5f2ee;
+      --surface-3:   #ede8e1;
+      --border:      #e8e2d8;
+      --border-2:    #d4cdc3;
+      --border-focus:#c2672a;
+      --text:        #1c1917;
+      --text-2:      #57534e;
+      --text-3:      #8c827a;
+      --accent:      #c2672a;
+      --accent-lt:   #fdeee3;
+      --accent-dk:   #9a4e1e;
+      --green:       #15803d;
+      --green-lt:    #dcfce7;
+      --amber:       #b45309;
+      --amber-lt:    #fef3c7;
+      --blue:        #1d4ed8;
+      --blue-lt:     #dbeafe;
+      --purple:      #7e22ce;
+      --purple-lt:   #f3e8ff;
+      --danger:      #dc2626;
+      --danger-lt:   #fee2e2;
+      --radius:      14px;
+      --radius-sm:   8px;
+      --radius-pill: 999px;
+      --shadow:      0 1px 4px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+      --shadow-md:   0 2px 8px rgba(0,0,0,.08), 0 8px 30px rgba(0,0,0,.07);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
 
@@ -49,43 +59,88 @@
       color: var(--text);
       min-height: 100dvh;
       -webkit-font-smoothing: antialiased;
+      line-height: 1.5;
     }
 
-    /* ── Typography ── */
-    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
-    h2 { font-size: 1.15rem; font-weight: 600; }
-    h3 { font-size: 1rem; font-weight: 600; }
-    p  { line-height: 1.6; color: var(--text-2); }
+    /* ── Typography & Accessible Focus ── */
+    h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -.02em; color: var(--text); }
+    h2 { font-size: 1.2rem; font-weight: 600; color: var(--text); }
+    h3 { font-size: 1.02rem; font-weight: 600; color: var(--text); }
+    p  { line-height: 1.6; color: var(--text-2); font-size: .92rem; }
 
-    /* ── Layout ── */
-    .app { max-width: 480px; margin: 0 auto; padding: 0 0 calc(80px + var(--safe-bottom)); }
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ── Badges & Chips ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 8px; border-radius: var(--radius-pill);
+      font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .03em;
+    }
+    .badge-orange  { background: var(--accent-lt); color: var(--accent-dk); }
+    .badge-green   { background: var(--green-lt); color: var(--green); }
+    .badge-amber   { background: var(--amber-lt); color: var(--amber); }
+    .badge-blue    { background: var(--blue-lt); color: var(--blue); }
+    .badge-purple  { background: var(--purple-lt); color: var(--purple); }
+    .badge-gray    { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+    .badge-placeholder {
+      background: #fff7ed; color: #c2410c; border: 1px dashed #fb923c;
+      font-size: .68rem; padding: 2px 6px; font-weight: 600;
+    }
+
+    /* ── App Shell & Responsive Layout ── */
+    .app {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px calc(84px + var(--safe-bottom));
+      transition: max-width .2s ease;
+    }
 
     /* ── Header ── */
     header {
       position: sticky; top: 0; z-index: 50;
-      background: rgba(250,248,245,.92);
+      background: rgba(250,248,245,.95);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 16px 20px 12px;
+      padding: 12px 18px;
       display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
     }
     .header-brand { display: flex; align-items: center; gap: 10px; }
     .header-logo {
-      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      width: 38px; height: 38px; border-radius: var(--radius-sm);
       background: var(--accent); display: flex; align-items: center; justify-content: center;
-      color: #fff; font-weight: 700; font-size: .9rem;
+      color: #fff; font-weight: 700; font-size: .95rem; box-shadow: 0 2px 6px rgba(194,103,42,.25);
     }
-    .header-title { font-size: 1rem; font-weight: 600; line-height: 1.2; }
-    .header-sub   { font-size: .72rem; color: var(--text-3); font-weight: 400; }
+    .header-title { font-size: 1.05rem; font-weight: 700; line-height: 1.2; }
+    .header-sub   { font-size: .74rem; color: var(--text-2); font-weight: 400; }
     .header-stats { text-align: right; }
-    .stat-num     { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
-    .stat-label   { font-size: .68rem; color: var(--text-3); }
+    .stat-num     { font-size: 1.15rem; font-weight: 700; color: var(--accent); }
+    .stat-label   { font-size: .68rem; color: var(--text-3); text-transform: uppercase; font-weight: 600; }
 
-    /* ── Bottom Nav ── */
+    /* Desktop Navigation in Header (hidden on mobile) */
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .desktop-nav-btn {
+      background: transparent; border: none;
+      padding: 7px 12px; border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: .84rem; font-weight: 600;
+      color: var(--text-2); cursor: pointer; transition: all .15s ease;
+    }
+    .desktop-nav-btn:hover { background: var(--surface-2); color: var(--text); }
+    .desktop-nav-btn.active { background: var(--accent-lt); color: var(--accent-dk); }
+
+    /* ── Bottom Nav (Mobile) ── */
     nav.bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
-      background: rgba(255,255,255,.95);
+      background: rgba(255,255,255,.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-top: 1px solid var(--border);
@@ -94,297 +149,361 @@
     }
     .nav-item {
       flex: 1; display: flex; flex-direction: column; align-items: center;
-      gap: 4px; padding: 10px 8px; cursor: pointer;
+      gap: 3px; padding: 8px 4px; cursor: pointer;
       border: none; background: transparent;
-      color: var(--text-3); font-family: var(--font); font-size: .68rem; font-weight: 500;
+      color: var(--text-3); font-family: var(--font); font-size: .66rem; font-weight: 600;
       transition: color .15s;
       -webkit-tap-highlight-color: transparent;
     }
     .nav-item.active { color: var(--accent); }
-    .nav-icon { font-size: 1.3rem; line-height: 1; }
+    .nav-icon { font-size: 1.25rem; line-height: 1; }
 
-    /* ── Tabs / Views ── */
-    .view { display: none; padding: 20px; animation: fadeUp .25s ease; }
+    /* ── Views / Pages ── */
+    .view { display: none; padding: 18px 0; animation: fadeUp .22s ease; }
     .view.active { display: block; }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── Cards ── */
     .card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 20px;
+      border-radius: var(--radius); padding: 18px;
       box-shadow: var(--shadow); margin-bottom: 16px;
     }
-    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; gap: 8px; flex-wrap: wrap;
+    }
+    .card-header h2, .card-header h3 { display: flex; align-items: center; gap: 8px; }
 
-    /* ── Form Elements ── */
-    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+    /* ── Bento Grid Layout Helpers ── */
+    .bento-grid {
+      display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;
+    }
+    .grid-2col {
+      display: grid; grid-template-columns: 1fr; gap: 12px;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      width: 100%; padding: 13px 18px; border: none; border-radius: var(--radius-sm);
+      background: var(--accent); color: #fff;
+      font-family: var(--font); font-size: .95rem; font-weight: 600;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(194,103,42,.3);
+      transition: all .15s; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--accent-dk); }
+    .btn-primary:active { transform: scale(.98); }
+
+    .btn-secondary {
+      padding: 9px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--text);
+      font-family: var(--font); font-size: .84rem; font-weight: 600;
+      cursor: pointer; transition: all .15s; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .btn-secondary:hover { background: var(--surface-2); border-color: var(--border-2); }
+
+    .btn-danger {
+      padding: 8px 14px; border: 1.5px solid var(--danger-lt); border-radius: var(--radius-sm);
+      background: var(--surface); color: var(--danger);
+      font-family: var(--font); font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: all .15s;
+    }
+    .btn-danger:hover { background: var(--danger); color: #fff; }
+
+    /* ── Form Controls ── */
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
     .field label { font-size: .82rem; font-weight: 600; color: var(--text-2); }
-
     input[type="text"], input[type="date"], input[type="number"], textarea, select {
-      font-family: var(--font);
-      font-size: .95rem;
-      color: var(--text);
-      background: var(--surface-2);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      width: 100%;
-      outline: none;
-      transition: border-color .15s, box-shadow .15s;
-      -webkit-appearance: none;
-      appearance: none;
+      font-family: var(--font); font-size: .92rem; color: var(--text);
+      background: var(--surface-2); border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); padding: 11px 13px; width: 100%; outline: none;
+      transition: border-color .15s, box-shadow .15s; -webkit-appearance: none; appearance: none;
     }
     input:focus, textarea:focus, select:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(194,103,42,.12);
+      box-shadow: 0 0 0 3px rgba(194,103,42,.15);
     }
     textarea { resize: vertical; min-height: 80px; }
 
-    /* ── Student Picker ── */
-    .student-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-    }
+    /* ── Student Grid (Log Session) ── */
+    .student-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .student-btn {
-      padding: 12px 10px; border-radius: var(--radius-sm);
-      border: 2px solid var(--border);
-      background: var(--surface-2);
-      font-family: var(--font); font-size: .85rem; font-weight: 600;
-      color: var(--text-2); cursor: pointer;
-      display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
-      transition: all .15s; position: relative;
-      -webkit-tap-highlight-color: transparent;
+      position: relative; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); padding: 12px; text-align: left;
+      cursor: pointer; transition: all .15s; font-family: var(--font);
+      display: flex; flex-direction: column; gap: 4px;
     }
-    .student-btn:active { transform: scale(.97); }
     .student-btn.selected {
-      border-color: var(--accent); background: var(--accent-lt); color: var(--accent-dk);
+      border-color: var(--accent); background: var(--accent-lt);
+      box-shadow: 0 0 0 2px var(--accent);
     }
-    .student-btn .s-name { font-size: .9rem; }
-    .student-btn .s-rate { font-size: .72rem; font-weight: 400; color: var(--text-3); }
-    .student-btn.selected .s-rate { color: var(--accent); }
-    .student-btn .s-check {
-      position: absolute; top: 6px; right: 6px;
-      width: 18px; height: 18px; border-radius: 50%;
-      background: var(--border-2); border: 1.5px solid var(--border-2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .6rem; color: transparent; transition: all .15s;
+    .s-check {
+      position: absolute; top: 8px; right: 8px; width: 18px; height: 18px;
+      border-radius: var(--radius-pill); background: var(--accent); color: #fff;
+      display: none; align-items: center; justify-content: center; font-size: .65rem; font-weight: 700;
     }
-    .student-btn.selected .s-check {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
+    .student-btn.selected .s-check { display: flex; }
+    .s-name { font-size: .9rem; font-weight: 600; }
+    .s-rate { font-size: .75rem; color: var(--text-2); font-weight: 500; }
 
-    /* ── Duration Picker ── */
-    .duration-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-    }
+    /* ── Duration Grid ── */
+    .duration-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .dur-btn {
-      padding: 12px 6px; border-radius: var(--radius-sm);
-      border: 2px solid var(--border);
-      background: var(--surface-2);
-      font-family: var(--font); font-size: .82rem; font-weight: 600;
-      color: var(--text-2); cursor: pointer; text-align: center;
-      transition: all .15s;
-      -webkit-tap-highlight-color: transparent;
+      padding: 10px 4px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface); font-family: var(--font); font-size: .84rem; font-weight: 600;
+      color: var(--text-2); cursor: pointer; text-align: center; transition: all .15s;
     }
-    .dur-btn:active { transform: scale(.97); }
     .dur-btn.selected {
-      border-color: var(--accent); background: var(--accent-lt); color: var(--accent-dk);
+      border-color: var(--accent); background: var(--accent); color: #fff;
     }
 
     /* ── Amount Preview ── */
     .amount-preview {
-      background: var(--accent-lt); border: 1.5px solid rgba(194,103,42,.25);
-      border-radius: var(--radius-sm); padding: 14px 16px;
-      margin-bottom: 20px;
+      background: var(--surface-2); border-radius: var(--radius-sm);
+      padding: 14px; margin-bottom: 16px; border: 1.5px solid var(--border);
     }
-    .amount-preview-row {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .amount-preview-row + .amount-preview-row {
-      margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(194,103,42,.15);
-    }
-    .amount-label { font-size: .82rem; color: var(--accent-dk); font-weight: 500; }
-    .amount-value { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
-    .amount-sub   { font-size: .78rem; color: var(--accent); font-weight: 600; }
+    .amount-preview-row { display: flex; justify-content: space-between; align-items: center; }
+    .amount-label { font-size: .86rem; color: var(--text-2); font-weight: 500; }
+    .amount-value { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
 
-    /* ── Primary Button ── */
-    .btn-primary {
-      width: 100%; padding: 15px;
-      background: var(--accent); color: #fff;
-      border: none; border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: 1rem; font-weight: 700;
-      cursor: pointer; transition: all .15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-primary:active { transform: scale(.98); background: var(--accent-dk); }
-    .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
-
-    .btn-secondary {
-      padding: 10px 18px;
-      background: var(--surface-2); color: var(--text-2);
-      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: .875rem; font-weight: 600;
-      cursor: pointer; transition: all .15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-secondary:active { background: var(--border); }
-
-    .btn-danger {
-      padding: 10px 18px;
-      background: #fef2f2; color: #dc2626;
-      border: 1.5px solid #fecaca; border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: .875rem; font-weight: 600;
-      cursor: pointer; transition: all .15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .btn-danger:active { background: #fecaca; }
-
-    /* ── Session List ── */
-    .session-item {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px;
-      margin-bottom: 10px; position: relative;
-      box-shadow: var(--shadow);
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .session-top { display: flex; align-items: flex-start; justify-content: space-between; }
-    .session-student {
-      font-weight: 700; font-size: 1rem;
-    }
-    .session-meta {
-      display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
-    }
-    .badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 10px; border-radius: var(--radius-pill);
-      font-size: .72rem; font-weight: 600;
-    }
-    .badge-orange { background: var(--accent-lt); color: var(--accent-dk); }
-    .badge-green  { background: var(--green-lt);  color: var(--green); }
-    .badge-gray   { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
-    .session-date { font-size: .8rem; color: var(--text-3); }
-    .session-notes { font-size: .82rem; color: var(--text-2); line-height: 1.5; }
-    .session-actions { display: flex; gap: 8px; }
-
-    /* ── Reports ── */
-    .report-student-check {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px; border-radius: var(--radius-sm);
-      border: 2px solid var(--border);
-      background: var(--surface-2);
-      margin-bottom: 8px; cursor: pointer;
-      transition: all .15s;
-    }
-    .report-student-check.selected {
-      border-color: var(--accent); background: var(--accent-lt);
-    }
-    .check-box {
-      width: 22px; height: 22px; border-radius: 6px;
-      border: 2px solid var(--border-2);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: .85rem;
-      transition: all .15s;
-    }
-    .report-student-check.selected .check-box {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
-    .check-info { flex: 1; }
-    .check-name { font-weight: 600; font-size: .9rem; }
-    .check-stat { font-size: .75rem; color: var(--text-3); }
-    .report-student-check.selected .check-stat { color: var(--accent); }
-
-    .report-range { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-
-    .summary-card {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dk) 100%);
-      border-radius: var(--radius); padding: 20px; color: #fff; margin-bottom: 16px;
-    }
-    .summary-card h3 { color: rgba(255,255,255,.8); font-weight: 500; font-size: .82rem; margin-bottom: 4px; }
-    .summary-val { font-size: 1.8rem; font-weight: 700; margin-bottom: 2px; }
-    .summary-sub { font-size: .8rem; color: rgba(255,255,255,.75); }
-
-    .summary-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .summary-mini {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 14px;
-      box-shadow: var(--shadow);
-    }
-    .summary-mini h3 { font-size: .72rem; color: var(--text-3); font-weight: 500; margin-bottom: 6px; }
-    .summary-mini .val { font-size: 1.2rem; font-weight: 700; color: var(--text); }
-
-    /* ── Empty State ── */
-    .empty-state {
-      text-align: center; padding: 48px 24px;
-      color: var(--text-3);
-    }
-    .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .empty-title { font-size: 1rem; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
-    .empty-desc { font-size: .85rem; }
-
-    /* ── Toast ── */
-    #toast {
-      position: fixed; bottom: calc(80px + var(--safe-bottom) + 12px);
-      left: 50%; transform: translateX(-50%) translateY(20px);
-      background: var(--text); color: #fff;
-      padding: 12px 20px; border-radius: var(--radius-pill);
-      font-size: .875rem; font-weight: 500;
-      opacity: 0; transition: all .3s; z-index: 100;
-      white-space: nowrap; pointer-events: none;
-      box-shadow: var(--shadow-md);
-    }
-    #toast.show {
-      opacity: 1; transform: translateX(-50%) translateY(0);
-    }
-
-    /* ── Filter bar ── */
-    .filter-bar {
-      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
-      margin-bottom: 16px; scrollbar-width: none;
-    }
-    .filter-bar::-webkit-scrollbar { display: none; }
+    /* ── Filter Chips ── */
+    .filter-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 14px; }
     .filter-chip {
-      flex-shrink: 0; padding: 6px 14px; border-radius: var(--radius-pill);
-      border: 1.5px solid var(--border);
-      background: var(--surface-2); color: var(--text-2);
-      font-family: var(--font); font-size: .78rem; font-weight: 600;
-      cursor: pointer; transition: all .15s;
-      -webkit-tap-highlight-color: transparent;
+      padding: 6px 14px; border-radius: var(--radius-pill); border: 1.5px solid var(--border);
+      background: var(--surface-2); color: var(--text-2); font-family: var(--font);
+      font-size: .78rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all .15s;
     }
-    .filter-chip.active {
-      background: var(--accent); border-color: var(--accent); color: #fff;
-    }
+    .filter-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* ── Month Group ── */
+    /* ── Session Log Items ── */
     .month-group-label {
       font-size: .75rem; font-weight: 700; color: var(--text-3);
-      letter-spacing: .08em; text-transform: uppercase;
-      padding: 4px 0 8px; margin-top: 4px;
+      letter-spacing: .08em; text-transform: uppercase; padding: 4px 0 8px;
     }
+    .session-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 14px; margin-bottom: 10px;
+    }
+    .session-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .session-student { font-size: .95rem; font-weight: 600; }
+    .session-date { font-size: .76rem; color: var(--text-3); }
+    .session-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .session-notes { font-size: .84rem; color: var(--text-2); margin-bottom: 8px; font-style: italic; }
+    .session-actions { display: flex; justify-content: flex-end; }
 
-    /* ── Divider ── */
-    hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    /* ── Report Tab ── */
+    .report-range { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+    .report-student-check {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px;
+      cursor: pointer; background: var(--surface); transition: background .15s;
+    }
+    .report-student-check.selected { background: var(--accent-lt); border-color: var(--accent); }
+    .check-box {
+      width: 20px; height: 20px; border-radius: 4px; border: 1.5px solid var(--border-2);
+      display: flex; align-items: center; justify-content: center; font-size: .75rem; color: #fff;
+    }
+    .report-student-check.selected .check-box { background: var(--accent); border-color: var(--accent); }
+    .check-info { flex: 1; }
+    .check-name { font-size: .88rem; font-weight: 600; }
+    .check-stat { font-size: .74rem; color: var(--text-3); }
+    .summary-card {
+      background: var(--surface-2); border-radius: var(--radius); padding: 16px;
+      margin-bottom: 14px; text-align: center; border: 1px solid var(--border);
+    }
+    .summary-val { font-size: 1.6rem; font-weight: 700; color: var(--accent); margin: 4px 0; }
+    .summary-sub { font-size: .8rem; color: var(--text-2); }
 
     /* ── Settings ── */
     .setting-row {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 0; border-bottom: 1px solid var(--border);
+      padding: 12px 0; border-bottom: 1px solid var(--border); gap: 10px;
     }
     .setting-row:last-child { border-bottom: none; }
-    .setting-label { font-size: .9rem; font-weight: 500; }
-    .setting-desc  { font-size: .75rem; color: var(--text-3); }
-    .setting-val   { font-size: .9rem; font-weight: 600; color: var(--accent); }
+    .setting-label { font-size: .88rem; font-weight: 600; }
+    .setting-desc  { font-size: .74rem; color: var(--text-3); }
+    .setting-val   { font-size: .88rem; font-weight: 600; color: var(--accent); }
 
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+    /* ── DASHBOARD SPECIFIC COMPONENTS (Grades 3–6) ── */
+    /* Student Roster Cards */
+    .roster-card {
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      padding: 12px 14px; background: var(--surface); transition: transform .15s ease, box-shadow .15s ease;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .roster-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .roster-header { display: flex; align-items: center; gap: 10px; }
+    .roster-avatar {
+      width: 38px; height: 38px; border-radius: var(--radius-pill);
+      background: var(--accent-lt); color: var(--accent-dk); font-weight: 700;
+      font-size: .84rem; display: flex; align-items: center; justify-content: center;
+    }
+    .roster-title { font-size: .94rem; font-weight: 600; line-height: 1.2; }
+    .roster-grade { font-size: .74rem; color: var(--text-2); }
+    .progress-bar-wrap { width: 100%; height: 7px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width .4s ease; }
 
-    /* ── Print / PDF ── */
+    /* Upcoming Lesson List */
+    .timeline-item {
+      display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-time {
+      font-size: .75rem; font-weight: 700; color: var(--accent); background: var(--accent-lt);
+      padding: 4px 8px; border-radius: var(--radius-sm); white-space: nowrap;
+    }
+    .timeline-body { flex: 1; }
+    .timeline-student { font-size: .88rem; font-weight: 600; }
+    .timeline-topic { font-size: .78rem; color: var(--text-2); }
+
+    /* Assignment Table / List */
+    .assignment-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; background: var(--surface-2); border-radius: var(--radius-sm); margin-bottom: 8px; gap: 8px;
+    }
+    .assignment-info { flex: 1; }
+    .assignment-title { font-size: .86rem; font-weight: 600; }
+    .assignment-meta { font-size: .74rem; color: var(--text-3); }
+
+    /* Teacher Notes List */
+    .note-bubble {
+      background: var(--surface-2); border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 12px; margin-bottom: 10px; font-size: .84rem;
+    }
+    .note-meta { font-size: .72rem; color: var(--text-3); font-weight: 600; margin-bottom: 4px; display: flex; justify-content: space-between; }
+
+    /* ── VIDEO LESSON COMPONENT ── */
+    .video-hero-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 20px;
+    }
+    .video-player-container {
+      position: relative; width: 100%; aspect-ratio: 16 / 9;
+      background: #111; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .video-element {
+      width: 100%; height: 100%; object-fit: contain;
+    }
+    .video-poster-fallback {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #2d1810 0%, #1c1917 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: #fff; text-align: center; padding: 20px; cursor: pointer;
+    }
+    .play-btn-circle {
+      width: 62px; height: 62px; border-radius: 50%; background: var(--accent);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(194,103,42,.6);
+      transition: transform .2s ease;
+    }
+    .video-poster-fallback:hover .play-btn-circle { transform: scale(1.08); }
+    .video-content-body { padding: 18px; }
+    .video-badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: center; }
+    .video-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+    .video-objective {
+      background: var(--surface-2); border-radius: var(--radius-sm); padding: 12px;
+      font-size: .86rem; color: var(--text-2); margin-bottom: 14px; border-left: 3px solid var(--blue);
+    }
+    .video-actions-row {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px;
+    }
+    .video-progress-box {
+      background: var(--surface-2); border-radius: var(--radius-sm); padding: 10px 14px;
+      margin-bottom: 16px; border: 1px solid var(--border);
+    }
+    .video-progress-text { display: flex; justify-content: space-between; font-size: .8rem; font-weight: 600; margin-bottom: 6px; }
+
+    /* Related Lessons Grid */
+    .related-grid {
+      display: grid; grid-template-columns: 1fr; gap: 12px;
+    }
+    .related-card {
+      display: flex; gap: 12px; padding: 10px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--surface); cursor: pointer;
+      transition: background .15s ease;
+    }
+    .related-card:hover { background: var(--surface-2); }
+    .related-thumb {
+      width: 80px; height: 56px; border-radius: 6px; background: var(--surface-3);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .related-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .related-title { font-size: .85rem; font-weight: 600; line-height: 1.25; margin-bottom: 3px; }
+    .related-meta { font-size: .72rem; color: var(--text-3); }
+
+    /* ── Accessible Modal Dialogs ── */
+    .modal-backdrop {
+      display: none; position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 540px;
+      max-height: 85vh; overflow-y: auto; padding: 20px; box-shadow: var(--shadow-md);
+      position: relative; animation: popIn .2s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 14px; background: var(--surface-2);
+      border: none; width: 28px; height: 28px; border-radius: 50%;
+      cursor: pointer; font-size: 1rem; font-weight: 700; color: var(--text-2);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Toast Notification ── */
+    #toast {
+      position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--text); color: #fff; padding: 10px 18px; border-radius: var(--radius-pill);
+      font-size: .84rem; font-weight: 500; opacity: 0; pointer-events: none;
+      transition: all .25s ease; z-index: 999; box-shadow: var(--shadow-md); white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Empty State ── */
+    .empty-state { text-align: center; padding: 36px 16px; color: var(--text-3); }
+    .empty-icon  { font-size: 2.2rem; margin-bottom: 8px; }
+    .empty-title { font-size: 1rem; font-weight: 600; color: var(--text-2); margin-bottom: 4px; }
+    .empty-desc  { font-size: .82rem; }
+
+    /* ── Tablet & Desktop Breakpoints ── */
+    @media (min-width: 768px) {
+      .app { max-width: 820px; padding: 0 24px calc(90px + var(--safe-bottom)); }
+      .student-grid { grid-template-columns: repeat(3, 1fr); }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-2col { grid-template-columns: 1fr 1fr; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (min-width: 1024px) {
+      .app {
+        max-width: 1180px;
+        padding: 0 28px 40px; /* No mobile bottom nav needed */
+      }
+      nav.bottom-nav { display: none; }
+      .desktop-nav { display: flex; }
+      #toast { bottom: 24px; }
+
+      /* Desktop Grid Layout: Main Workspace + Side Rail */
+      .dashboard-layout {
+        display: grid; grid-template-columns: 8fr 4fr; gap: 20px; align-items: start;
+      }
+      .videos-layout {
+        display: grid; grid-template-columns: 8fr 4fr; gap: 20px; align-items: start;
+      }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media print {
       body { background: #fff; }
-      nav.bottom-nav, header { display: none; }
+      nav.bottom-nav, header, .desktop-nav { display: none !important; }
       .view { display: block !important; padding: 0; }
     }
   </style>
@@ -394,34 +513,375 @@
 <!-- ────────────────── HEADER ────────────────── -->
 <header>
   <div class="header-brand">
-    <div class="header-logo">HT</div>
+    <div class="header-logo" aria-hidden="true">HT</div>
     <div>
       <div class="header-title">Tutoring Tracker</div>
-      <div class="header-sub" id="header-date">Loading…</div>
+      <div class="header-sub" id="header-date">Grades 3–6 Learning Hub</div>
     </div>
   </div>
+
+  <!-- Desktop Header Tabs -->
+  <nav class="desktop-nav" role="tablist" aria-label="Main Navigation">
+    <button class="desktop-nav-btn active" data-view="view-dashboard" role="tab" aria-selected="true">🏠 Dashboard</button>
+    <button class="desktop-nav-btn" data-view="view-videos" role="tab" aria-selected="false">🎥 Video Lessons</button>
+    <button class="desktop-nav-btn" data-view="view-add" role="tab" aria-selected="false">➕ Log Session</button>
+    <button class="desktop-nav-btn" data-view="view-log" role="tab" aria-selected="false">📋 History</button>
+    <button class="desktop-nav-btn" data-view="view-report" role="tab" aria-selected="false">📊 Report</button>
+    <button class="desktop-nav-btn" data-view="view-settings" role="tab" aria-selected="false">⚙️ Settings</button>
+  </nav>
+
   <div class="header-stats">
     <div class="stat-num" id="hdr-total-sar">0 SAR</div>
-    <div class="stat-label">this month</div>
+    <div class="stat-label">This Month</div>
   </div>
 </header>
 
-<!-- ────────────────── MAIN ────────────────── -->
-<main class="app">
+<!-- ────────────────── MAIN CONTENT CONTAINER ────────────────── -->
+<main class="app" id="main-content">
 
-  <!-- ══ VIEW: ADD SESSION ══ -->
-  <div class="view active" id="view-add">
+  <!-- ════ VIEW 1: DASHBOARD (Grades 3–6 Student Overview) ════ -->
+  <section class="view active" id="view-dashboard" role="tabpanel" aria-label="Dashboard Overview">
+    <div class="card-header" style="margin-bottom:12px;">
+      <div>
+        <h1>Classroom & Tutoring Dashboard</h1>
+        <p>Parent & Teacher Portal for Abdullah, Shadan, Elyana, Talal & Nawaf</p>
+      </div>
+      <button class="btn-secondary" id="dash-btn-quick-log">➕ Quick Log Session</button>
+    </div>
 
-    <!-- Student picker -->
+    <!-- Responsive Bento Layout -->
+    <div class="dashboard-layout">
+      <!-- Main Column -->
+      <div class="dash-main">
+        
+        <!-- Student Overview Roster -->
+        <div class="card">
+          <div class="card-header">
+            <h2>👨‍🎓 Student Overview & Progress</h2>
+            <span class="badge badge-placeholder">Demo Placeholder Data</span>
+          </div>
+          <div class="grid-2col" id="dashboard-student-roster">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Assignment Status Pipeline -->
+        <div class="card">
+          <div class="card-header">
+            <h2>📝 Assignment & Homework Tracker</h2>
+            <span class="badge badge-placeholder">Curriculum Flow</span>
+          </div>
+          <div id="assignment-list">
+            <div class="assignment-item">
+              <div class="assignment-info">
+                <div class="assignment-title">Context Clues Practice Worksheet (10 Sentences)</div>
+                <div class="assignment-meta">Shadan (Grade 5) • English Reading • Due Today</div>
+              </div>
+              <span class="badge badge-green">Completed (10/10)</span>
+            </div>
+            <div class="assignment-item">
+              <div class="assignment-info">
+                <div class="assignment-title">Persuasive Paragraph Outline: "Should School Start Later?"</div>
+                <div class="assignment-meta">Abdullah (Grade 6) • Writing & Rhetoric • Submitted</div>
+              </div>
+              <span class="badge badge-amber">Under Review</span>
+            </div>
+            <div class="assignment-item">
+              <div class="assignment-info">
+                <div class="assignment-title">Prefixes & Root Words Flashcard Drills</div>
+                <div class="assignment-meta">Talal (Grade 3) • Phonics & Vocabulary • Due Sunday</div>
+              </div>
+              <span class="badge badge-blue">In Progress</span>
+            </div>
+            <div class="assignment-item">
+              <div class="assignment-info">
+                <div class="assignment-title">Reading Log Week 4 (Chapters 3 & 4)</div>
+                <div class="assignment-meta">Elyana (Grade 4) • Guided Reading</div>
+              </div>
+              <span class="badge badge-green">Completed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Competency & Skill Progress Indicators -->
+        <div class="card">
+          <div class="card-header">
+            <h2>📈 Key Competency Mastery (Grades 3–6)</h2>
+            <span class="badge badge-green">Overall: 88% Mastery</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
+                <span>Reading Comprehension & Context Clues</span>
+                <span style="color:var(--green)">91% (Advanced)</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:91%;background:var(--green)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
+                <span>Grammar, Syntax & Sentence Mechanics</span>
+                <span style="color:var(--accent)">84% (Proficient)</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:84%;background:var(--accent)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
+                <span>Vocabulary Acquisition & Morphological Awareness</span>
+                <span style="color:var(--blue)">89% (Advanced)</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:89%;background:var(--blue)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;margin-bottom:4px;">
+                <span>Written Composition & Paragraph Structure</span>
+                <span style="color:var(--amber)">78% (Developing)</span>
+              </div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:78%;background:var(--amber)"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Column -->
+      <div class="dash-side">
+
+        <!-- Attendance Snapshot -->
+        <div class="card">
+          <div class="card-header">
+            <h3>📅 Attendance Tracker</h3>
+            <span class="badge badge-green">95.4% Rate</span>
+          </div>
+          <p style="font-size:.82rem;margin-bottom:10px;">Attendance records across all active Grade 3–6 students for the current semester.</p>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <div style="flex:1;background:var(--surface-2);border-radius:var(--radius-sm);padding:8px;text-align:center;">
+              <div style="font-size:1.15rem;font-weight:700;color:var(--green);">21</div>
+              <div style="font-size:.68rem;color:var(--text-3);text-transform:uppercase;">Present</div>
+            </div>
+            <div style="flex:1;background:var(--surface-2);border-radius:var(--radius-sm);padding:8px;text-align:center;">
+              <div style="font-size:1.15rem;font-weight:700;color:var(--amber);">1</div>
+              <div style="font-size:.68rem;color:var(--text-3);text-transform:uppercase;">Rescheduled</div>
+            </div>
+            <div style="flex:1;background:var(--surface-2);border-radius:var(--radius-sm);padding:8px;text-align:center;">
+              <div style="font-size:1.15rem;font-weight:700;color:var(--text-3);">0</div>
+              <div style="font-size:.68rem;color:var(--text-3);text-transform:uppercase;">Absent</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Lessons Schedule -->
+        <div class="card">
+          <div class="card-header">
+            <h3>⏰ Upcoming Lessons</h3>
+            <span class="badge badge-orange">Next 7 Days</span>
+          </div>
+          <div id="upcoming-lessons-list">
+            <div class="timeline-item">
+              <span class="timeline-time">Tomorrow 4:30 PM</span>
+              <div class="timeline-body">
+                <div class="timeline-student">Abdullah AlRubiyan (Grade 6)</div>
+                <div class="timeline-topic">English Grammar & Thesis Construction</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">Sun 5:00 PM</span>
+              <div class="timeline-body">
+                <div class="timeline-student">Shadan (Grade 5)</div>
+                <div class="timeline-topic">Context Clues & Reading Comprehension</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-time">Mon 4:00 PM</span>
+              <div class="timeline-body">
+                <div class="timeline-student">Elyana (Grade 4)</div>
+                <div class="timeline-topic">Vocabulary Word Wall & Sentence Crafting</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teacher Pedagogical Notes -->
+        <div class="card">
+          <div class="card-header">
+            <h3>📋 Teacher Notes & Observations</h3>
+            <span class="badge badge-purple">Private Log</span>
+          </div>
+          <div class="note-bubble">
+            <div class="note-meta">
+              <span>Shadan • Grade 5</span>
+              <span>Sep 22</span>
+            </div>
+            Demonstrated rapid improvement in decoding antonym clues. Transitioned from needing sentence scaffolds to self-identifying contrasting transition words (e.g., 'however', 'unlike').
+          </div>
+          <div class="note-bubble">
+            <div class="note-meta">
+              <span>Abdullah • Grade 6</span>
+              <span>Sep 20</span>
+            </div>
+            Completed algebraic word problem breakdown smoothly. Focus for next session: concise explanatory sentences in paragraph synthesis.
+          </div>
+        </div>
+
+        <!-- Lesson Resources Quick Access -->
+        <div class="card">
+          <div class="card-header">
+            <h3>📂 Printable Resources</h3>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn-secondary" style="width:100%;justify-content:flex-start;" id="btn-resource-worksheet">
+              📄 Context Clues Practice Sheet (PDF)
+            </button>
+            <button class="btn-secondary" style="width:100%;justify-content:flex-start;" id="btn-resource-reading-log">
+              📖 Weekly Reading Log & Parent Signature (PDF)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ VIEW 2: VIDEO LESSON HUB (Educational Video Workflow) ════ -->
+  <section class="view" id="view-videos" role="tabpanel" aria-label="Video Lessons Hub">
+    <div class="card-header" style="margin-bottom:12px;">
+      <div>
+        <h1>Educational Video Lessons</h1>
+        <p>Interactive 5-Minute English Curriculum for Grades 3–6</p>
+      </div>
+      <button class="btn-secondary" id="btn-toggle-video-mode">🎬 Toggle Video / Poster State</button>
+    </div>
+
+    <div class="videos-layout">
+      <!-- Main Featured Video Player Area -->
+      <div class="video-main">
+        <article class="video-hero-card" id="featured-video-card">
+          <!-- Responsive 16:9 Video Container -->
+          <div class="video-player-container" id="video-box">
+            <!-- Simulated Safe Video Player / Poster with Fallback -->
+            <div class="video-poster-fallback" id="video-fallback" role="button" tabindex="0" aria-label="Play video: Mastering Context Clues">
+              <div class="play-btn-circle" aria-hidden="true">▶</div>
+              <div style="font-size:1.15rem;font-weight:700;margin-bottom:4px;">Mastering Context Clues: Grade 4–5 Adventure</div>
+              <div style="font-size:.82rem;color:#f5f2ee;opacity:.85;">Tap to start interactive 5-minute video lesson</div>
+            </div>
+            <!-- Standard HTML5 Video (hidden initially or toggled) -->
+            <video class="video-element" id="main-video-player" controls preload="metadata" style="display:none;" poster="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 360'><rect width='640' height='360' fill='%231c1917'/><circle cx='320' cy='180' r='40' fill='%23c2672a'/><polygon points='312,165 336,180 312,195' fill='%23ffffff'/></svg>">
+              <!-- Safe local demo video source or data URI -->
+              <source src="" type="video/mp4" id="video-source-el">
+              <track kind="captions" srclang="en" label="English" default>
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <!-- Video Details and Metadata -->
+          <div class="video-content-body">
+            <div class="video-badge-row">
+              <span class="badge badge-orange">Grade 4–5</span>
+              <span class="badge badge-blue">⏱️ 5 min 12 sec</span>
+              <span class="badge badge-green">English Reading</span>
+              <span class="badge badge-placeholder">Curriculum Unit 2</span>
+            </div>
+
+            <h2 class="video-title">Mastering Context Clues: How to Crack Unfamiliar Words Like a Detective</h2>
+
+            <div class="video-objective">
+              <strong>🎯 Lesson Objective:</strong> Students will be able to identify and use 4 types of context clues (Definition, Synonym, Antonym, and Inference) to decode unfamiliar vocabulary words in informational texts without a dictionary.
+            </div>
+
+            <!-- Learning Actions -->
+            <div class="video-actions-row">
+              <button class="btn-primary" style="width:auto;flex:1;" id="btn-open-quiz">
+                📝 Take 3-Question Quiz
+              </button>
+              <button class="btn-secondary" style="flex:1;" id="btn-open-transcript">
+                📜 Full Transcript & Captions
+              </button>
+              <button class="btn-secondary" id="btn-download-worksheet">
+                📥 Download Worksheet (PDF)
+              </button>
+            </div>
+
+            <!-- Student Video Progress Indicator -->
+            <div class="video-progress-box">
+              <div class="video-progress-text">
+                <span>Student Lesson Progress</span>
+                <span id="lesson-progress-percent">75% Completed</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar-fill" id="lesson-progress-bar" style="width:75%;background:var(--accent);"></div>
+              </div>
+              <div style="font-size:.74rem;color:var(--text-3);margin-top:6px;">
+                ✓ Video watched (5:12) · ✓ Notes reviewed · ⏳ Practice quiz pending
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Related Video Lessons Side Rail -->
+      <div class="video-side">
+        <div class="card">
+          <div class="card-header">
+            <h3>📚 Related Video Lessons</h3>
+          </div>
+          <div class="related-grid">
+            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Subject-Verb Agreement…')">
+              <div class="related-thumb" aria-hidden="true">💡</div>
+              <div class="related-info">
+                <div class="related-title">Subject-Verb Agreement Made Fun</div>
+                <div class="related-meta">Grade 4 • 4 min 45 sec</div>
+              </div>
+            </div>
+            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Main Idea vs Supporting Details…')">
+              <div class="related-thumb" aria-hidden="true">🎯</div>
+              <div class="related-info">
+                <div class="related-title">Main Idea vs. Supporting Details</div>
+                <div class="related-meta">Grade 5 • 5 min 05 sec</div>
+              </div>
+            </div>
+            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Writing Strong Topic Sentences…')">
+              <div class="related-thumb" aria-hidden="true">✍️</div>
+              <div class="related-info">
+                <div class="related-title">Writing Strong Topic Sentences</div>
+                <div class="related-meta">Grade 6 • 5 min 20 sec</div>
+              </div>
+            </div>
+            <div class="related-card" role="button" tabindex="0" onclick="toast('Loading: Prefixes and Suffixes Detective…')">
+              <div class="related-thumb" aria-hidden="true">🔍</div>
+              <div class="related-info">
+                <div class="related-title">Prefixes & Suffixes Detective</div>
+                <div class="related-meta">Grade 3 • 4 min 30 sec</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video Workflow Notes -->
+        <div class="card">
+          <div class="card-header">
+            <h3>🎥 Workflow Quick Reference</h3>
+          </div>
+          <p style="font-size:.8rem;margin-bottom:8px;">Produced following the 7-step pipeline in <code>VIDEO-CREATION-WORKFLOW.md</code>:</p>
+          <ul style="font-size:.78rem;color:var(--text-2);padding-left:16px;line-height:1.6;">
+            <li>Audio mastered at <strong>-14 LUFS</strong> with RNNoise suppression</li>
+            <li>Web-optimized MP4 with <strong>faststart</strong> metadata</li>
+            <li>Accessible WebVTT captions (<37 chars/line)</li>
+            <li>Formative quiz and worksheet embedded directly below</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ VIEW 3: ADD SESSION (Existing Logging Logic Intact) ════ -->
+  <section class="view" id="view-add" role="tabpanel" aria-label="Log Session">
     <div class="card">
       <div class="card-header">
         <h2>Select Students</h2>
-        <span id="selected-count" style="font-size:.78rem;color:var(--text-3);font-weight:500"></span>
+        <span id="selected-count" style="font-size:.78rem;color:var(--text-3);font-weight:500">tap to select</span>
       </div>
       <div class="student-grid" id="student-grid"></div>
     </div>
 
-    <!-- Duration picker -->
     <div class="card">
       <div class="card-header">
         <h2>Duration</h2>
@@ -438,27 +898,22 @@
       </div>
     </div>
 
-    <!-- Date -->
     <div class="card">
       <div class="card-header"><h2>Date & Details</h2></div>
-
       <div class="field">
         <label for="session-date">Date</label>
         <input type="date" id="session-date" />
       </div>
-
       <div class="field">
         <label for="session-subject">Subject / Topic</label>
-        <input type="text" id="session-subject" placeholder="e.g. Algebra — Chapter 4" />
+        <input type="text" id="session-subject" placeholder="e.g. Reading Comprehension — Context Clues" />
       </div>
-
       <div class="field">
-        <label for="session-notes">Notes (optional)</label>
-        <textarea id="session-notes" placeholder="Homework, next steps, observations…"></textarea>
+        <label for="session-notes">Teacher Observations & Notes (optional)</label>
+        <textarea id="session-notes" placeholder="Homework assigned, mastery observations, next steps…"></textarea>
       </div>
     </div>
 
-    <!-- Amount preview -->
     <div class="amount-preview" id="amount-preview">
       <div class="amount-preview-row">
         <span class="amount-label">Session amount</span>
@@ -466,73 +921,69 @@
       </div>
     </div>
 
-    <button class="btn-primary" id="btn-save">Save Session</button>
-  </div>
+    <button class="btn-primary" id="btn-save">💾 Save Session Record</button>
+  </section>
 
-  <!-- ══ VIEW: SESSIONS LOG ══ -->
-  <div class="view" id="view-log">
-    <h2 style="margin-bottom:14px;">Session Log</h2>
-
-    <!-- Filter chips -->
+  <!-- ════ VIEW 4: SESSIONS LOG (Existing History Filter Intact) ════ -->
+  <section class="view" id="view-log" role="tabpanel" aria-label="Session History">
+    <div class="card-header">
+      <h2>Session History & Billing Log</h2>
+    </div>
     <div class="filter-bar" id="filter-bar">
       <button class="filter-chip active" data-filter="all">All</button>
     </div>
-
     <div id="sessions-list">
       <div class="empty-state">
         <div class="empty-icon">📋</div>
         <div class="empty-title">No sessions yet</div>
-        <div class="empty-desc">Add your first session in the + tab</div>
+        <div class="empty-desc">Add your first session in the + Log tab</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ══ VIEW: REPORTS ══ -->
-  <div class="view" id="view-report">
-    <h2 style="margin-bottom:16px;">Generate Report</h2>
-
+  <!-- ════ VIEW 5: REPORTS & PDF EXPORT (Existing jsPDF Logic Intact) ════ -->
+  <section class="view" id="view-report" role="tabpanel" aria-label="Generate Report">
+    <div class="card-header">
+      <h2>Generate PDF Parent Report</h2>
+    </div>
     <div class="card">
-      <h3 style="margin-bottom:14px;">Select Students</h3>
+      <h3 style="margin-bottom:12px;">Select Students</h3>
       <div id="report-student-list"></div>
     </div>
-
     <div class="card">
-      <h3 style="margin-bottom:14px;">Date Range</h3>
+      <h3 style="margin-bottom:12px;">Date Range</h3>
       <div class="report-range">
         <div class="field" style="margin-bottom:0">
-          <label>From</label>
+          <label for="report-from">From</label>
           <input type="date" id="report-from" />
         </div>
         <div class="field" style="margin-bottom:0">
-          <label>To</label>
+          <label for="report-to">To</label>
           <input type="date" id="report-to" />
         </div>
       </div>
     </div>
-
-    <!-- Summary preview -->
     <div id="report-preview"></div>
-
     <div style="display:flex;gap:10px;margin-bottom:10px;">
-      <button class="btn-secondary" style="flex:1" id="btn-preview-report">Preview</button>
+      <button class="btn-secondary" style="flex:1" id="btn-preview-report">👁️ Preview</button>
       <button class="btn-primary" style="flex:1;width:auto" id="btn-pdf">📄 Export PDF</button>
     </div>
-  </div>
+  </section>
 
-  <!-- ══ VIEW: SETTINGS ══ -->
-  <div class="view" id="view-settings">
-    <h2 style="margin-bottom:16px;">Settings</h2>
-
+  <!-- ════ VIEW 6: SETTINGS & BACKUP (Existing Backup & Rates Intact) ════ -->
+  <section class="view" id="view-settings" role="tabpanel" aria-label="Settings">
+    <div class="card-header">
+      <h2>Settings & Student Rates</h2>
+    </div>
     <div class="card">
-      <h3 style="margin-bottom:0">Students & Rates</h3>
+      <h3 style="margin-bottom:8px">Students & Hourly Rates</h3>
       <div id="students-settings"></div>
     </div>
-
     <div class="card">
       <div class="setting-row">
         <div>
           <div class="setting-label">Clear all data</div>
-          <div class="setting-desc">Remove all session records</div>
+          <div class="setting-desc">Remove all session records on this device</div>
         </div>
         <button class="btn-danger" id="btn-clear">Clear</button>
       </div>
@@ -543,50 +994,145 @@
         </div>
         <button class="btn-secondary" id="btn-export-json">Export</button>
       </div>
+      <div class="setting-row">
+        <div>
+          <div class="setting-label">Import JSON backup</div>
+          <div class="setting-desc">Restore or transfer sessions from Mac/iPhone</div>
+        </div>
+        <button class="btn-secondary" id="btn-import-trigger">Import</button>
+        <input type="file" id="input-import-json" accept=".json" style="display:none;" />
+      </div>
     </div>
-
     <div class="card" style="text-align:center;color:var(--text-3);font-size:.8rem;">
-      <div style="font-weight:600;margin-bottom:4px;">Tutoring Tracker v1.0</div>
-      <div>Data saved locally on this device</div>
+      <div style="font-weight:600;margin-bottom:4px;">Tutoring Tracker & Video Learning Hub v2.0</div>
+      <div>Designed for Grades 3–6 • Offline-capable & PWA Ready</div>
     </div>
-  </div>
+  </section>
 
 </main>
 
-<!-- ────────────────── BOTTOM NAV ────────────────── -->
-<nav class="bottom-nav">
-  <button class="nav-item active" data-view="view-add">
-    <span class="nav-icon">＋</span>
-    <span>Add</span>
+<!-- ────────────────── BOTTOM NAVIGATION (MOBILE) ────────────────── -->
+<nav class="bottom-nav" role="tablist" aria-label="Mobile Navigation">
+  <button class="nav-item active" data-view="view-dashboard" role="tab" aria-selected="true">
+    <span class="nav-icon">🏠</span>
+    <span>Dashboard</span>
   </button>
-  <button class="nav-item" data-view="view-log">
-    <span class="nav-icon">📋</span>
+  <button class="nav-item" data-view="view-videos" role="tab" aria-selected="false">
+    <span class="nav-icon">🎥</span>
+    <span>Videos</span>
+  </button>
+  <button class="nav-item" data-view="view-add" role="tab" aria-selected="false">
+    <span class="nav-icon">＋</span>
     <span>Log</span>
   </button>
-  <button class="nav-item" data-view="view-report">
+  <button class="nav-item" data-view="view-log" role="tab" aria-selected="false">
+    <span class="nav-icon">📋</span>
+    <span>History</span>
+  </button>
+  <button class="nav-item" data-view="view-report" role="tab" aria-selected="false">
     <span class="nav-icon">📊</span>
     <span>Report</span>
   </button>
-  <button class="nav-item" data-view="view-settings">
+  <button class="nav-item" data-view="view-settings" role="tab" aria-selected="false">
     <span class="nav-icon">⚙️</span>
     <span>Settings</span>
   </button>
 </nav>
 
-<!-- Toast -->
-<div id="toast"></div>
+<!-- ────────────────── MODAL: 3-QUESTION QUIZ ────────────────── -->
+<div class="modal-backdrop" id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title">
+  <div class="modal-card">
+    <button class="modal-close" id="btn-close-quiz" aria-label="Close quiz dialog">×</button>
+    <div class="card-header" style="margin-bottom:8px;">
+      <h2 id="quiz-modal-title">📝 Context Clues Detective Quiz</h2>
+      <span class="badge badge-orange">Grade 4–5</span>
+    </div>
+    <p style="margin-bottom:16px;">Test your knowledge after watching the 5-minute video lesson:</p>
+    
+    <form id="quiz-form">
+      <div class="field" style="margin-bottom:14px;">
+        <label><strong>Question 1:</strong> "The nocturnal animal only hunted at night." Which context clue type tells you what <em>nocturnal</em> means?</label>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q1" value="definition" /> Definition clue ("only hunted at night")</label>
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q1" value="antonym" /> Antonym clue</label>
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q1" value="synonym" /> Synonym clue</label>
+        </div>
+      </div>
 
-<!-- ────────────────── SCRIPT ────────────────── -->
+      <div class="field" style="margin-bottom:14px;">
+        <label><strong>Question 2:</strong> "Unlike his sluggish brother, Mark was extremely energetic." The word <em>sluggish</em> is contrasted with <em>energetic</em>. What type of clue is this?</label>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q2" value="antonym" /> Antonym (opposite) clue</label>
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q2" value="definition" /> Definition clue</label>
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q2" value="inference" /> Inference clue</label>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px;">
+        <label><strong>Question 3:</strong> What is the first thing a reader should do when encountering an unfamiliar word?</label>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q3" value="read_around" /> Read the sentences right before and after the word</label>
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q3" value="skip" /> Skip the whole paragraph</label>
+          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q3" value="guess" /> Guess randomly without checking clues</label>
+        </div>
+      </div>
+
+      <div id="quiz-result" style="display:none;margin-bottom:12px;padding:10px;border-radius:var(--radius-sm);"></div>
+
+      <button type="button" class="btn-primary" id="btn-submit-quiz">Submit Answers</button>
+    </form>
+  </div>
+</div>
+
+<!-- ────────────────── MODAL: FULL TIMED TRANSCRIPT ────────────────── -->
+<div class="modal-backdrop" id="transcript-modal" role="dialog" aria-modal="true" aria-labelledby="transcript-modal-title">
+  <div class="modal-card">
+    <button class="modal-close" id="btn-close-transcript" aria-label="Close transcript dialog">×</button>
+    <div class="card-header" style="margin-bottom:8px;">
+      <h2 id="transcript-modal-title">📜 Synchronized Lesson Transcript</h2>
+      <span class="badge badge-blue">WebVTT Source</span>
+    </div>
+    <p style="margin-bottom:14px;font-size:.82rem;">Click any timestamp to jump or follow along with the lesson:</p>
+    
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:.85rem;line-height:1.5;">
+      <div style="background:var(--surface-2);padding:8px 10px;border-radius:6px;">
+        <strong style="color:var(--accent);font-family:monospace;">[00:00 - 00:35]</strong><br/>
+        "Welcome detective! Have you ever been reading an awesome story and suddenly hit a giant, mysterious word that made you stop in your tracks? Today, you become a Word Detective."
+      </div>
+      <div style="background:var(--surface-2);padding:8px 10px;border-radius:6px;">
+        <strong style="color:var(--accent);font-family:monospace;">[00:36 - 01:45]</strong><br/>
+        "Rule number one: Authors almost always leave clues. There are four major clue types: Definition clues, Synonym clues, Antonym clues, and Inference clues."
+      </div>
+      <div style="background:var(--surface-2);padding:8px 10px;border-radius:6px;">
+        <strong style="color:var(--accent);font-family:monospace;">[01:46 - 03:15]</strong><br/>
+        "Look at this sentence: 'The nocturnal owl, which hunts only after sundown, flew quietly.' The author tells us directly what nocturnal means right inside the commas!"
+      </div>
+      <div style="background:var(--surface-2);padding:8px 10px;border-radius:6px;">
+        <strong style="color:var(--accent);font-family:monospace;">[03:16 - 04:30]</strong><br/>
+        "Now try the second sentence on your screen. Pause this video for 10 seconds and tell me which type of clue reveals the meaning of 'conspicuous'!"
+      </div>
+      <div style="background:var(--surface-2);padding:8px 10px;border-radius:6px;">
+        <strong style="color:var(--accent);font-family:monospace;">[04:31 - 05:12]</strong><br/>
+        "Outstanding job detectives! Download the practice sheet below and complete your quick 3-question quiz. See you in the next lesson!"
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ────────────────── SCRIPT LOGIC ────────────────── -->
 <script>
 'use strict';
 
-/* ─── Data ─── */
+/* ─── Student Roster & Data Models ─── */
 const STUDENTS = [
-  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah' },
-  { id: 'shadan',   name: 'Shadan',             rate: 125, shortName: 'Shadan'   },
-  { id: 'elyana',   name: 'Elyana',              rate: 125, shortName: 'Elyana'   },
-  { id: 'talal',    name: 'Talal',               rate: 125, shortName: 'Talal'    },
-  { id: 'nawaf',    name: 'Nawaf',               rate: 125, shortName: 'Nawaf'    },
+  { id: 'abdullah', name: 'Abdullah AlRubiyan', rate: 150, shortName: 'Abdullah', grade: 'Grade 6', subject: 'English & Math', progress: 88, attendance: '96%', avatar: 'AA' },
+  { id: 'shadan',   name: 'Shadan',             rate: 125, shortName: 'Shadan',   grade: 'Grade 5', subject: 'Reading & Grammar', progress: 94, attendance: '100%', avatar: 'SH' },
+  { id: 'elyana',   name: 'Elyana',             rate: 125, shortName: 'Elyana',   grade: 'Grade 4', subject: 'Vocabulary & Writing', progress: 85, attendance: '92%', avatar: 'EL' },
+  { id: 'talal',    name: 'Talal',              rate: 125, shortName: 'Talal',    grade: 'Grade 3', subject: 'Phonics & Fluency', progress: 79, attendance: '94%', avatar: 'TL' },
+  { id: 'nawaf',    name: 'Nawaf',              rate: 125, shortName: 'Nawaf',    grade: 'Grade 5', subject: 'Reading Comprehension', progress: 90, attendance: '95%', avatar: 'NW' },
 ];
 
 const STORAGE_KEY = 'tutoring_sessions_v1';
@@ -602,10 +1148,11 @@ function saveSessions(arr) {
 let sessions = loadSessions();
 
 /* ─── State ─── */
-let selectedStudents = new Set(); // multi-select
+let selectedStudents = new Set();
 let selectedDuration = null;
 let activeFilter = 'all';
 let reportSelectedStudents = new Set();
+let isVideoPlayerActive = false;
 
 /* ─── Utils ─── */
 function formatDate(iso) {
@@ -627,11 +1174,9 @@ function fmtHours(h) {
   if (h % 1 === 0) return h + ' hr';
   return h + ' hr';
 }
-
 function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2,6);
 }
-
 function toast(msg, duration = 2400) {
   const el = document.getElementById('toast');
   el.textContent = msg;
@@ -639,7 +1184,7 @@ function toast(msg, duration = 2400) {
   setTimeout(() => el.classList.remove('show'), duration);
 }
 
-/* ─── Header ─── */
+/* ─── Header Total & Date ─── */
 function updateHeader() {
   const today = new Date();
   document.getElementById('header-date').textContent =
@@ -647,15 +1192,98 @@ function updateHeader() {
 
   const thisMonth = today.toISOString().slice(0,7);
   const total = sessions
-    .filter(s => s.date.startsWith(thisMonth))
+    .filter(s => s.date && s.date.startsWith(thisMonth))
     .reduce((sum, s) => sum + s.amount, 0);
   document.getElementById('hdr-total-sar').textContent = total.toLocaleString() + ' SAR';
 }
 
-/* ─── Student Grid (multi-select) ─── */
+/* ─── Navigation Switcher (Desktop & Mobile) ─── */
+function switchView(viewId) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === viewId);
+    b.setAttribute('aria-selected', b.dataset.view === viewId ? 'true' : 'false');
+  });
+  document.querySelectorAll('.desktop-nav-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === viewId);
+    b.setAttribute('aria-selected', b.dataset.view === viewId ? 'true' : 'false');
+  });
+
+  const targetView = document.getElementById(viewId);
+  if (targetView) {
+    targetView.classList.add('active');
+  }
+
+  if (viewId === 'view-dashboard') { renderDashboard(); }
+  if (viewId === 'view-log')       { renderSessions(); }
+  if (viewId === 'view-report')    { renderReportStudentList(); }
+  if (viewId === 'view-settings')  { renderSettings(); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.nav-item, .desktop-nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    switchView(btn.dataset.view);
+  });
+});
+
+document.getElementById('dash-btn-quick-log')?.addEventListener('click', () => {
+  switchView('view-add');
+});
+
+/* ─── Render Dashboard (Student Roster) ─── */
+function renderDashboard() {
+  const container = document.getElementById('dashboard-student-roster');
+  if (!container) return;
+  container.innerHTML = '';
+
+  STUDENTS.forEach(st => {
+    const studentSessions = sessions.filter(s => s.studentId === st.id);
+    const sessionCount = studentSessions.length;
+    const totalHours = studentSessions.reduce((sum, s) => sum + s.hours, 0);
+
+    const card = document.createElement('div');
+    card.className = 'roster-card';
+    card.innerHTML = `
+      <div class="roster-header">
+        <div class="roster-avatar" aria-hidden="true">${st.avatar}</div>
+        <div style="flex:1;">
+          <div class="roster-title">${st.name}</div>
+          <div class="roster-grade">${st.grade} • ${st.subject}</div>
+        </div>
+        <span class="badge badge-orange">${st.rate} SAR/h</span>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:.74rem;color:var(--text-2);margin-bottom:3px;">
+          <span>Curriculum Mastery: ${st.progress}%</span>
+          <span>Attendance: ${st.attendance}</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:${st.progress}%"></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+        <span style="font-size:.72rem;color:var(--text-3);">${sessionCount} sessions logged (${totalHours} hrs)</span>
+        <button class="btn-secondary" style="padding:4px 8px;font-size:.72rem;" onclick="quickLogForStudent('${st.id}')">+ Log</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+window.quickLogForStudent = function(studentId) {
+  selectedStudents.clear();
+  selectedStudents.add(studentId);
+  buildStudentGrid();
+  updateAmountPreview();
+  switchView('view-add');
+};
+
+/* ─── Student Grid (Add Session) ─── */
 function buildStudentGrid() {
   const grid = document.getElementById('student-grid');
   const countEl = document.getElementById('selected-count');
+  if (!grid) return;
   grid.innerHTML = '';
 
   const n = selectedStudents.size;
@@ -665,10 +1293,11 @@ function buildStudentGrid() {
     const isSelected = selectedStudents.has(st.id);
     const btn = document.createElement('button');
     btn.className = 'student-btn' + (isSelected ? ' selected' : '');
+    btn.type = 'button';
     btn.innerHTML = `
-      <span class="s-check">✓</span>
+      <span class="s-check" aria-hidden="true">✓</span>
       <span class="s-name">${st.name}</span>
-      <span class="s-rate">${st.rate} SAR/hr</span>
+      <span class="s-rate">${st.grade} · ${st.rate} SAR/hr</span>
     `;
     btn.addEventListener('click', () => {
       if (selectedStudents.has(st.id)) selectedStudents.delete(st.id);
@@ -692,9 +1321,10 @@ function buildDurationGrid() {
   });
 }
 
-/* ─── Amount Preview (multi-student) ─── */
+/* ─── Amount Preview ─── */
 function updateAmountPreview() {
   const preview = document.getElementById('amount-preview');
+  if (!preview) return;
 
   if (selectedStudents.size === 0 || !selectedDuration) {
     preview.innerHTML = `
@@ -713,7 +1343,7 @@ function updateAmountPreview() {
     const amt = st.rate * selectedDuration;
     html = `
       <div class="amount-preview-row">
-        <span class="amount-label">${st.shortName}</span>
+        <span class="amount-label">${st.shortName} (${fmtHours(selectedDuration)})</span>
         <span class="amount-value">${amt.toLocaleString()} SAR</span>
       </div>`;
   } else {
@@ -722,9 +1352,9 @@ function updateAmountPreview() {
       const amt = st.rate * selectedDuration;
       total += amt;
       html += `
-        <div class="amount-preview-row">
+        <div class="amount-preview-row" style="margin-bottom:4px;">
           <span class="amount-label">${st.shortName} · ${fmtHours(selectedDuration)}</span>
-          <span class="amount-sub">${amt.toLocaleString()} SAR</span>
+          <span class="amount-sub" style="font-weight:600;">${amt.toLocaleString()} SAR</span>
         </div>`;
     });
     html += `
@@ -737,8 +1367,8 @@ function updateAmountPreview() {
   preview.innerHTML = html;
 }
 
-/* ─── Save Session (one per selected student) ─── */
-document.getElementById('btn-save').addEventListener('click', () => {
+/* ─── Save Session ─── */
+document.getElementById('btn-save')?.addEventListener('click', () => {
   if (selectedStudents.size === 0) { toast('⚠️ Please select at least one student'); return; }
   if (!selectedDuration)           { toast('⚠️ Please select a duration'); return; }
 
@@ -757,16 +1387,16 @@ document.getElementById('btn-save').addEventListener('click', () => {
     hours:       selectedDuration,
     amount:      st.rate * selectedDuration,
     date:        dateVal,
-    subject,
+    subject:     subject || `${st.grade} English & Tutoring`,
     notes,
-    createdAt: new Date().toISOString(),
+    createdAt:   new Date().toISOString(),
   }));
 
   sessions.unshift(...newSessions);
   saveSessions(sessions);
 
   // reset
-  selectedStudents = new Set();
+  selectedStudents.clear();
   selectedDuration = null;
   document.getElementById('session-date').value = todayISO();
   document.getElementById('session-subject').value = '';
@@ -775,7 +1405,7 @@ document.getElementById('btn-save').addEventListener('click', () => {
   buildDurationGrid();
   updateAmountPreview();
   updateHeader();
-  renderSessions();
+  renderDashboard();
 
   const label = newSessions.length === 1
     ? `✅ Session saved for ${newSessions[0].studentName}!`
@@ -783,9 +1413,10 @@ document.getElementById('btn-save').addEventListener('click', () => {
   toast(label);
 });
 
-/* ─── Sessions Log ─── */
+/* ─── Filter Bar & History Log ─── */
 function buildFilterBar() {
   const bar = document.getElementById('filter-bar');
+  if (!bar) return;
   bar.innerHTML = '<button class="filter-chip' + (activeFilter==='all'?' active':'') + '" data-filter="all">All</button>';
   STUDENTS.forEach(st => {
     const count = sessions.filter(s => s.studentId === st.id).length;
@@ -808,6 +1439,7 @@ function buildFilterBar() {
 function renderSessions() {
   buildFilterBar();
   const list = document.getElementById('sessions-list');
+  if (!list) return;
   let filtered = activeFilter === 'all'
     ? [...sessions]
     : sessions.filter(s => s.studentId === activeFilter);
@@ -815,13 +1447,12 @@ function renderSessions() {
   if (filtered.length === 0) {
     list.innerHTML = `<div class="empty-state">
       <div class="empty-icon">📋</div>
-      <div class="empty-title">No sessions yet</div>
-      <div class="empty-desc">Add your first session in the + tab</div>
+      <div class="empty-title">No sessions logged yet</div>
+      <div class="empty-desc">Record tutoring sessions in the + Log tab</div>
     </div>`;
     return;
   }
 
-  // Group by month
   const groups = {};
   filtered.forEach(s => {
     const key = monthLabel(s.date);
@@ -851,7 +1482,7 @@ function renderSessions() {
         </div>
         ${s.notes ? `<div class="session-notes">${s.notes}</div>` : ''}
         <div class="session-actions">
-          <button class="btn-danger" style="padding:7px 14px;font-size:.78rem" data-delete="${s.id}">Delete</button>
+          <button class="btn-danger" style="padding:5px 12px;font-size:.76rem" data-delete="${s.id}">Delete</button>
         </div>
       `;
       list.appendChild(el);
@@ -860,20 +1491,22 @@ function renderSessions() {
 
   list.querySelectorAll('[data-delete]').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (!confirm('Delete this session?')) return;
+      if (!confirm('Delete this session record?')) return;
       sessions = sessions.filter(s => s.id !== btn.dataset.delete);
       saveSessions(sessions);
       updateHeader();
       renderSessions();
+      renderDashboard();
       renderReportStudentList();
-      toast('🗑️ Deleted');
+      toast('🗑️ Record deleted');
     });
   });
 }
 
-/* ─── Report View ─── */
+/* ─── Report View & PDF ─── */
 function renderReportStudentList() {
   const container = document.getElementById('report-student-list');
+  if (!container) return;
   container.innerHTML = '';
   STUDENTS.forEach(st => {
     const count = sessions.filter(s => s.studentId === st.id).length;
@@ -881,17 +1514,18 @@ function renderReportStudentList() {
     const row = document.createElement('div');
     row.className = 'report-student-check' + (reportSelectedStudents.has(st.id) ? ' selected' : '');
     row.innerHTML = `
-      <div class="check-box">${reportSelectedStudents.has(st.id) ? '✓' : ''}</div>
+      <div class="check-box" aria-hidden="true">${reportSelectedStudents.has(st.id) ? '✓' : ''}</div>
       <div class="check-info">
-        <div class="check-name">${st.name}</div>
-        <div class="check-stat">${count} sessions · ${totalHrs} hr total</div>
+        <div class="check-name">${st.name} (${st.grade})</div>
+        <div class="check-stat">${count} sessions · ${totalHrs} hr total · ${st.rate} SAR/hr</div>
       </div>
     `;
     row.addEventListener('click', () => {
       if (reportSelectedStudents.has(st.id)) reportSelectedStudents.delete(st.id);
       else reportSelectedStudents.add(st.id);
       renderReportStudentList();
-      document.getElementById('report-preview').innerHTML = '';
+      const prevEl = document.getElementById('report-preview');
+      if (prevEl) prevEl.innerHTML = '';
     });
     container.appendChild(row);
   });
@@ -908,20 +1542,19 @@ function getReportData() {
   return filtered;
 }
 
-document.getElementById('btn-preview-report').addEventListener('click', () => {
+document.getElementById('btn-preview-report')?.addEventListener('click', () => {
   if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
   const data = getReportData();
   const preview = document.getElementById('report-preview');
 
   if (data.length === 0) {
-    preview.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No sessions in range</div></div>`;
+    preview.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">No sessions found in range</div></div>`;
     return;
   }
 
   const totalHrs = data.reduce((a,b) => a+b.hours, 0);
   const totalAmt = data.reduce((a,b) => a+b.amount, 0);
 
-  // Per-student breakdown
   const perStudent = {};
   data.forEach(s => {
     if (!perStudent[s.studentId]) perStudent[s.studentId] = { name: s.studentName, hrs: 0, amt: 0, count: 0 };
@@ -933,12 +1566,12 @@ document.getElementById('btn-preview-report').addEventListener('click', () => {
   let breakdownHTML = '';
   Object.values(perStudent).forEach(st => {
     breakdownHTML += `
-      <div class="summary-mini" style="grid-column:span 2;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <div style="background:var(--surface-2);padding:10px 12px;border-radius:var(--radius-sm);display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div>
-          <div style="font-weight:600;font-size:.9rem">${st.name}</div>
-          <div style="font-size:.75rem;color:var(--text-3)">${st.count} sessions · ${st.hrs} hr</div>
+          <div style="font-weight:600;font-size:.88rem">${st.name}</div>
+          <div style="font-size:.74rem;color:var(--text-3)">${st.count} sessions · ${st.hrs} hr</div>
         </div>
-        <div style="font-size:1.1rem;font-weight:700;color:var(--accent)">${st.amt.toLocaleString()} SAR</div>
+        <div style="font-size:1.05rem;font-weight:700;color:var(--accent)">${st.amt.toLocaleString()} SAR</div>
       </div>
     `;
   });
@@ -949,14 +1582,13 @@ document.getElementById('btn-preview-report').addEventListener('click', () => {
       <div class="summary-val">${totalAmt.toLocaleString()} SAR</div>
       <div class="summary-sub">${data.length} sessions · ${totalHrs} hours</div>
     </div>
-    <div style="margin-bottom:16px">
+    <div style="margin-bottom:14px">
       ${breakdownHTML}
     </div>
   `;
 });
 
-/* ─── PDF Export ─── */
-document.getElementById('btn-pdf').addEventListener('click', () => {
+document.getElementById('btn-pdf')?.addEventListener('click', () => {
   if (reportSelectedStudents.size === 0) { toast('⚠️ Select at least one student'); return; }
   const data = getReportData();
   if (data.length === 0) { toast('⚠️ No sessions in range'); return; }
@@ -973,27 +1605,22 @@ function generatePDF(data) {
   const totalHrs = data.reduce((a,b) => a+b.hours, 0);
   const totalAmt = data.reduce((a,b) => a+b.amount, 0);
 
-  // Colors
   const ORANGE = [194, 103, 42];
   const DARK   = [28, 25, 23];
   const GRAY   = [87, 83, 78];
   const LTGRAY = [245, 242, 238];
 
   let y = 0;
-
-  // Header bar
   doc.setFillColor(...ORANGE);
   doc.rect(0, 0, 210, 30, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(18); doc.setFont('helvetica', 'bold');
-  doc.text('Tutoring Session Report', 15, 13);
+  doc.text('Tutoring & Learning Report', 15, 13);
   doc.setFontSize(9); doc.setFont('helvetica', 'normal');
-  doc.text('Prepared by Hisham Mohamed', 15, 22);
+  doc.text('Grades 3–6 Curriculum — Prepared by Hisham Mohamed', 15, 22);
   doc.text('Generated: ' + new Date().toLocaleDateString('en-SA', { day:'numeric', month:'long', year:'numeric' }), 210-15, 22, { align:'right' });
 
   y = 38;
-
-  // Period
   if (from || to) {
     doc.setTextColor(...GRAY);
     doc.setFontSize(9);
@@ -1001,18 +1628,16 @@ function generatePDF(data) {
     y += 10;
   }
 
-  // Summary box
   doc.setFillColor(...LTGRAY);
   doc.roundedRect(15, y, 180, 22, 3, 3, 'F');
   doc.setTextColor(...DARK);
   doc.setFontSize(11); doc.setFont('helvetica', 'bold');
-  doc.text('Total: ' + totalAmt.toLocaleString() + ' SAR', 20, y + 8);
+  doc.text('Total Earnings: ' + totalAmt.toLocaleString() + ' SAR', 20, y + 8);
   doc.setFontSize(9); doc.setFont('helvetica', 'normal');
   doc.setTextColor(...GRAY);
   doc.text(data.length + ' sessions  ·  ' + totalHrs + ' hours total', 20, y + 16);
   y += 30;
 
-  // Per-student breakdown
   const perStudent = {};
   data.forEach(s => {
     if (!perStudent[s.studentId]) perStudent[s.studentId] = { name: s.studentName, rate: s.rate, sessions: [] };
@@ -1023,7 +1648,6 @@ function generatePDF(data) {
     const stHrs = st.sessions.reduce((a,b) => a+b.hours, 0);
     const stAmt = st.sessions.reduce((a,b) => a+b.amount, 0);
 
-    // Student header
     doc.setFillColor(...ORANGE);
     doc.rect(15, y, 180, 9, 'F');
     doc.setTextColor(255,255,255);
@@ -1032,18 +1656,16 @@ function generatePDF(data) {
     doc.text(stAmt.toLocaleString() + ' SAR', 192, y + 6.2, { align:'right' });
     y += 11;
 
-    // Sub-header row
     doc.setFillColor(235, 229, 220);
     doc.rect(15, y, 180, 7, 'F');
     doc.setTextColor(...GRAY);
     doc.setFontSize(7.5); doc.setFont('helvetica', 'bold');
     doc.text('Date',     18, y + 4.8);
-    doc.text('Subject',  70, y + 4.8);
+    doc.text('Topic & Notes',  70, y + 4.8);
     doc.text('Hours',   140, y + 4.8);
     doc.text('Amount',  192, y + 4.8, { align:'right' });
     y += 9;
 
-    // Session rows
     st.sessions.forEach((s, i) => {
       if (y > 260) { doc.addPage(); y = 20; }
       if (i % 2 === 0) {
@@ -1062,7 +1684,6 @@ function generatePDF(data) {
       y += 8;
     });
 
-    // Student subtotal
     doc.setFillColor(253, 238, 227);
     doc.rect(15, y, 180, 8, 'F');
     doc.setTextColor(...ORANGE);
@@ -1072,7 +1693,6 @@ function generatePDF(data) {
     y += 14;
   });
 
-  // Footer
   const pageCount = doc.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
@@ -1080,20 +1700,19 @@ function generatePDF(data) {
     doc.rect(0, 287, 210, 10, 'F');
     doc.setTextColor(255,255,255);
     doc.setFontSize(8); doc.setFont('helvetica', 'normal');
-    doc.text('Tutoring Tracker — Hisham Mohamed', 15, 293);
+    doc.text('Tutoring Tracker — Grades 3–6 Learning Hub', 15, 293);
     doc.text('Page ' + i + ' of ' + pageCount, 195, 293, { align:'right' });
   }
 
-  // Student name for filename
   const names = [...reportSelectedStudents].map(id => STUDENTS.find(s=>s.id===id)?.shortName || id).join('_');
-  const filename = `Tutoring_Report_${names}_${todayISO()}.pdf`;
-  doc.save(filename);
-  toast('📄 PDF saved!');
+  doc.save(`Tutoring_Report_${names}_${todayISO()}.pdf`);
+  toast('📄 PDF exported successfully!');
 }
 
-/* ─── Settings ─── */
+/* ─── Settings & Rate Management ─── */
 function renderSettings() {
   const container = document.getElementById('students-settings');
+  if (!container) return;
   container.innerHTML = '';
   STUDENTS.forEach(st => {
     const count = sessions.filter(s => s.studentId === st.id).length;
@@ -1102,7 +1721,7 @@ function renderSettings() {
     row.className = 'setting-row';
     row.innerHTML = `
       <div>
-        <div class="setting-label">${st.name}</div>
+        <div class="setting-label">${st.name} <span class="badge badge-gray">${st.grade}</span></div>
         <div class="setting-desc">${st.rate} SAR/hr · ${count} sessions · ${totalAmt.toLocaleString()} SAR earned</div>
       </div>
       <div class="setting-val">${st.rate} SAR</div>
@@ -1111,56 +1730,256 @@ function renderSettings() {
   });
 }
 
-document.getElementById('btn-clear').addEventListener('click', () => {
+document.getElementById('btn-clear')?.addEventListener('click', () => {
   if (!confirm('Delete ALL sessions? This cannot be undone.')) return;
   sessions = [];
   saveSessions(sessions);
   updateHeader();
   renderSessions();
+  renderDashboard();
   renderReportStudentList();
   renderSettings();
   toast('🗑️ All data cleared');
 });
 
-document.getElementById('btn-export-json').addEventListener('click', () => {
+document.getElementById('btn-export-json')?.addEventListener('click', () => {
   const blob = new Blob([JSON.stringify(sessions, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url; a.download = `tutoring_backup_${todayISO()}.json`;
   a.click(); URL.revokeObjectURL(url);
-  toast('📦 JSON exported');
+  toast('📦 JSON backup downloaded');
 });
 
-/* ─── Navigation ─── */
-document.querySelectorAll('.nav-item').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const viewId = btn.dataset.view;
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(viewId).classList.add('active');
+const importInput = document.getElementById('input-import-json');
+document.getElementById('btn-import-trigger')?.addEventListener('click', () => {
+  importInput.click();
+});
 
-    if (viewId === 'view-log')      { renderSessions(); }
-    if (viewId === 'view-report')   { renderReportStudentList(); }
-    if (viewId === 'view-settings') { renderSettings(); }
+importInput?.addEventListener('change', (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    try {
+      const data = JSON.parse(event.target.result);
+      if (!Array.isArray(data)) {
+        toast('⚠️ Invalid JSON format');
+        return;
+      }
+      const existingIds = new Set(sessions.map(s => s.id));
+      let importedCount = 0;
+      data.forEach(item => {
+        if (item && item.id && !existingIds.has(item.id)) {
+          sessions.push(item);
+          existingIds.add(item.id);
+          importedCount++;
+        }
+      });
+      sessions.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+      saveSessions(sessions);
+      updateHeader();
+      renderSessions();
+      renderDashboard();
+      renderReportStudentList();
+      renderSettings();
+      toast(`✅ Imported ${importedCount} sessions!`);
+    } catch (err) {
+      toast('⚠️ Could not parse JSON backup');
+    }
+  };
+  reader.readAsText(file);
+  importInput.value = '';
+});
+
+/* ─── Video Hub Interactive Features ─── */
+const videoFallbackEl = document.getElementById('video-fallback');
+const mainVideoEl     = document.getElementById('main-video-player');
+
+function toggleVideoPlayer() {
+  isVideoPlayerActive = !isVideoPlayerActive;
+  if (isVideoPlayerActive) {
+    videoFallbackEl.style.display = 'none';
+    mainVideoEl.style.display = 'block';
+    toast('🎬 Video Player Mode Active');
+  } else {
+    videoFallbackEl.style.display = 'flex';
+    mainVideoEl.style.display = 'none';
+    mainVideoEl.pause();
+    toast('🖼️ Video Poster / Fallback Mode Active');
+  }
+}
+
+document.getElementById('btn-toggle-video-mode')?.addEventListener('click', toggleVideoPlayer);
+videoFallbackEl?.addEventListener('click', toggleVideoPlayer);
+
+/* Quiz Modal */
+const quizModal = document.getElementById('quiz-modal');
+document.getElementById('btn-open-quiz')?.addEventListener('click', () => {
+  quizModal.classList.add('active');
+});
+document.getElementById('btn-close-quiz')?.addEventListener('click', () => {
+  quizModal.classList.remove('active');
+});
+
+/* Transcript Modal */
+const transcriptModal = document.getElementById('transcript-modal');
+document.getElementById('btn-open-transcript')?.addEventListener('click', () => {
+  transcriptModal.classList.add('active');
+});
+document.getElementById('btn-close-transcript')?.addEventListener('click', () => {
+  transcriptModal.classList.remove('active');
+});
+
+// Close modals on backdrop click or Escape
+[quizModal, transcriptModal].forEach(modal => {
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('active');
   });
 });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    quizModal?.classList.remove('active');
+    transcriptModal?.classList.remove('active');
+  }
+});
 
-/* ─── Init ─── */
+/* Quiz Scoring Logic */
+document.getElementById('btn-submit-quiz')?.addEventListener('click', () => {
+  const form = document.getElementById('quiz-form');
+  const q1 = form.querySelector('input[name="q1"]:checked')?.value;
+  const q2 = form.querySelector('input[name="q2"]:checked')?.value;
+  const q3 = form.querySelector('input[name="q3"]:checked')?.value;
+
+  if (!q1 || !q2 || !q3) {
+    toast('⚠️ Please answer all 3 questions first!');
+    return;
+  }
+
+  let score = 0;
+  if (q1 === 'definition') score++;
+  if (q2 === 'antonym') score++;
+  if (q3 === 'read_around') score++;
+
+  const resultBox = document.getElementById('quiz-result');
+  resultBox.style.display = 'block';
+
+  if (score === 3) {
+    resultBox.style.background = 'var(--green-lt)';
+    resultBox.style.color = 'var(--green)';
+    resultBox.innerHTML = `<strong>🎉 Perfect Score! 3 / 3 (100%)</strong><br/>You are an official Context Clues Detective!`;
+    document.getElementById('lesson-progress-percent').textContent = '100% Completed (Quiz Passed)';
+    document.getElementById('lesson-progress-bar').style.width = '100%';
+    document.getElementById('lesson-progress-bar').style.background = 'var(--green)';
+  } else {
+    resultBox.style.background = 'var(--amber-lt)';
+    resultBox.style.color = 'var(--amber)';
+    resultBox.innerHTML = `<strong>Score: ${score} / 3</strong><br/>Good try! Review the transcript and try once more.`;
+  }
+});
+
+/* Resource Download Buttons (Safe Offline Blobs) */
+document.getElementById('btn-download-worksheet')?.addEventListener('click', () => {
+  downloadSampleWorksheet();
+});
+document.getElementById('btn-resource-worksheet')?.addEventListener('click', () => {
+  downloadSampleWorksheet();
+});
+document.getElementById('btn-resource-reading-log')?.addEventListener('click', () => {
+  downloadSampleReadingLog();
+});
+
+function downloadSampleWorksheet() {
+  const content = `========================================================
+📚 GRADE 4-5 ENGLISH PRACTICE SHEET: CONTEXT CLUES
+Student Name: _______________________ Date: ____________
+========================================================
+
+INSTRUCTIONS: Read each sentence. Circle the context clues 
+and write the definition of the underlined word in your own words.
+
+1. The ancient chest was IMMENSE; it took four strong men to lift it.
+   - Clue words: _________________________________________
+   - "Immense" means: ____________________________________
+
+2. Unlike her GARRULOUS sister who talked all day, Jane was very quiet.
+   - Clue words: _________________________________________
+   - "Garrulous" means: __________________________________
+
+3. The puppy was FAMISHED, so he devoured the whole bowl of food.
+   - Clue words: _________________________________________
+   - "Famished" means: ___________________________________
+
+4. The path was HAZARDOUS, filled with loose rocks and steep cliffs.
+   - Clue words: _________________________________________
+   - "Hazardous" means: __________________________________
+
+5. The baker kneaded the dough until it was PLIABLE, or easily bent.
+   - Clue words: _________________________________________
+   - "Pliable" means: ____________________________________
+
+Answer Key available in the Teacher Portal.
+Tutoring Tracker — Grades 3-6 Learning Hub
+========================================================`;
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Grade4-5_Context_Clues_Worksheet.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('📥 Worksheet downloaded!');
+}
+
+function downloadSampleReadingLog() {
+  const content = `========================================================
+📖 WEEKLY READING LOG & COMPREHENSION TRACKER
+Grades 3–6 Elementary Tutoring
+========================================================
+
+Student Name: _____________________ Week of: ___________
+Goal: 20 minutes of active reading per day.
+
+[Day]     | [Book Title & Chapter] | [Mins] | [Parent Sig]
+Monday    | _____________________ | _____  | ____________
+Tuesday   | _____________________ | _____  | ____________
+Wednesday | _____________________ | _____  | ____________
+Thursday  | _____________________ | _____  | ____________
+Friday    | _____________________ | _____  | ____________
+
+One new vocabulary word I learned this week:
+Word: ____________________  Definition: ________________
+
+Parent / Tutor Feedback:
+________________________________________________________`;
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'Weekly_Reading_Log_Grades3-6.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('📥 Reading Log downloaded!');
+}
+
+/* ─── Initialization ─── */
 function init() {
-  // Set today's date
-  document.getElementById('session-date').value = todayISO();
+  const sessionDateInput = document.getElementById('session-date');
+  if (sessionDateInput) sessionDateInput.value = todayISO();
 
-  // Default report range: this month
   const today = new Date();
   const firstOfMonth = today.toISOString().slice(0,7) + '-01';
-  document.getElementById('report-from').value = firstOfMonth;
-  document.getElementById('report-to').value = todayISO();
+  const fromEl = document.getElementById('report-from');
+  const toEl   = document.getElementById('report-to');
+  if (fromEl) fromEl.value = firstOfMonth;
+  if (toEl)   toEl.value   = todayISO();
 
   buildStudentGrid();
   buildDurationGrid();
   updateAmountPreview();
   updateHeader();
+  renderDashboard();
 }
 
 init();
