@@ -1,6 +1,435 @@
 {
-  "last_synced": "2026-09-25T03:37:59.733047",
+  "last_synced": "2026-09-29T21:21:10.672389",
   "school": "Arab International Schools (arabschools.edu.sa)",
+  "latest_week": "Week 5 (Sep 27 - Oct 01, 2026)",
+  "weeks": {
+    "latest": {
+      "name": "Week 5 (Sep 27 - Oct 01, 2026)",
+      "shadan": {
+        "title": "Shadan — Grade 11A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11A_Weekly_Agenda-T1-Week-5.pdf",
+        "subjects": {
+          "ELA": [
+            "Unit 1: \"Harlem\" by Langston Hughes (Essential Question: What makes human life valuable?)",
+            "Vocabulary in Context: segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression",
+            "Craft & Structure: Imagery, Metaphor & Symbolism in Poetry",
+            "Revision: Unit 1 \"Harlem\" & Reflective Narrative Writing Workshop"
+          ],
+          "Math": [
+            "Unit 1 Functions 1.2: Combining Functions – Shifting and Scaling Graphs (pp. 34-40)",
+            "Checkpoint Assessment 1 Revision & Practice"
+          ],
+          "Physics": [
+            "Chapter 12 Lesson 2: Forces & Interactions in Fluids (pp. 128-130, 133-134)",
+            "Fluid Pressure, Density & Buoyant Forces"
+          ],
+          "Chemistry": [
+            "Chapter 13 Lesson 2: Heat Transfer and Calorimetry (pp. 102-105)",
+            "Specific Heat Capacity & Calorimetric Calculations"
+          ],
+          "Biology": [
+            "Volume 3 Unit 6 Chapter 19 Lesson 2: Types of Viruses & Virus-Targeting Vaccines (pp. 14-17)",
+            "Viral Reproduction, Host-Cell Interaction & Immunity"
+          ]
+        }
+      },
+      "elyana": {
+        "title": "Elyana — Grade 9A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9A_Weekly_Agenda-T1-Week-5.pdf",
+        "subjects": {
+          "ELA": [
+            "Selection Vocabulary: Target Words from \"LOL!\" and Paired Informational Text (WB p. 10)",
+            "Grammar: Correcting Vague Pronouns & Supplying Clear Antecedents (WB pp. 12-13)",
+            "First Read & Close Read: \"LOL!\" (Personal Essay, Humor & Generation Gap) (SE pp. 18-25)",
+            "Writing Workshop 1: Planning an Original Generation-Gap Short Story (WB p. 14)",
+            "Reading Skill Recap: Making Inferences & Vocabulary Recap (\"Two Kinds\")"
+          ],
+          "Math": [
+            "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (Algebra V1 pp. 36-41)",
+            "Lesson 1-5: Methods to Solve Algebraic Inequalities (Algebra V1 pp. 58-60)",
+            "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+            "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
+          ],
+          "Physics": [
+            "Chapter 1 Lesson 2: Working with Scientific Notation and SI Measurement Units (pp. 20-23)",
+            "Metric Prefixes, Measurement Precision & Conversion"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 2: Properties of Matter and Changes (pp. 42-46)",
+            "Physical vs Chemical Changes & Progress Check 1"
+          ],
+          "Biology": [
+            "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & The Role of Science in Society (pp. 6-19)",
+            "Core Terminology: Biodiversity, Bioremediation, Ecosystem Dynamics"
+          ]
+        }
+      },
+      "talal_nawaf": {
+        "title": "Talal & Nawaf — Grade 9B (Boys)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda-1.pdf",
+        "subjects": {
+          "ELA": [
+            "Pre-Reading & First Read: \"LOL!\" (Personal Essay, Texting & Social Interactions) (SE pp. 18-25)",
+            "Selection Vocabulary Practice: absorb, accelerated, adolescents, autonomy, mortality, prevalence (WB p. 10)",
+            "Grammar: Identifying and Correcting Vague Pronouns (WB pp. 12-13)",
+            "Close Reading: Making Textual Inferences & Author Purpose",
+            "Writing Workshops 1 & 2: Short Story Planning, Character Voice & Arc"
+          ],
+          "Math": [
+            "Lesson 1-4: Comparing & Ordering Real Numbers (Algebra V1 pp. 47-52)",
+            "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+            "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
+          ],
+          "Physics": [
+            "Volume 1 Unit 1 Chapter 1 Lesson 2: Working with Scientific Notation and SI Units (p. 16)",
+            "Revision: 1.1 Scientific Inquiry, Hypotheses & Experimental Design"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 1 (V1): The Nature of Matter & Molecular Motion (pp. 40-41)",
+            "Chapter 2 Lesson 2 (V1): Properties of Matter & Physical/Chemical Changes (pp. 42-43)"
+          ],
+          "Biology": [
+            "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & Scientific Inquiry (pp. 6-15)",
+            "Ecosystem Dynamics: Understanding Biodiversity & Bioremediation"
+          ]
+        }
+      }
+    },
+    "w5": {
+      "name": "Week 5 (Sep 27 - Oct 01, 2026)",
+      "shadan": {
+        "title": "Shadan — Grade 11A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11A_Weekly_Agenda-T1-Week-5.pdf",
+        "subjects": {
+          "ELA": [
+            "Unit 1: \"Harlem\" by Langston Hughes (Essential Question: What makes human life valuable?)",
+            "Vocabulary in Context: segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression",
+            "Craft & Structure: Imagery, Metaphor & Symbolism in Poetry",
+            "Revision: Unit 1 \"Harlem\" & Reflective Narrative Writing Workshop"
+          ],
+          "Math": [
+            "Unit 1 Functions 1.2: Combining Functions – Shifting and Scaling Graphs (pp. 34-40)",
+            "Checkpoint Assessment 1 Revision & Practice"
+          ],
+          "Physics": [
+            "Chapter 12 Lesson 2: Forces & Interactions in Fluids (pp. 128-130, 133-134)",
+            "Fluid Pressure, Density & Buoyant Forces"
+          ],
+          "Chemistry": [
+            "Chapter 13 Lesson 2: Heat Transfer and Calorimetry (pp. 102-105)",
+            "Specific Heat Capacity & Calorimetric Calculations"
+          ],
+          "Biology": [
+            "Volume 3 Unit 6 Chapter 19 Lesson 2: Types of Viruses & Virus-Targeting Vaccines (pp. 14-17)",
+            "Viral Reproduction, Host-Cell Interaction & Immunity"
+          ]
+        }
+      },
+      "elyana": {
+        "title": "Elyana — Grade 9A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9A_Weekly_Agenda-T1-Week-5.pdf",
+        "subjects": {
+          "ELA": [
+            "Selection Vocabulary: Target Words from \"LOL!\" and Paired Informational Text (WB p. 10)",
+            "Grammar: Correcting Vague Pronouns & Supplying Clear Antecedents (WB pp. 12-13)",
+            "First Read & Close Read: \"LOL!\" (Personal Essay, Humor & Generation Gap) (SE pp. 18-25)",
+            "Writing Workshop 1: Planning an Original Generation-Gap Short Story (WB p. 14)",
+            "Reading Skill Recap: Making Inferences & Vocabulary Recap (\"Two Kinds\")"
+          ],
+          "Math": [
+            "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (Algebra V1 pp. 36-41)",
+            "Lesson 1-5: Methods to Solve Algebraic Inequalities (Algebra V1 pp. 58-60)",
+            "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+            "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
+          ],
+          "Physics": [
+            "Chapter 1 Lesson 2: Working with Scientific Notation and SI Measurement Units (pp. 20-23)",
+            "Metric Prefixes, Measurement Precision & Conversion"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 2: Properties of Matter and Changes (pp. 42-46)",
+            "Physical vs Chemical Changes & Progress Check 1"
+          ],
+          "Biology": [
+            "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & The Role of Science in Society (pp. 6-19)",
+            "Core Terminology: Biodiversity, Bioremediation, Ecosystem Dynamics"
+          ]
+        }
+      },
+      "talal_nawaf": {
+        "title": "Talal & Nawaf — Grade 9B (Boys)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda-1.pdf",
+        "subjects": {
+          "ELA": [
+            "Pre-Reading & First Read: \"LOL!\" (Personal Essay, Texting & Social Interactions) (SE pp. 18-25)",
+            "Selection Vocabulary Practice: absorb, accelerated, adolescents, autonomy, mortality, prevalence (WB p. 10)",
+            "Grammar: Identifying and Correcting Vague Pronouns (WB pp. 12-13)",
+            "Close Reading: Making Textual Inferences & Author Purpose",
+            "Writing Workshops 1 & 2: Short Story Planning, Character Voice & Arc"
+          ],
+          "Math": [
+            "Lesson 1-4: Comparing & Ordering Real Numbers (Algebra V1 pp. 47-52)",
+            "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+            "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
+          ],
+          "Physics": [
+            "Volume 1 Unit 1 Chapter 1 Lesson 2: Working with Scientific Notation and SI Units (p. 16)",
+            "Revision: 1.1 Scientific Inquiry, Hypotheses & Experimental Design"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 1 (V1): The Nature of Matter & Molecular Motion (pp. 40-41)",
+            "Chapter 2 Lesson 2 (V1): Properties of Matter & Physical/Chemical Changes (pp. 42-43)"
+          ],
+          "Biology": [
+            "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & Scientific Inquiry (pp. 6-15)",
+            "Ecosystem Dynamics: Understanding Biodiversity & Bioremediation"
+          ]
+        }
+      }
+    },
+    "w4": {
+      "name": "Week 4 (Sep 20 - Sep 24, 2026)",
+      "shadan": {
+        "title": "Shadan — Grade 11A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11A_Weekly_Agenda-T1-W4.pdf",
+        "subjects": {
+          "ELA": [
+            "SAT English Preparation: Central Ideas & Supporting Details Analysis",
+            "Novel Study: \"The Old Man and the Sea\" by Ernest Hemingway (Themes of Perseverance & Man vs Nature)",
+            "SAT English Preparation: Words in Context High-Yield Vocabulary Strategy",
+            "SAT English Preparation: Text Structure, Purpose & Cross-Text Connections"
+          ],
+          "Math": [
+            "Unit 1 Functions 1.1: Functions and Their Graphs (Algebra V1 pp. 24-31)",
+            "Domain, Range, Increasing/Decreasing Intervals & Vertical Line Test"
+          ],
+          "Physics": [
+            "Chapter 12 Lesson 1: Fluid Mechanics – Pascal's Principle & Hydraulic Lift Systems (pp. 120-125)"
+          ],
+          "Chemistry": [
+            "Chapter 13 Lesson 1: Energy and Chemical Reactions (pp. 96-100)",
+            "Exothermic & Endothermic Processes, Bond Energy & Progress Check 4"
+          ],
+          "Biology": [
+            "Volume 3 Unit 6 Chapter 19 Lesson 2: Types of Viruses & Virus-Targeting Vaccines (pp. 14-16)",
+            "DNA/RNA Viral Structures, Hepatitis, Influenza & Vaccine Mechanisms"
+          ]
+        }
+      },
+      "elyana": {
+        "title": "Elyana — Grade 9A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9A_Weekly_Agenda-T1-W4.pdf",
+        "subjects": {
+          "ELA": [
+            "Close Read: \"Two Kinds\" by Amy Tan — Making Inferences & Textual Evidence",
+            "Vocabulary Strategy: Slang & Informal Idioms in Dialogue",
+            "Grammar: Pronoun-Antecedent Agreement Practice",
+            "Writing Workshop: Narrative Arc & Character Motivation"
+          ],
+          "Math": [
+            "Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 25-27)",
+            "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (pp. 34-36)"
+          ],
+          "Physics": [
+            "Chapter 1 Lesson 1: Scientific Inquiry and Experimental Design",
+            "Controlled Experiments, Variables & Data Collection"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 2: Properties of Matter and Changes (pp. 42-46)"
+          ],
+          "Biology": [
+            "Volume 1 Unit 1: Living Systems & Scientific Observation"
+          ]
+        }
+      },
+      "talal_nawaf": {
+        "title": "Talal & Nawaf — Grade 9B (Boys)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda.pdf",
+        "subjects": {
+          "ELA": [
+            "Close Read: \"Two Kinds\" by Amy Tan — Inferences, Culture & Conflict",
+            "Vocabulary Strategy: Slang in Dialogue & Context Clues",
+            "Grammar: Pronoun Agreement Drills",
+            "Writing Workshop: Narrative Character Development"
+          ],
+          "Math": [
+            "Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 25-27)",
+            "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (pp. 34-36)"
+          ],
+          "Physics": [
+            "Volume 1 Unit 1 Chapter 1 Lesson 2: Scientific Notation & Unit Conversion (p. 21)"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 1 (V1): The Nature of Matter (pp. 40-41)"
+          ],
+          "Biology": [
+            "Unit 1: Biological Inquiry & Scientific Observations"
+          ]
+        }
+      }
+    },
+    "w3": {
+      "name": "Week 3 (Sep 13 - Sep 17, 2026)",
+      "shadan": {
+        "title": "Shadan — Grade 11A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/Grade_11A_Weekly_Agenda_T1-Week-3.pdf",
+        "subjects": {
+          "ELA": [
+            "SAT Reading Comprehension Practice: Core Themes & Evidence",
+            "SAT Vocabulary in Context Drills",
+            "Craft & Rhetorical Structure Analysis",
+            "SAT Writing & Language Conventions Practice"
+          ],
+          "Math": [
+            "Unit 1 Functions 1.1: Functions and Their Graphs Review (pp. 24-32)",
+            "Function Notation & Graphical Transformations"
+          ],
+          "Physics": [
+            "Chapter 12 Lesson 1: Fluid Mechanics – Density, Pressure & Buoyancy (pp. 114-120)"
+          ],
+          "Chemistry": [
+            "Chapter 13 Lesson 1: Energy and Chemical Bonds (pp. 92-96)",
+            "Chemical Potential Energy & Molecular Stability"
+          ],
+          "Biology": [
+            "Volume 3 Unit 5 Chapter 16 Lesson 1: Introduction to Viruses (pp. 6-10)"
+          ]
+        }
+      },
+      "elyana": {
+        "title": "Elyana — Grade 9A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/Grade_9A_Weekly_Agenda_T1-Week-3.pdf",
+        "subjects": {
+          "ELA": [
+            "Pre-Reading: \"Two Kinds\" by Amy Tan — Motifs & Family Expectations",
+            "Vocabulary 1: Story Words in Literary Context (6 Target Words)",
+            "Vocabulary 2: Literary Terms & Figurative Language Analysis",
+            "Reading 1 & 2: Motivation, Conflict, Communication & Universal Themes"
+          ],
+          "Math": [
+            "Lesson 1-1: Operations on Real Numbers (Algebra V1 pp. 6-19)",
+            "Lesson 1-2: Solving Linear Equations (pp. 20-22)"
+          ],
+          "Physics": [
+            "Chapter 1 Lesson 1: Introduction to Physical Sciences & Scientific Inquiry"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 2: Properties of Matter and Changes"
+          ],
+          "Biology": [
+            "Volume 1 Unit 1: Introduction to Life Sciences & Laboratory Foundations"
+          ]
+        }
+      },
+      "talal_nawaf": {
+        "title": "Talal & Nawaf — Grade 9B (Boys)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B-T1-Week-3-Weekly-Agenda.pdf",
+        "subjects": {
+          "ELA": [
+            "Pre-Reading: \"Two Kinds\" by Amy Tan — Character Motifs & Prediction",
+            "Vocabulary 1 & 2: Context Clues, Connotation & Literary Terminology",
+            "Reading Comprehension: Character Profiles & Conflicting Motivations",
+            "Writing Workshop: Narrative Opening, Setting & Voice"
+          ],
+          "Math": [
+            "Lesson 1-1: Operations on Real Numbers (Algebra V1 pp. 6-19)",
+            "Lesson 1-2: Solving Linear Equations (pp. 20-25)"
+          ],
+          "Physics": [
+            "Chapter 1 Lesson 2: Scientific Notation, Units & Measurement Uncertainty"
+          ],
+          "Chemistry": [
+            "Chapter 2 Lesson 1: The Nature of Matter (pp. 36-39)"
+          ],
+          "Biology": [
+            "Unit 1 Chapter 1: Exploring Biology & The Nature of Science (pp. 6-10)"
+          ]
+        }
+      }
+    },
+    "w2": {
+      "name": "Week 2 (Sep 06 - Sep 10, 2026)",
+      "shadan": {
+        "title": "Shadan — Grade 11A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/Grade_11A_Weekly_Agenda_T1-Week-2.pdf",
+        "subjects": {
+          "ELA": [
+            "Grammar Refresher: Parts of Speech & Sentence Mechanics",
+            "Reading Comprehension Diagnostic: Identifying Key Ideas & Details",
+            "Vocabulary in Context Exercises",
+            "Reflective Journaling & Academic Goal Statement"
+          ],
+          "Math": [
+            "Algebra II Foundations: Absolute Value Equations",
+            "Solving Systems of Linear Equations Algebraically"
+          ],
+          "Physics": [
+            "Physics Foundations: Force, Motion & Newton's Laws Review"
+          ],
+          "Chemistry": [
+            "Chemistry Foundations: Review of Organic Nomenclature & Chemical Bonding"
+          ],
+          "Biology": [
+            "Biology Foundations: Human Chromosomes & Laboratory Equipment Safety"
+          ]
+        }
+      },
+      "elyana": {
+        "title": "Elyana — Grade 9A (Girls)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/Grade_9A_Weekly_Agenda_T1-Week-2.pdf",
+        "subjects": {
+          "ELA": [
+            "Reading Comprehension Diagnostic",
+            "Vocabulary Through Context Drills",
+            "Grammar: Sentence Structure, Clauses & Conjunctions",
+            "Grammar: Subject-Verb & Pronoun-Antecedent Agreement",
+            "Grammar: Core Punctuation, Homophones & Capitalization Rules"
+          ],
+          "Math": [
+            "Foundations Review: Order of Operations & Real Numbers",
+            "Solving Multi-Step Linear Equations",
+            "Geometry Review: Angles, Parallel Lines & Transversals"
+          ],
+          "Physics": [
+            "Physics Measurement Foundations & Basic Trigonometry"
+          ],
+          "Chemistry": [
+            "Chemistry Foundations: Types of Chemical Bonds Review"
+          ],
+          "Biology": [
+            "Biology Foundations: Atomic Theory in Biology"
+          ]
+        }
+      },
+      "talal_nawaf": {
+        "title": "Talal & Nawaf — Grade 9B (Boys)",
+        "pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B-T1-Week-2-Weekly-Agenda-1.pdf",
+        "subjects": {
+          "ELA": [
+            "Vocabulary Review: High-Frequency Academic Vocabulary in Context",
+            "Grammar Review: Verb Tenses (Present, Past, Future & Continuous)",
+            "Grammar Review: Sentence Structure & Agreement",
+            "Reading Comprehension: Main Idea, Supporting Details & Inference",
+            "Literary Elements Review: Plot, Conflict, Theme & Point of View"
+          ],
+          "Math": [
+            "Foundations Review: Order of Operations & Real Numbers",
+            "Solving Linear Equations & Multi-Step Equations",
+            "Angles, Lines & Transversals"
+          ],
+          "Physics": [
+            "Chapter 1 Lesson 1: Scientific Inquiry & Experimental Design"
+          ],
+          "Chemistry": [
+            "Measurement Review: Precision, Accuracy, Scientific Notation & Units"
+          ],
+          "Biology": [
+            "Biology Foundations: Atomic Theory & Laboratory Safety Protocol"
+          ]
+        }
+      }
+    }
+  },
   "students": {
     "shadan": {
       "name": "Shadan",
@@ -9,27 +438,27 @@
       "latest_agenda_pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11A_Weekly_Agenda-T1-Week-5.pdf",
       "subjects": {
         "ELA": [
-          "English Unit 1: Harlem by Langston Hughes PPT",
-          "Vocabulary in context: segregation, aspiration,",
-          "English Craft and Structure: Imagery and Symbolism PPT",
-          "English Revision: Unit 1: Harlem by Langston Hughes PPT",
-          "English Revision: Vocabulary and grammar"
+          "Unit 1: \"Harlem\" by Langston Hughes (Essential Question: What makes human life valuable?)",
+          "Vocabulary in Context: segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression",
+          "Craft & Structure: Imagery, Metaphor & Symbolism in Poetry",
+          "Revision: Unit 1 \"Harlem\" & Reflective Narrative Writing Workshop"
         ],
         "Math": [
-          "Lab English Math",
-          "English Math Science اللغة العربية",
-          "Math Checkpoint Assessment –1 Revision"
+          "Unit 1 Functions 1.2: Combining Functions – Shifting and Scaling Graphs (pp. 34-40)",
+          "Checkpoint Assessment 1 Revision & Practice"
         ],
         "Physics": [
-          "Physics Chapter 12 Lesson 2: Forces and interactions in fluids 128-130",
-          "Science Lab Chapter 12 Lesson 2: Forces and interactions in fluids",
-          "Physics Chapter 12 Lesson 2: Forces and interactions in fluids"
+          "Chapter 12 Lesson 2: Forces & Interactions in Fluids (pp. 128-130, 133-134)",
+          "Fluid Pressure, Density & Buoyant Forces"
         ],
         "Chemistry": [
-          "Chemistry Chapter 13 – Lesson 2 :Heat Transfer and Calorimetry 102-105",
-          "Chemistry Chapter 13 – Lesson 2: Heat Transfer and Calorimetry 102-105 Progress Check 3 page 105"
+          "Chapter 13 Lesson 2: Heat Transfer and Calorimetry (pp. 102-105)",
+          "Specific Heat Capacity & Calorimetric Calculations"
         ],
-        "Biology": []
+        "Biology": [
+          "Volume 3 Unit 6 Chapter 19 Lesson 2: Types of Viruses & Virus-Targeting Vaccines (pp. 14-17)",
+          "Viral Reproduction, Host-Cell Interaction & Immunity"
+        ]
       }
     },
     "elyana": {
@@ -39,28 +468,29 @@
       "latest_agenda_pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9A_Weekly_Agenda-T1-Week-5.pdf",
       "subjects": {
         "ELA": [
-          "English Vocabulary: Selection Words",
-          "Use the selection vocabulary from \"LOL!\" and the paired text in",
-          "three vocabulary words.",
-          "English Grammar: Correcting Vague Pronouns",
-          "Identify vague pronouns and clarify each sentence by supplying a"
+          "Selection Vocabulary: Target Words from \"LOL!\" and Paired Informational Text (WB p. 10)",
+          "Grammar: Correcting Vague Pronouns & Supplying Clear Antecedents (WB pp. 12-13)",
+          "First Read & Close Read: \"LOL!\" (Personal Essay, Humor & Generation Gap) (SE pp. 18-25)",
+          "Writing Workshop 1: Planning an Original Generation-Gap Short Story (WB p. 14)",
+          "Reading Skill Recap: Making Inferences & Vocabulary Recap (\"Two Kinds\")"
         ],
         "Math": [
-          "English Math Science اللغة العربية",
-          "Math Lesson 1-3-Solving Linear equations with Variables on",
-          "both sides--Algebra -Volume 1 36-38",
-          "both sides--Algebra -Volume 1 39-40",
-          "both sides--Algebra -Volume 1 40-41 Workbook page 8,9-"
+          "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (Algebra V1 pp. 36-41)",
+          "Lesson 1-5: Methods to Solve Algebraic Inequalities (Algebra V1 pp. 58-60)",
+          "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+          "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
         ],
         "Physics": [
-          "Science Lab Ch. 1, Lesson 2: Working with Scientific Notation and",
-          "Physics Ch. 1, Lesson 2: Working with Scientific Notation and"
+          "Chapter 1 Lesson 2: Working with Scientific Notation and SI Measurement Units (pp. 20-23)",
+          "Metric Prefixes, Measurement Precision & Conversion"
         ],
-        "Chemistry": [],
+        "Chemistry": [
+          "Chapter 2 Lesson 2: Properties of Matter and Changes (pp. 42-46)",
+          "Physical vs Chemical Changes & Progress Check 1"
+        ],
         "Biology": [
-          "Biodiversity,",
-          "Bioremediation, Biology,",
-          "Biology Revision Volume 1- Unit 1- Lesson 1: understanding"
+          "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & The Role of Science in Society (pp. 6-19)",
+          "Core Terminology: Biodiversity, Bioremediation, Ecosystem Dynamics"
         ]
       }
     },
@@ -71,28 +501,28 @@
       "latest_agenda_pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda-1.pdf",
       "subjects": {
         "ELA": [
-          "English Pre-Reading: LOL! SE pp. 18-",
-          "English Vocabulary: Selection Words WB p. 10",
-          "English Grammar: Correcting Vague Pronouns WB pp. 12-",
-          "English First Read: LOL! SE pp. 18-25 Annotate two details that show",
-          "English Close Reading: Make Inferences"
+          "Pre-Reading & First Read: \"LOL!\" (Personal Essay, Texting & Social Interactions) (SE pp. 18-25)",
+          "Selection Vocabulary Practice: absorb, accelerated, adolescents, autonomy, mortality, prevalence (WB p. 10)",
+          "Grammar: Identifying and Correcting Vague Pronouns (WB pp. 12-13)",
+          "Close Reading: Making Textual Inferences & Author Purpose",
+          "Writing Workshops 1 & 2: Short Story Planning, Character Voice & Arc"
         ],
         "Math": [
-          "English Math Science اللغة العربية",
-          "Math Lesson 1-4 Comparing and ordering real numbers-",
-          "Lesson 1- 2: Solving Linear Equations"
+          "Lesson 1-4: Comparing & Ordering Real Numbers (Algebra V1 pp. 47-52)",
+          "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+          "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
         ],
         "Physics": [
-          "Physics Volume 1- Unit 1- Chapter 1- Lesson 2- Working with",
-          "Scientific Notation and Units 16"
+          "Volume 1 Unit 1 Chapter 1 Lesson 2: Working with Scientific Notation and SI Units (p. 16)",
+          "Revision: 1.1 Scientific Inquiry, Hypotheses & Experimental Design"
         ],
         "Chemistry": [
-          "Chemistry Chapter 2, Lesson 1 (V1): The Nature of Matter 40-41"
+          "Chapter 2 Lesson 1 (V1): The Nature of Matter & Molecular Motion (pp. 40-41)",
+          "Chapter 2 Lesson 2 (V1): Properties of Matter & Physical/Chemical Changes (pp. 42-43)"
         ],
         "Biology": [
-          "Biodiversity,",
-          "Bioremediation, Biology,",
-          "Biology Revision: Volume 1- Unit 1- Lesson 1: Understanding"
+          "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & Scientific Inquiry (pp. 6-15)",
+          "Ecosystem Dynamics: Understanding Biodiversity & Bioremediation"
         ]
       }
     },
@@ -103,282 +533,314 @@
       "latest_agenda_pdf": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9B_Weekly_Agenda-1.pdf",
       "subjects": {
         "ELA": [
-          "English Pre-Reading: LOL! SE pp. 18-",
-          "English Vocabulary: Selection Words WB p. 10",
-          "English Grammar: Correcting Vague Pronouns WB pp. 12-",
-          "English First Read: LOL! SE pp. 18-25 Annotate two details that show",
-          "English Close Reading: Make Inferences"
+          "Pre-Reading & First Read: \"LOL!\" (Personal Essay, Texting & Social Interactions) (SE pp. 18-25)",
+          "Selection Vocabulary Practice: absorb, accelerated, adolescents, autonomy, mortality, prevalence (WB p. 10)",
+          "Grammar: Identifying and Correcting Vague Pronouns (WB pp. 12-13)",
+          "Close Reading: Making Textual Inferences & Author Purpose",
+          "Writing Workshops 1 & 2: Short Story Planning, Character Voice & Arc"
         ],
         "Math": [
-          "English Math Science اللغة العربية",
-          "Math Lesson 1-4 Comparing and ordering real numbers-",
-          "Lesson 1- 2: Solving Linear Equations"
+          "Lesson 1-4: Comparing & Ordering Real Numbers (Algebra V1 pp. 47-52)",
+          "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+          "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
         ],
         "Physics": [
-          "Physics Volume 1- Unit 1- Chapter 1- Lesson 2- Working with",
-          "Scientific Notation and Units 16"
+          "Volume 1 Unit 1 Chapter 1 Lesson 2: Working with Scientific Notation and SI Units (p. 16)",
+          "Revision: 1.1 Scientific Inquiry, Hypotheses & Experimental Design"
         ],
         "Chemistry": [
-          "Chemistry Chapter 2, Lesson 1 (V1): The Nature of Matter 40-41"
+          "Chapter 2 Lesson 1 (V1): The Nature of Matter & Molecular Motion (pp. 40-41)",
+          "Chapter 2 Lesson 2 (V1): Properties of Matter & Physical/Chemical Changes (pp. 42-43)"
         ],
         "Biology": [
-          "Biodiversity,",
-          "Bioremediation, Biology,",
-          "Biology Revision: Volume 1- Unit 1- Lesson 1: Understanding"
+          "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & Scientific Inquiry (pp. 6-15)",
+          "Ecosystem Dynamics: Understanding Biodiversity & Bioremediation"
         ]
       }
     }
   },
   "historical_weeks": {
-    "Week 3 (Sep 06 - 10)": {
+    "Week 2 (Sep 06 - Sep 10, 2026)": {
       "shadan": {
         "ELA": [
-          "SAT Reading Comprehension Practice",
-          "SAT Vocabulary Practice",
-          "Craft & Structure Practice"
+          "Grammar Refresher: Parts of Speech & Sentence Mechanics",
+          "Reading Comprehension Diagnostic: Identifying Key Ideas & Details",
+          "Vocabulary in Context Exercises",
+          "Reflective Journaling & Academic Goal Statement"
         ],
         "Math": [
-          "Functions & Algebraic Modeling"
+          "Algebra II Foundations: Absolute Value Equations",
+          "Solving Systems of Linear Equations Algebraically"
         ],
         "Physics": [
-          "Chapter 12 Lesson 1: Fluid Mechanics - Density & Pressure"
+          "Physics Foundations: Force, Motion & Newton's Laws Review"
         ],
         "Chemistry": [
-          "Chapter 13 Lesson 1: Energy & Chemical Bonds (pp. 92-97)"
+          "Chemistry Foundations: Review of Organic Nomenclature & Chemical Bonding"
         ],
         "Biology": [
-          "Volume 3 Unit 5 Chapter 16: Introduction to Genetics"
+          "Biology Foundations: Human Chromosomes & Laboratory Equipment Safety"
         ]
       },
       "elyana": {
         "ELA": [
-          "Pre-reading: \"Two Kinds\" - Motifs & Themes",
-          "Vocabulary: Story Words in Context",
-          "Grammar: Pronoun Agreement"
+          "Reading Comprehension Diagnostic",
+          "Vocabulary Through Context Drills",
+          "Grammar: Sentence Structure, Clauses & Conjunctions",
+          "Grammar: Subject-Verb & Pronoun-Antecedent Agreement",
+          "Grammar: Core Punctuation, Homophones & Capitalization Rules"
         ],
         "Math": [
-          "Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 20-22)"
+          "Foundations Review: Order of Operations & Real Numbers",
+          "Solving Multi-Step Linear Equations",
+          "Geometry Review: Angles, Parallel Lines & Transversals"
         ],
         "Physics": [
-          "Unit 1 Chapter 1: Introduction to Physical Sciences"
+          "Physics Measurement Foundations & Basic Trigonometry"
         ],
         "Chemistry": [
-          "Chapter 2 Lesson 1: Properties of Matter"
+          "Chemistry Foundations: Types of Chemical Bonds Review"
         ],
         "Biology": [
-          "Exploring Biology Lesson 1: Characteristics of Life"
+          "Biology Foundations: Atomic Theory in Biology"
         ]
       },
       "talal_nawaf": {
         "ELA": [
-          "Pre-reading: \"Two Kinds\" by Amy Tan",
-          "Vocabulary & Literary Terms",
-          "Active Reading Strategies"
+          "Vocabulary Review: High-Frequency Academic Vocabulary in Context",
+          "Grammar Review: Verb Tenses (Present, Past, Future & Continuous)",
+          "Grammar Review: Sentence Structure & Agreement",
+          "Reading Comprehension: Main Idea, Supporting Details & Inference",
+          "Literary Elements Review: Plot, Conflict, Theme & Point of View"
         ],
         "Math": [
-          "Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 20-25)"
+          "Foundations Review: Order of Operations & Real Numbers",
+          "Solving Linear Equations & Multi-Step Equations",
+          "Angles, Lines & Transversals"
         ],
         "Physics": [
-          "Chapter 1 Lesson 2: Scientific Notation & SI Units"
+          "Chapter 1 Lesson 1: Scientific Inquiry & Experimental Design"
+        ],
+        "Chemistry": [
+          "Measurement Review: Precision, Accuracy, Scientific Notation & Units"
+        ],
+        "Biology": [
+          "Biology Foundations: Atomic Theory & Laboratory Safety Protocol"
+        ]
+      }
+    },
+    "Week 3 (Sep 13 - Sep 17, 2026)": {
+      "shadan": {
+        "ELA": [
+          "SAT Reading Comprehension Practice: Core Themes & Evidence",
+          "SAT Vocabulary in Context Drills",
+          "Craft & Rhetorical Structure Analysis",
+          "SAT Writing & Language Conventions Practice"
+        ],
+        "Math": [
+          "Unit 1 Functions 1.1: Functions and Their Graphs Review (pp. 24-32)",
+          "Function Notation & Graphical Transformations"
+        ],
+        "Physics": [
+          "Chapter 12 Lesson 1: Fluid Mechanics – Density, Pressure & Buoyancy (pp. 114-120)"
+        ],
+        "Chemistry": [
+          "Chapter 13 Lesson 1: Energy and Chemical Bonds (pp. 92-96)",
+          "Chemical Potential Energy & Molecular Stability"
+        ],
+        "Biology": [
+          "Volume 3 Unit 5 Chapter 16 Lesson 1: Introduction to Viruses (pp. 6-10)"
+        ]
+      },
+      "elyana": {
+        "ELA": [
+          "Pre-Reading: \"Two Kinds\" by Amy Tan — Motifs & Family Expectations",
+          "Vocabulary 1: Story Words in Literary Context (6 Target Words)",
+          "Vocabulary 2: Literary Terms & Figurative Language Analysis",
+          "Reading 1 & 2: Motivation, Conflict, Communication & Universal Themes"
+        ],
+        "Math": [
+          "Lesson 1-1: Operations on Real Numbers (Algebra V1 pp. 6-19)",
+          "Lesson 1-2: Solving Linear Equations (pp. 20-22)"
+        ],
+        "Physics": [
+          "Chapter 1 Lesson 1: Introduction to Physical Sciences & Scientific Inquiry"
+        ],
+        "Chemistry": [
+          "Chapter 2 Lesson 2: Properties of Matter and Changes"
+        ],
+        "Biology": [
+          "Volume 1 Unit 1: Introduction to Life Sciences & Laboratory Foundations"
+        ]
+      },
+      "talal_nawaf": {
+        "ELA": [
+          "Pre-Reading: \"Two Kinds\" by Amy Tan — Character Motifs & Prediction",
+          "Vocabulary 1 & 2: Context Clues, Connotation & Literary Terminology",
+          "Reading Comprehension: Character Profiles & Conflicting Motivations",
+          "Writing Workshop: Narrative Opening, Setting & Voice"
+        ],
+        "Math": [
+          "Lesson 1-1: Operations on Real Numbers (Algebra V1 pp. 6-19)",
+          "Lesson 1-2: Solving Linear Equations (pp. 20-25)"
+        ],
+        "Physics": [
+          "Chapter 1 Lesson 2: Scientific Notation, Units & Measurement Uncertainty"
         ],
         "Chemistry": [
           "Chapter 2 Lesson 1: The Nature of Matter (pp. 36-39)"
         ],
         "Biology": [
-          "Unit 1 Chapter 1: Exploring Biology"
+          "Unit 1 Chapter 1: Exploring Biology & The Nature of Science (pp. 6-10)"
         ]
       }
     },
-    "Week 4 (Sep 13 - 17)": {
+    "Week 4 (Sep 20 - Sep 24, 2026)": {
       "shadan": {
         "ELA": [
-          "SAT English Preparation: Central Ideas & Text Evidence",
-          "Words in Context Vocabulary Strategy",
-          "Text Structure & Author Purpose"
+          "SAT English Preparation: Central Ideas & Supporting Details Analysis",
+          "Novel Study: \"The Old Man and the Sea\" by Ernest Hemingway (Themes of Perseverance & Man vs Nature)",
+          "SAT English Preparation: Words in Context High-Yield Vocabulary Strategy",
+          "SAT English Preparation: Text Structure, Purpose & Cross-Text Connections"
         ],
         "Math": [
-          "Quadratic Expressions & Function Transformations"
+          "Unit 1 Functions 1.1: Functions and Their Graphs (Algebra V1 pp. 24-31)",
+          "Domain, Range, Increasing/Decreasing Intervals & Vertical Line Test"
         ],
         "Physics": [
-          "Fluid Mechanics: Pascal's Principle & Hydraulic Lift Systems"
+          "Chapter 12 Lesson 1: Fluid Mechanics – Pascal's Principle & Hydraulic Lift Systems (pp. 120-125)"
         ],
         "Chemistry": [
-          "Chapter 13 Lesson 1: Bond Energy & Exothermic Reactions"
+          "Chapter 13 Lesson 1: Energy and Chemical Reactions (pp. 96-100)",
+          "Exothermic & Endothermic Processes, Bond Energy & Progress Check 4"
         ],
         "Biology": [
-          "Cell Division & Genetic Regulation"
+          "Volume 3 Unit 6 Chapter 19 Lesson 2: Types of Viruses & Virus-Targeting Vaccines (pp. 14-16)",
+          "DNA/RNA Viral Structures, Hepatitis, Influenza & Vaccine Mechanisms"
         ]
       },
       "elyana": {
         "ELA": [
-          "Close Read: \"Two Kinds\" - Making Inferences",
-          "Vocabulary Strategy: Slang & Idioms in Dialogue",
-          "Pronoun-Antecedent Agreement"
+          "Close Read: \"Two Kinds\" by Amy Tan — Making Inferences & Textual Evidence",
+          "Vocabulary Strategy: Slang & Informal Idioms in Dialogue",
+          "Grammar: Pronoun-Antecedent Agreement Practice",
+          "Writing Workshop: Narrative Arc & Character Motivation"
         ],
         "Math": [
-          "Lesson 1-3: Linear Equations with Variables on Both Sides"
+          "Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 25-27)",
+          "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (pp. 34-36)"
         ],
         "Physics": [
-          "Scientific Notation Calculations & Precision"
+          "Chapter 1 Lesson 1: Scientific Inquiry and Experimental Design",
+          "Controlled Experiments, Variables & Data Collection"
         ],
         "Chemistry": [
-          "Properties of Matter: Physical vs Chemical Changes"
+          "Chapter 2 Lesson 2: Properties of Matter and Changes (pp. 42-46)"
         ],
         "Biology": [
-          "Cellular Organization & Taxonomy"
+          "Volume 1 Unit 1: Living Systems & Scientific Observation"
         ]
       },
       "talal_nawaf": {
         "ELA": [
-          "Close Read: \"Two Kinds\" - Making Inferences & Textual Evidence",
-          "Slang & Dialogue Vocabulary",
-          "Pronoun Agreement Drills"
+          "Close Read: \"Two Kinds\" by Amy Tan — Inferences, Culture & Conflict",
+          "Vocabulary Strategy: Slang in Dialogue & Context Clues",
+          "Grammar: Pronoun Agreement Drills",
+          "Writing Workshop: Narrative Character Development"
         ],
         "Math": [
-          "Lesson 1-3: Solving Linear Equations with Variables on Both Sides"
+          "Lesson 1-2: Solving Linear Equations (Algebra V1 pp. 25-27)",
+          "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (pp. 34-36)"
         ],
         "Physics": [
-          "Working with Scientific Notation & Measurement Conversions"
+          "Volume 1 Unit 1 Chapter 1 Lesson 2: Scientific Notation & Unit Conversion (p. 21)"
         ],
         "Chemistry": [
-          "The Nature of Matter: Atomic Theory Review"
+          "Chapter 2 Lesson 1 (V1): The Nature of Matter (pp. 40-41)"
         ],
         "Biology": [
-          "Biological Inquiry & Experimental Design"
+          "Unit 1: Biological Inquiry & Scientific Observations"
         ]
       }
     },
-    "Week 5 (Sep 20 - 24)": {
+    "Week 5 (Sep 27 - Oct 01, 2026)": {
       "shadan": {
         "ELA": [
-          "Unit 1: \"Harlem\" by Langston Hughes - Historical Context",
-          "Craft & Structure: Imagery, Metaphor & Symbolism",
-          "Vocabulary in Context: Segregation & Aspiration",
-          "Reflective Narrative Writing Workshop"
+          "Unit 1: \"Harlem\" by Langston Hughes (Essential Question: What makes human life valuable?)",
+          "Vocabulary in Context: segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression",
+          "Craft & Structure: Imagery, Metaphor & Symbolism in Poetry",
+          "Revision: Unit 1 \"Harlem\" & Reflective Narrative Writing Workshop"
         ],
         "Math": [
-          "Checkpoint Assessment 1 Revision & Polynomial Operations"
+          "Unit 1 Functions 1.2: Combining Functions – Shifting and Scaling Graphs (pp. 34-40)",
+          "Checkpoint Assessment 1 Revision & Practice"
         ],
         "Physics": [
-          "Chapter 12 Lesson 2: Forces & Interactions in Fluids (pp. 128-130)"
+          "Chapter 12 Lesson 2: Forces & Interactions in Fluids (pp. 128-130, 133-134)",
+          "Fluid Pressure, Density & Buoyant Forces"
         ],
         "Chemistry": [
-          "Chapter 13 Lesson 2: Heat Transfer & Calorimetry (pp. 102-105)"
+          "Chapter 13 Lesson 2: Heat Transfer and Calorimetry (pp. 102-105)",
+          "Specific Heat Capacity & Calorimetric Calculations"
         ],
         "Biology": [
-          "Genetic Inheritance & Punnett Square Modeling"
+          "Volume 3 Unit 6 Chapter 19 Lesson 2: Types of Viruses & Virus-Targeting Vaccines (pp. 14-17)",
+          "Viral Reproduction, Host-Cell Interaction & Immunity"
         ]
       },
       "elyana": {
         "ELA": [
-          "Vocabulary: Selection Words from \"LOL!\"",
-          "Grammar: Correcting Vague Pronouns in Student Drafts",
-          "First Read: Informational Text Structure & Humor",
-          "Writing Workshop: Planning an Original Short Story"
+          "Selection Vocabulary: Target Words from \"LOL!\" and Paired Informational Text (WB p. 10)",
+          "Grammar: Correcting Vague Pronouns & Supplying Clear Antecedents (WB pp. 12-13)",
+          "First Read & Close Read: \"LOL!\" (Personal Essay, Humor & Generation Gap) (SE pp. 18-25)",
+          "Writing Workshop 1: Planning an Original Generation-Gap Short Story (WB p. 14)",
+          "Reading Skill Recap: Making Inferences & Vocabulary Recap (\"Two Kinds\")"
         ],
         "Math": [
-          "Lesson 1-3 Review: Multi-Step Equations",
-          "Lesson 1-5: Methods to Solve Algebraic Inequalities"
+          "Lesson 1-3: Solving Linear Equations with Variables on Both Sides (Algebra V1 pp. 36-41)",
+          "Lesson 1-5: Methods to Solve Algebraic Inequalities (Algebra V1 pp. 58-60)",
+          "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+          "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
         ],
         "Physics": [
-          "Chapter 1 Lesson 2: Scientific Notation in Physics Measurements"
+          "Chapter 1 Lesson 2: Working with Scientific Notation and SI Measurement Units (pp. 20-23)",
+          "Metric Prefixes, Measurement Precision & Conversion"
         ],
         "Chemistry": [
-          "Properties of Matter: Chemical Reactions Lab Overview"
+          "Chapter 2 Lesson 2: Properties of Matter and Changes (pp. 42-46)",
+          "Physical vs Chemical Changes & Progress Check 1"
         ],
         "Biology": [
-          "Unit 1 Revision: Biodiversity & Bioremediation Ecosystem Roles"
+          "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & The Role of Science in Society (pp. 6-19)",
+          "Core Terminology: Biodiversity, Bioremediation, Ecosystem Dynamics"
         ]
       },
       "talal_nawaf": {
         "ELA": [
-          "Pre-Reading & First Read: \"LOL!\" (Student Edition pp. 18-25)",
-          "Selection Vocabulary Workbook Practice (p. 10)",
-          "Grammar: Correcting Vague Pronouns (WB pp. 12-14)",
-          "Writing Workshop: Story Arc, Characterization & Voice"
+          "Pre-Reading & First Read: \"LOL!\" (Personal Essay, Texting & Social Interactions) (SE pp. 18-25)",
+          "Selection Vocabulary Practice: absorb, accelerated, adolescents, autonomy, mortality, prevalence (WB p. 10)",
+          "Grammar: Identifying and Correcting Vague Pronouns (WB pp. 12-13)",
+          "Close Reading: Making Textual Inferences & Author Purpose",
+          "Writing Workshops 1 & 2: Short Story Planning, Character Voice & Arc"
         ],
         "Math": [
-          "Lesson 1-4: Comparing & Ordering Real Numbers on the Number Line"
+          "Lesson 1-4: Comparing & Ordering Real Numbers (Algebra V1 pp. 47-52)",
+          "Checkpoint 1 Revision: Lesson 1-1 Operations on Real Numbers (pp. 8-19)",
+          "Checkpoint 1 Revision: Lesson 1-2 Solving Linear Equations (pp. 22-31)"
         ],
         "Physics": [
-          "Chapter 1 Lesson 2: Working with Measurement Uncertainty & Scientific Notation"
+          "Volume 1 Unit 1 Chapter 1 Lesson 2: Working with Scientific Notation and SI Units (p. 16)",
+          "Revision: 1.1 Scientific Inquiry, Hypotheses & Experimental Design"
         ],
         "Chemistry": [
-          "Chapter 2 Lesson 1: States of Matter & Molecular Motion"
+          "Chapter 2 Lesson 1 (V1): The Nature of Matter & Molecular Motion (pp. 40-41)",
+          "Chapter 2 Lesson 2 (V1): Properties of Matter & Physical/Chemical Changes (pp. 42-43)"
         ],
         "Biology": [
-          "Unit 1 Revision: Understanding Ecosystems, Biodiversity & Bioremediation"
+          "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & Scientific Inquiry (pp. 6-15)",
+          "Ecosystem Dynamics: Understanding Biodiversity & Bioremediation"
         ]
       }
     }
-  },
-  "checkpoint_1_assessments": {
-    "academic_year": "2026 - 2027",
-    "school": "Arab International Schools (arabschools.edu.sa)",
-    "period": "Wednesday, September 30 – Monday, October 12, 2026",
-    "assessment_type": "Paper-based Assessments",
-    "official_study_guides": {
-      "grade_9": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G9-Checkpoint-1-Study-Materials-2026-2027.pdf",
-      "grade_11": "https://arabschools.edu.sa/wp-content/uploads/2026/09/G11-Checkpoint-1-Study-Materials-2026-2027.pdf"
-    },
-    "schedule": [
-      {
-        "date": "2026-09-30",
-        "day": "Wednesday",
-        "subject": "Saudi History",
-        "time": "8:00 - 8:45 AM",
-        "grade_9": "الوحدة الأولى: جغرافية المملكة العربية السعودية (الموقع ص12-17، مظاهر التضاريس ص18-28، المناخ ص29-32، توزيع السكان ص33-40)",
-        "grade_11": "الوحدة الأولى: مفهوم التاريخ ومصادره (ص12، نشأة التدوين ص16، نماذج من مؤلفات المؤرخين المسلمين ص20)"
-      },
-      {
-        "date": "2026-10-04",
-        "day": "Sunday",
-        "subject": "Mathematics",
-        "grade_9": "Algebra Vol 1 Unit 1: Lesson 1-1 Operations on Real Numbers (pp. 8-19), Lesson 1-2 Solving Linear Equations (pp. 22-31). Textbook, Workbook, Notebook, Revision Booklet.",
-        "grade_11": "Chapter 1 Functions: Lesson 1-1 Functions and Their Graphs (pp. 21-33). Domain & Range, Graphical/Numerical representations, Vertical line test, Piecewise functions, Symmetry, Revision Booklet."
-      },
-      {
-        "date": "2026-10-05",
-        "day": "Monday",
-        "subject": "Arabic Language",
-        "grade_9": "نص وقضى ربك (ص25-32)، دَيْنُ الكريم (ص45-52)، الألف اللينة بالأفعال الثلاثية (ص53-58)، اسم الفاعل (ص62-67)، أسلوب القسم (ص68-71)",
-        "grade_11": "الكفايات اللغوية 5 (الوحدة النحوية): النشاطات التمهيدية (ص12-17)، المتممات المجرورة (ص18-25)، المفاعيل فقط (ص26-28)"
-      },
-      {
-        "date": "2026-10-06",
-        "day": "Tuesday",
-        "subject": "English Language Arts (ELA)",
-        "grade_9": "Selection: \"Two Kinds\" (Alpha Lit SB pp. 2-17); 10 Vocab words (prodigy, reproach, listlessly, mesmerizing, discordant, lamented, reverie, fiasco, internal conflict, dynamic character, displacement); Grammar: Pronoun Agreement (WB pp. 4-5); Inferencing (WB p. 1); Narrative Writing.",
-        "grade_11": "Selection: Unit 1 \"Harlem\" by Langston Hughes; 10 Concept Vocab (segregation, aspiration, benevolence, disillusioned, futile, indignation, oppression, pragmatic, resentment, turmoil); Conventions: Sentence Variety; Craft: Imagery & Theme; Writing: Reflective Essay."
-      },
-      {
-        "date": "2026-10-07",
-        "day": "Wednesday",
-        "subject": "Islamic Studies",
-        "grade_9": "توحيد: الإيمان بالقدر (ص14، 17، 19)؛ تفسير: سورة الحجرات (ص64، 67، 71)؛ حديث: أعمال القلوب (ص118، 121، 124)؛ فقه: الأطعمة والأشربة (ص161، 164)",
-        "grade_11": "توحيد: العقيدة الإسلامية (ص9، 11، 13)؛ توحيد الربوبية (ص19، 21، 24). مراجعة أوراق العمل وأسئلة التقويم."
-      },
-      {
-        "date": "2026-10-08",
-        "day": "Thursday",
-        "subject": "Biology",
-        "grade_9": "Vol 1 Unit 1 Ch 1 Exploring Biology: Lesson 1 Understanding Science (pp. 6-15). Scientific questions, scientific method, comparative studies & control groups, scientific theory.",
-        "grade_11": "Vol 3 Unit 6 Ch 19 Microbiology: Lesson 1 Introduction to Viruses (pp. 6-13). Virus structure & function, reproductive cycles, lytic & lysogenic cycles."
-      },
-      {
-        "date": "2026-10-11",
-        "day": "Sunday",
-        "subject": "Physics",
-        "grade_9": "Vol 1 Unit 1 Ch 1 Foundations of Physics: Lesson 1 Scientific Inquiry & Experimental Design (pp. 6-13). Resolve the unresolved, estimate over guesstimate, exploration & SI units.",
-        "grade_11": "Vol 2 Unit 6 Ch 12 Fluid Mechanics: Lesson 1 Fluid Mechanics (pp. 116-127). Physics of geysers, fluid properties (density, viscosity, pressure), fluid pressure formulas, flow rate."
-      },
-      {
-        "date": "2026-10-12",
-        "day": "Monday",
-        "subject": "Chemistry",
-        "grade_9": "Vol 1 Ch 2: Lesson 1 The Nature of Matter (pp. 36-41). Matter & properties, states of matter, phase changes, intensive & extensive properties.",
-        "grade_11": "Vol 2 Ch 13: Lesson 1 Energy and Chemical Reactions (pp. 92-101). Energy forms, endothermic & exothermic reactions, enthalpy change (ΔH), energy diagrams, activation energy."
-      }
-    ]
   }
 }
