@@ -21,7 +21,7 @@ window.MathematicsModule = (function () {
       sourceFile: 'EnVision Algebra 1 Vol 1 (pp. 8–31) & G9 Checkpoint 1 Guide',
       pages: 'pp. 8–31',
       assessmentDate: '2026-10-04 (Sunday)',
-      targetStudents: ['Elyana (G9A)', 'Talal (G9B)', 'Nawaf (G9B)', 'Abdullah AlRubiyan'],
+      targetStudents: ['Elyana (G9A)', 'Talal (G9B)', 'Nawaf (G9B)', 'Abdullah AlRubiyan (MIS G9)'],
       formulaCards: [
         { name: 'Distributive Property', formula: 'a(b + c) = ab + ac', note: 'Distribute before combining like terms.' },
         { name: 'Slope-Intercept Form', formula: 'y = mx + b', note: 'm is slope, b is y-intercept.' },

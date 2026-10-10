@@ -107,7 +107,7 @@ We employ **`Outfit`** (geometric humanist grotesque) paired with native Apple s
 ## 5. Tutoring Dashboard Modules
 
 1. **Student Overview**:
-   - Roster cards for Shadan (Grade 11A), Elyana (Grade 9A), Talal (Grade 9B), Nawaf (Grade 9B), and Abdullah (Special Tutoring Secondary Prep).
+   - Roster cards for Shadan (Grade 11A), Elyana (Grade 9A), Talal (Grade 9B), Nawaf (Grade 9B), and Abdullah (Grade 9 American - MIS Al Moktashef).
    - Shows grade level, hourly rate, attended sessions, and progress meter.
 2. **Upcoming Lessons**:
    - Time, subject, student name, and lesson topic with "Join / Prepare" quick action.

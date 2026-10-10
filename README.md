@@ -48,10 +48,10 @@ All data is saved in your browser's `localStorage` — it stays on your device a
 
 ## Students & Rates
 
-| Student | Rate |
-|---|---|
-| Abdullah AlRubiyan | 150 SAR/hr |
-| Shadan | 125 SAR/hr |
-| Elyana | 125 SAR/hr |
-| Talal | 125 SAR/hr |
-| Nawaf | 125 SAR/hr |
+| Student | School & Grade | Rate |
+|---|---|---|
+| Abdullah AlRubiyan | MIS Al Moktashef (Grade 9 American) | 150 SAR/hr |
+| Shadan | Arab International Schools (Grade 11A) | 125 SAR/hr |
+| Elyana | Arab International Schools (Grade 9A) | 125 SAR/hr |
+| Talal | Arab International Schools (Grade 9B) | 125 SAR/hr |
+| Nawaf | Arab International Schools (Grade 9B) | 125 SAR/hr |

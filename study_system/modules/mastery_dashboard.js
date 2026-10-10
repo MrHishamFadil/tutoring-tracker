@@ -38,7 +38,7 @@ window.MasteryDashboard = (function () {
     { name: 'Elyana', grade: 'Grade 9A', subjects: ['Algebra 1 (Real Numbers)', 'Two Kinds (Lit)', 'Pronoun Agreement', 'Nature of Matter', 'Biology Inquiry'], overallMastery: 92, status: 'Mastered Core', alerts: [] },
     { name: 'Talal', grade: 'Grade 9B', subjects: ['Algebra 1', 'Two Kinds (Lit)', 'Grammar Conventions', 'Chemistry Matter', 'Physics Inquiry'], overallMastery: 78, status: 'Review Needed', alerts: ['Pronoun Agreement Workbook p. 4'] },
     { name: 'Nawaf', grade: 'Grade 9B', subjects: ['Algebra 1', 'Two Kinds (Lit)', 'Grammar Conventions', 'Chemistry Matter', 'Physics Inquiry'], overallMastery: 82, status: 'On Track', alerts: [] },
-    { name: 'Abdullah AlRubiyan', grade: 'Special Tutoring Secondary Prep', subjects: ['Foundational Algebra', 'Literature & Vocabulary', 'Science Inquiry'], overallMastery: 85, status: 'Pacing Well', alerts: ['Extended time on multi-step equations'] }
+    { name: 'Abdullah AlRubiyan', grade: 'Grade 9 American (MIS)', subjects: ['OBELAS Algebra & Geometry', 'StudySync Literature & Grammar', 'Physics (Vectors & Trig)', 'Chemistry (Nature of Matter)', 'Biology (Scientific Inquiry)', 'Arabic & Islamic Studies'], overallMastery: 89, status: 'Preparing Mid-Terms', alerts: ['MIS Mid-Term Tests: Oct 18–28'] }
   ];
 
   try {
