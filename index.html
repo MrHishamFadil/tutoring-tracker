@@ -945,7 +945,12 @@
     <button class="desktop-nav-btn checkpoint-tab-btn" data-view="view-checkpoints" role="tab" aria-selected="false">🎯 Checkpoints &amp; Mid-Terms <span class="nav-pulse-badge">EXAMS</span></button>
     <button class="desktop-nav-btn" data-view="view-resources" role="tab" aria-selected="false" style="color:#0284c7;font-weight:700;">🎥 High-View Resources</button>
     <a href="study_system/index.html" class="desktop-nav-btn" style="color:#2563eb;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">🚀 Study System</a>
-    <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="desktop-nav-btn" style="color:#d5006f;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;" title="GCSEPod Pupil Dashboard (WA1038)">🎧 GCSEPod ↗</a>
+    <div style="display:inline-flex;align-items:center;background:rgba(213,0,111,0.06);border:1px solid rgba(213,0,111,0.25);border-radius:6px;padding:1px 3px;">
+      <a href="https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard" target="_blank" rel="noopener noreferrer" class="desktop-nav-btn" onclick="launchGcsepod(event)" style="color:#d5006f;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;padding:3px 6px;" title="1-Click Launch: Auto-copies password (Cp@679034) &amp; opens GCSEPod">
+        <span>🎧 GCSEPod</span> <span class="badge" style="background:#d5006f;color:#fff;font-size:0.62rem;padding:1px 5px;">WA1038</span>
+      </a>
+      <button type="button" onclick="openGcsepodModal()" style="background:transparent;border:none;color:#d5006f;cursor:pointer;padding:2px 4px;font-size:0.8rem;" title="View GCSEPod Saved Password &amp; Credentials">🔑</button>
+    </div>
     <button class="desktop-nav-btn" data-view="view-curriculum" role="tab" aria-selected="false">📚 School Agendas (ELA/Math/Sci)</button>
     <button class="desktop-nav-btn" data-view="view-add" role="tab" aria-selected="false">➕ Log Session</button>
     <button class="desktop-nav-btn" data-view="view-log" role="tab" aria-selected="false">📋 History</button>
@@ -1022,9 +1027,12 @@
               </div>
             </div>
             <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-              <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:.74rem;padding:5px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#d5006f;font-weight:700;border-color:#fbcfe8;background:#fdf2f8;" title="Access GCSEPod Pupil Dashboard (User: WA1038)">
-                <span>🎧 GCSEPod Dashboard ↗</span>
-              </a>
+              <div style="display:inline-flex;align-items:center;background:#fdf2f8;border:1px solid #fbcfe8;border-radius:6px;">
+                <a href="https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard" target="_blank" rel="noopener noreferrer" class="btn-secondary" onclick="launchGcsepod(event)" style="font-size:.74rem;padding:5px 9px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#d5006f;font-weight:700;border:none;background:transparent;" title="Auto-copies password (Cp@679034) and opens GCSEPod">
+                  <span>🎧 GCSEPod (WA1038) ↗</span>
+                </a>
+                <button type="button" onclick="openGcsepodModal()" style="border:none;border-left:1px solid #fbcfe8;background:transparent;color:#d5006f;cursor:pointer;padding:5px 7px;font-size:0.75rem;" title="View GCSEPod Saved Password">🔑</button>
+              </div>
               <a id="home-yt-header-study-link" href="study_system/index.html?subject=chemistry&grade=11" class="btn-secondary" style="font-size:.74rem;padding:5px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#2563eb;font-weight:700;border-color:#bfdbfe;background:#eff6ff;">
                 <span>🚀 Interactive Study System</span>
               </a>
@@ -1697,6 +1705,47 @@
         <button class="btn-secondary" id="btn-restore-default" style="color:var(--accent);border-color:var(--accent);">Restore</button>
       </div>
     </div>
+    <!-- GCSEPod Connected Account Card -->
+    <div class="card" style="border-top:3px solid #d5006f;">
+      <div class="card-header" style="margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.4rem;">🎧</span>
+          <div>
+            <h3 style="margin:0;font-size:0.98rem;color:#d5006f;">GCSEPod Connected Account &amp; Password</h3>
+            <div style="font-size:0.75rem;color:var(--text-3);">Pupil Dashboard Access • members.gcsepod.com</div>
+          </div>
+        </div>
+        <button type="button" class="btn-primary" onclick="launchGcsepod(event)" style="background:#d5006f;border-color:#be0063;font-size:0.75rem;padding:5px 12px;display:inline-flex;align-items:center;gap:5px;">
+          <span>🚀</span> <span>Open &amp; Copy Password</span>
+        </button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:10px;margin-bottom:12px;">
+        <div style="background:var(--surface-2);padding:10px 12px;border-radius:6px;border:1px solid var(--border);">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Username</div>
+          <div style="font-family:monospace;font-size:0.95rem;font-weight:700;margin-top:2px;display:flex;justify-content:space-between;align-items:center;">
+            <span>WA1038</span>
+            <button type="button" class="btn-secondary" onclick="copyGcsepodUser()" style="padding:2px 8px;font-size:0.7rem;">📋 Copy</button>
+          </div>
+        </div>
+        <div style="background:var(--surface-2);padding:10px 12px;border-radius:6px;border:1px solid var(--border);">
+          <div style="font-size:0.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Saved Password</div>
+          <div style="font-family:monospace;font-size:0.95rem;font-weight:700;margin-top:2px;display:flex;justify-content:space-between;align-items:center;">
+            <span id="settings-gcsepod-pass-display">•••••••••</span>
+            <div style="display:flex;gap:4px;">
+              <button type="button" class="btn-secondary" onclick="toggleSettingsGcsepodPass()" style="padding:2px 6px;font-size:0.7rem;" title="Show/Hide Password">👁️</button>
+              <button type="button" class="btn-secondary" onclick="copyGcsepodPass()" style="padding:2px 8px;font-size:0.7rem;">📋 Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(213,0,111,0.06);border-left:3px solid #d5006f;padding:8px 10px;border-radius:4px;font-size:0.78rem;color:#9d0052;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+        <span>💡 Clicking any GCSEPod link on the site automatically copies password <code>Cp@679034</code> to your clipboard.</span>
+        <button type="button" class="btn-secondary" onclick="openGcsepodModal()" style="padding:3px 8px;font-size:0.72rem;color:#d5006f;border-color:#fbcfe8;">Open Details Dialog</button>
+      </div>
+    </div>
+
     <div class="card" style="text-align:center;color:var(--text-3);font-size:.8rem;">
       <div style="font-weight:600;margin-bottom:4px;">Tutoring Tracker & Academic Hub v2.0</div>
       <div>Designed for Private Tutoring • Offline-capable & PWA Ready</div>
@@ -1817,6 +1866,57 @@
         <strong style="color:var(--accent);font-family:monospace;">[04:31 - 05:12]</strong><br/>
         "Outstanding job detectives! Download the practice sheet below and complete your quick 3-question quiz. See you in the next lesson!"
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── MODAL: GCSEPod LOGIN & CREDENTIALS ────────────────── -->
+<div class="modal-backdrop" id="gcsepod-modal" role="dialog" aria-modal="true" aria-labelledby="gcsepod-modal-title">
+  <div class="modal-card" style="max-width:440px;">
+    <button class="modal-close" onclick="closeGcsepodModal()" aria-label="Close dialog">×</button>
+    
+    <div class="card-header" style="margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:1.8rem;" aria-hidden="true">🎧</span>
+        <div>
+          <h2 id="gcsepod-modal-title" style="font-size:1.15rem;margin:0;color:#d5006f;">GCSEPod Account Login</h2>
+          <div style="font-size:0.76rem;color:var(--text-3);">members.gcsepod.com • Saved Password Vault</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credential Card -->
+    <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:14px;">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.75rem;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Username</label>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <input type="text" id="gcsepod-user-val" value="WA1038" readonly style="flex:1;font-family:monospace;font-weight:700;padding:8px 10px;font-size:0.95rem;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;color:var(--text);" />
+          <button type="button" class="btn-secondary" onclick="copyGcsepodUser()" style="padding:8px 12px;font-size:0.8rem;white-space:nowrap;">📋 Copy</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:0.75rem;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Saved Password</label>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <input type="password" id="gcsepod-pass-val" value="Cp@679034" readonly style="flex:1;font-family:monospace;font-weight:700;padding:8px 10px;font-size:0.95rem;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;color:var(--text);" />
+          <button type="button" class="btn-secondary" id="btn-toggle-gcsepod-pass" onclick="toggleGcsepodPassVisibility()" style="padding:8px 10px;font-size:0.8rem;" title="Show/Hide Password">👁️</button>
+          <button type="button" class="btn-secondary" onclick="copyGcsepodPass()" style="padding:8px 12px;font-size:0.8rem;white-space:nowrap;">📋 Copy</button>
+        </div>
+      </div>
+
+      <div style="background:rgba(213,0,111,0.08);border-left:3px solid #d5006f;border-radius:4px;padding:8px 10px;font-size:0.78rem;color:#9d0052;line-height:1.45;">
+        💡 <strong>1-Click Sign In:</strong> Clicking the launch button below copies your password <code>Cp@679034</code> to your clipboard and opens the GCSEPod login page in a new tab. When it loads, simply paste (Ctrl+V or ⌘V) into the password box!
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:8px;flex-direction:column;">
+      <button type="button" class="btn-primary" onclick="launchGcsepod(event)" style="background:#d5006f;border-color:#be0063;padding:10px;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700;cursor:pointer;">
+        <span>🚀</span> <span>Copy Password &amp; Open GCSEPod</span>
+      </button>
+      <button type="button" class="btn-secondary" onclick="closeGcsepodModal()" style="padding:7px;font-size:0.8rem;">
+        Close
+      </button>
     </div>
   </div>
 </div>
@@ -2119,6 +2219,10 @@ window.addEventListener('keydown', (e) => {
     if (modal && modal.classList.contains('active')) {
       closeFinanceModal();
     }
+    const gcseModal = document.getElementById('gcsepod-modal');
+    if (gcseModal && gcseModal.classList.contains('active')) {
+      closeGcsepodModal();
+    }
   }
 });
 
@@ -2142,6 +2246,96 @@ window.switchHomeVideo = function(videoId, title, meta, url, el) {
     el.setAttribute('aria-pressed', 'true');
   }
 };
+
+
+/* ─── GCSEPod Saved Credentials Vault & 1-Click Launcher ─── */
+const GCSEPOD_CONFIG = {
+  username: 'WA1038',
+  password: 'Cp@679034',
+  loginUrl: 'https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard'
+};
+
+window.copyToClipboardSafe = function(text, successMsg) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      if (successMsg) toast(successMsg);
+    }).catch(() => {
+      fallbackCopy(text, successMsg);
+    });
+  } else {
+    fallbackCopy(text, successMsg);
+  }
+};
+
+function fallbackCopy(text, successMsg) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
+    if (successMsg) toast(successMsg);
+  } catch (err) {
+    prompt('Copy to clipboard: Ctrl+C, Enter', text);
+  }
+  document.body.removeChild(ta);
+}
+
+window.copyGcsepodUser = function() {
+  copyToClipboardSafe(GCSEPOD_CONFIG.username, `📋 Username "${GCSEPOD_CONFIG.username}" copied to clipboard!`);
+};
+
+window.copyGcsepodPass = function() {
+  copyToClipboardSafe(GCSEPOD_CONFIG.password, `🔑 Password "${GCSEPOD_CONFIG.password}" copied to clipboard!`);
+};
+
+window.launchGcsepod = function(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  // 1. Copy password to clipboard
+  copyToClipboardSafe(GCSEPOD_CONFIG.password, `🔑 Password (${GCSEPOD_CONFIG.password}) copied! User: ${GCSEPOD_CONFIG.username} • Opening GCSEPod...`);
+  
+  // 2. Open login page in new tab
+  setTimeout(() => {
+    window.open(GCSEPOD_CONFIG.loginUrl, '_blank', 'noopener,noreferrer');
+  }, 150);
+};
+
+window.openGcsepodModal = function() {
+  const modal = document.getElementById('gcsepod-modal');
+  if (modal) modal.classList.add('active');
+};
+
+window.closeGcsepodModal = function() {
+  const modal = document.getElementById('gcsepod-modal');
+  if (modal) modal.classList.remove('active');
+};
+
+let isGcsepodPassVisible = false;
+window.toggleGcsepodPassVisibility = function() {
+  const input = document.getElementById('gcsepod-pass-val');
+  const btn = document.getElementById('btn-toggle-gcsepod-pass');
+  if (!input) return;
+  isGcsepodPassVisible = !isGcsepodPassVisible;
+  input.type = isGcsepodPassVisible ? 'text' : 'password';
+  if (btn) btn.textContent = isGcsepodPassVisible ? '🙈' : '👁️';
+};
+
+let isSettingsPassVisible = false;
+window.toggleSettingsGcsepodPass = function() {
+  const display = document.getElementById('settings-gcsepod-pass-display');
+  if (!display) return;
+  isSettingsPassVisible = !isSettingsPassVisible;
+  display.textContent = isSettingsPassVisible ? GCSEPOD_CONFIG.password : '•••••••••';
+};
+
+document.getElementById('gcsepod-modal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'gcsepod-modal') {
+    closeGcsepodModal();
+  }
+});
 
 /* ─── Homepage Curriculum Video Showcase Renderer ─── */
 let activeVideoGrade = 'all';
@@ -5027,8 +5221,8 @@ const HIGH_VIEW_RESOURCES = [
       }
     ],
     study: {
-      title: 'GCSEPod Pupil Dashboard & Morphology Toolkit',
-      url: 'https://members.gcsepod.com/pupils/dashboard',
+      title: 'GCSEPod Pupil Dashboard (User: WA1038 | Pass: Cp@679034)',
+      url: 'https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard',
       secondaryUrl: 'https://youtube.com/shorts/wsPny7bOhes',
       rules: [
         'Layer 1 (Syllables): Spoken rhythm beats (e.g., "in-ter-na-tion-al" = 5 syllables). Useful for pacing and pronunciation.',
