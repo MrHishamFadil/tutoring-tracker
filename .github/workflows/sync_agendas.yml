@@ -1,0 +1,37 @@
+name: Sunday Arab Schools Agenda Sync
+
+on:
+  schedule:
+    # Runs every Sunday at 08:00 UTC (11:00 AM Saudi Time / Riyadh UTC+3)
+    - cron: '0 8 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-agendas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install pypdf
+
+      - name: Run Weekly Agenda Synchronizer
+        run: |
+          python sync_school_agendas.py
+
+      - name: Commit and Push Updated Curriculum
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action [School Agenda Sync]"
+          git add curriculum_data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-sync weekly school agenda topics from arabschools.edu.sa [Sunday 11:00 AM]" && git push)
