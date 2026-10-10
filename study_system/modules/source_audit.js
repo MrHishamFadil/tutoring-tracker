@@ -26,7 +26,7 @@ window.SourceAuditor = (function () {
       broadSubject: 'English Language Arts',
       grade: 'Grade 9',
       gradeCode: 'G9',
-      targetStudents: ['Elyana (G9A)', 'Talal (G9B)', 'Nawaf (G9B)', 'Abdullah AlRubiyan (Special Tutoring Secondary Prep)'],
+      targetStudents: ['Elyana (G9A)', 'Talal (G9B)', 'Nawaf (G9B)', 'Abdullah AlRubiyan (Grade 9 American - MIS)'],
       sourceFile: 'Alpha Literature Student Book Grade 9 & G9-Checkpoint-1-Study-Materials-2026-2027.pdf',
       officialUrl: 'https://arabschools.edu.sa/wp-content/uploads/2026/09/G9-Checkpoint-1-Study-Materials-2026-2027.pdf',
       unit: 'Unit 1: Identity & Relationships',
