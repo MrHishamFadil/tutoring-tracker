@@ -1,5 +1,5 @@
 {
-  "last_synced": "2026-10-11T00:19:00.763524",
+  "last_synced": "2026-10-11T14:42:00.527524",
   "school": "Arab International Schools (arabschools.edu.sa)",
   "latest_week": "Week 7 (Oct 11 - Oct 15, 2026)",
   "weeks": {
@@ -268,75 +268,6 @@
             "Volume 1 Unit 1 Lesson 2: The Role of Science in Society (pp. 17-21, Progress Check 1)"
           ]
         }
-      },
-      "abdullah": {
-        "title": "Abdullah — Grade 9 American Section (MIS - Al Moktashef)",
-        "school": "Al Moktashef International Schools",
-        "pdf": "https://mrhishamfadil.github.io/tutoring-tracker/",
-        "subjects": {
-          "Math": [
-            "OBELAS, Algebra 1 Vol. 2: L7-2 Polynomials: Multiplication (pp. 152 to 158)",
-            "OBELAS, Algebra 1 Vol. 2: L7-3 Multiplying Special Cases (pp. 162 to 171)",
-            "OBELAS, Geometry Vol. 2: L6-1 Polygon Angle Sum Theorems (pp. 100 to 113)",
-            "OBELAS, Geometry Vol. 2: L6-3 Parallelograms (pp. 137 to 155)",
-            "+ Official Revision Sheets"
-          ],
-          "English": [
-            "Literature: StudySync Unit 1 'The Others' (Reading & Writing Companion pp. 4-10)",
-            "Literature: StudySync Unit 1 'The Open Window' (Reading & Writing Companion pp. 11-14)",
-            "Grammar (Pointers AK): Irregular Verbs, Verb Tenses & Main and Subordinate Clauses",
-            "Vocabulary (Pointers AK): Lesson 1 + Lesson 2 + Lessons 1 & 2 Review",
-            "+ Official Revision Sheets"
-          ],
-          "Physics": [
-            "Unit 1: Principles of Physics — Chapter 1: The Nature of Physics",
-            "Lesson 2: Working with Scientific Notation and Units (pp. 14-23)",
-            "Lesson 4: Managing Measurement Uncertainty and Data Visualization (pp. 30-35)",
-            "Lesson 5: Trigonometry in Physics (pp. 42-48)",
-            "Chapter 2: Vectors — Lesson 1: Vector Representation (pp. 54-63) & Lesson 2: Operations with Vectors (pp. 64-69)",
-            "+ Official Revision Sheets"
-          ],
-          "Chemistry": [
-            "Unit 1: Foundations Of Chemistry — Chapter 2: Exploring Matter and Its Properties",
-            "Lesson 1: The Nature of Matter (pp. 36-41)",
-            "Lesson 2: Properties of Matter and Changes (pp. 42-47)",
-            "Lesson 3: Simple Substances, Compounds and Mixtures (pp. 48-57)",
-            "+ Official Revision Sheets"
-          ],
-          "Biology": [
-            "Unit 1: Fundamentals of Life — Chapter 1: Understanding Science",
-            "Lesson 1: Understanding Science (pp. 6-15)",
-            "Lesson 2: The Role of Science in Society (pp. 16-27)",
-            "Lesson 3: Patterns in Nature (pp. 28-37)",
-            "Chapter 2: Chemical Foundations of Life — Lesson 1: Basics of Matter (pp. 42-53)",
-            "+ Official Revision Sheets"
-          ],
-          "Arabic": [
-            "كتاب لغتي الخالدة — الوحدة الأولى (حقوق وواجبات)",
-            "١- الفهم القرائي (وقضى ربــــــــــك) من ص ٢٥ إلى ص ٣٠",
-            "٢- الرسم الإملائي (الألف اللينة في الأفعال الثلاثية) من ص ٥٣ إلى ص ٥٦",
-            "٣- الصنف اللغوي (اسم الفاعل) من ص ٦٢ إلى ص ٦٧",
-            "٤- الأسلوب اللغوي (القسم) من ص ٦٨ إلى ص ٧١",
-            "٥- الوظيفة النحوية (الحال) من ص ٧٢ إلى ص ٧٨",
-            "ثانياً : أوراق المراجعة"
-          ],
-          "Islamic": [
-            "Quiz 1 (Wednesday, Oct 21, 2026)",
-            "التوحيد: من (الإيمان بالقدر) صفحة 14 إلى (الصبر) صفحة 22",
-            "الفقه: من (أحكام الأطعمة والأشربة) صفحة 161 إلى (الذكاة) صفحة 181",
-            "الحديث: من (إخلاص العمل لله) صفحة 118 إلى (طريق الرضا) صفحة 129",
-            "التفسير: من (تفسير سورة الحجرات 1-5 ص 64) إلى (الآيات 11-14 ص 74)",
-            "+ أوراق المراجعة"
-          ],
-          "SS KSA": [
-            "Quiz 1 (Monday, Oct 19, 2026)",
-            "الوحدة الأولى: جغرافية المملكة العربية السعودية من صفحة 12 إلى 32",
-            "الدرس الأول: الموقع",
-            "الدرس الثاني: مظاهر التضاريس",
-            "الدرس الثالث: المناخ",
-            "ثانياً : أوراق المراجعة"
-          ]
-        }
       }
     },
     "w5": {
@@ -427,75 +358,6 @@
           "Biology": [
             "Revision Volume 1 Unit 1 Lesson 1: Understanding Science & Scientific Inquiry (pp. 6-15)",
             "Ecosystem Dynamics: Understanding Biodiversity & Bioremediation"
-          ]
-        }
-      },
-      "abdullah": {
-        "title": "Abdullah — Grade 9 American Section (MIS - Al Moktashef)",
-        "school": "Al Moktashef International Schools",
-        "pdf": "https://mrhishamfadil.github.io/tutoring-tracker/",
-        "subjects": {
-          "Math": [
-            "OBELAS, Algebra 1 Vol. 2: L7-2 Polynomials: Multiplication (pp. 152 to 158)",
-            "OBELAS, Algebra 1 Vol. 2: L7-3 Multiplying Special Cases (pp. 162 to 171)",
-            "OBELAS, Geometry Vol. 2: L6-1 Polygon Angle Sum Theorems (pp. 100 to 113)",
-            "OBELAS, Geometry Vol. 2: L6-3 Parallelograms (pp. 137 to 155)",
-            "+ Official Revision Sheets"
-          ],
-          "English": [
-            "Literature: StudySync Unit 1 'The Others' (Reading & Writing Companion pp. 4-10)",
-            "Literature: StudySync Unit 1 'The Open Window' (Reading & Writing Companion pp. 11-14)",
-            "Grammar (Pointers AK): Irregular Verbs, Verb Tenses & Main and Subordinate Clauses",
-            "Vocabulary (Pointers AK): Lesson 1 + Lesson 2 + Lessons 1 & 2 Review",
-            "+ Official Revision Sheets"
-          ],
-          "Physics": [
-            "Unit 1: Principles of Physics — Chapter 1: The Nature of Physics",
-            "Lesson 2: Working with Scientific Notation and Units (pp. 14-23)",
-            "Lesson 4: Managing Measurement Uncertainty and Data Visualization (pp. 30-35)",
-            "Lesson 5: Trigonometry in Physics (pp. 42-48)",
-            "Chapter 2: Vectors — Lesson 1: Vector Representation (pp. 54-63) & Lesson 2: Operations with Vectors (pp. 64-69)",
-            "+ Official Revision Sheets"
-          ],
-          "Chemistry": [
-            "Unit 1: Foundations Of Chemistry — Chapter 2: Exploring Matter and Its Properties",
-            "Lesson 1: The Nature of Matter (pp. 36-41)",
-            "Lesson 2: Properties of Matter and Changes (pp. 42-47)",
-            "Lesson 3: Simple Substances, Compounds and Mixtures (pp. 48-57)",
-            "+ Official Revision Sheets"
-          ],
-          "Biology": [
-            "Unit 1: Fundamentals of Life — Chapter 1: Understanding Science",
-            "Lesson 1: Understanding Science (pp. 6-15)",
-            "Lesson 2: The Role of Science in Society (pp. 16-27)",
-            "Lesson 3: Patterns in Nature (pp. 28-37)",
-            "Chapter 2: Chemical Foundations of Life — Lesson 1: Basics of Matter (pp. 42-53)",
-            "+ Official Revision Sheets"
-          ],
-          "Arabic": [
-            "كتاب لغتي الخالدة — الوحدة الأولى (حقوق وواجبات)",
-            "١- الفهم القرائي (وقضى ربــــــــــك) من ص ٢٥ إلى ص ٣٠",
-            "٢- الرسم الإملائي (الألف اللينة في الأفعال الثلاثية) من ص ٥٣ إلى ص ٥٦",
-            "٣- الصنف اللغوي (اسم الفاعل) من ص ٦٢ إلى ص ٦٧",
-            "٤- الأسلوب اللغوي (القسم) من ص ٦٨ إلى ص ٧١",
-            "٥- الوظيفة النحوية (الحال) من ص ٧٢ إلى ص ٧٨",
-            "ثانياً : أوراق المراجعة"
-          ],
-          "Islamic": [
-            "Quiz 1 (Wednesday, Oct 21, 2026)",
-            "التوحيد: من (الإيمان بالقدر) صفحة 14 إلى (الصبر) صفحة 22",
-            "الفقه: من (أحكام الأطعمة والأشربة) صفحة 161 إلى (الذكاة) صفحة 181",
-            "الحديث: من (إخلاص العمل لله) صفحة 118 إلى (طريق الرضا) صفحة 129",
-            "التفسير: من (تفسير سورة الحجرات 1-5 ص 64) إلى (الآيات 11-14 ص 74)",
-            "+ أوراق المراجعة"
-          ],
-          "SS KSA": [
-            "Quiz 1 (Monday, Oct 19, 2026)",
-            "الوحدة الأولى: جغرافية المملكة العربية السعودية من صفحة 12 إلى 32",
-            "الدرس الأول: الموقع",
-            "الدرس الثاني: مظاهر التضاريس",
-            "الدرس الثالث: المناخ",
-            "ثانياً : أوراق المراجعة"
           ]
         }
       }
