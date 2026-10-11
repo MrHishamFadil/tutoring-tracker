@@ -51,7 +51,11 @@
 
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
-    html { scroll-behavior: smooth; }
+    html, body {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
 
     body {
       font-family: var(--font);
@@ -243,6 +247,8 @@
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 18px;
       box-shadow: var(--shadow); margin-bottom: 16px;
+      box-sizing: border-box; max-width: 100%;
+      overflow-wrap: break-word;
     }
     .card-header {
       display: flex; align-items: center; justify-content: space-between;
@@ -472,11 +478,22 @@
     }
 
     /* ── Bento Grid Layout Helpers ── */
+    .dashboard-layout {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .dash-main, .dash-side {
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
     .bento-grid {
       display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 16px;
+      box-sizing: border-box; max-width: 100%;
     }
     .grid-2col {
       display: grid; grid-template-columns: 1fr; gap: 12px;
+      box-sizing: border-box; max-width: 100%;
     }
 
     /* ── Buttons ── */
@@ -877,6 +894,33 @@
       display: flex; align-items: center; justify-content: center;
     }
 
+    /* ── Quiz Option Cards (Touch & Mobile Accessible) ── */
+    .quiz-opt-card {
+      min-height: 48px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: all .15s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .quiz-opt-card:hover {
+      background: var(--surface-3);
+      border-color: var(--border-2);
+    }
+    .quiz-opt-card:has(input:checked) {
+      background: var(--accent-lt);
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
     /* ── Toast Notification ── */
     #toast {
       position: fixed; bottom: 84px; left: 50%; transform: translateX(-50%) translateY(20px);
@@ -905,19 +949,34 @@
       .app {
         max-width: 1180px;
         padding: 0 28px 40px; /* No mobile bottom nav needed */
+        width: 100%;
+        box-sizing: border-box;
       }
       nav.bottom-nav { display: none; }
       .desktop-nav { display: flex; }
       #toast { bottom: 24px; }
 
-      /* Desktop Grid Layout: Main Workspace + Side Rail */
+      /* Desktop Grid Layout: Main Workspace + Side Rail with minmax(0, Xfr) to prevent overflow */
       .dashboard-layout {
-        display: grid; grid-template-columns: 8fr 4fr; gap: 20px; align-items: start;
+        display: grid;
+        grid-template-columns: minmax(0, 7.5fr) minmax(0, 4.5fr);
+        gap: 20px;
+        align-items: start;
+        width: 100%;
       }
       .videos-layout {
-        display: grid; grid-template-columns: 8fr 4fr; gap: 20px; align-items: start;
+        display: grid;
+        grid-template-columns: minmax(0, 7.5fr) minmax(0, 4.5fr);
+        gap: 20px;
+        align-items: start;
+        width: 100%;
       }
-      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+      .dash-main, .dash-side {
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); box-sizing: border-box; max-width: 100%; }
     }
 
     @media print {
@@ -939,23 +998,21 @@
     </div>
   </div>
 
-  <!-- Desktop Header Tabs -->
+  <!-- Desktop Header Tabs: Streamlined to 4 primary destinations -->
   <nav class="desktop-nav" role="tablist" aria-label="Main Navigation">
-    <button class="desktop-nav-btn active" data-view="view-dashboard" role="tab" aria-selected="true">🏠 Dashboard</button>
-    <button class="desktop-nav-btn checkpoint-tab-btn" data-view="view-checkpoints" role="tab" aria-selected="false">🎯 Checkpoints &amp; Mid-Terms <span class="nav-pulse-badge">EXAMS</span></button>
-    <button class="desktop-nav-btn" data-view="view-resources" role="tab" aria-selected="false" style="color:#0284c7;font-weight:700;">🎥 High-View Resources</button>
+    <button class="desktop-nav-btn active" data-view="view-dashboard" role="tab" aria-selected="true">🏠 Home &amp; Videos</button>
+    <button class="desktop-nav-btn" data-view="view-curriculum" role="tab" aria-selected="false">📚 School Agendas &amp; Exams</button>
+    <button class="desktop-nav-btn" data-view="view-resources" role="tab" aria-selected="false" style="color:#0284c7;font-weight:700;">🎥 Resources</button>
     <a href="study_system/index.html" class="desktop-nav-btn" style="color:#2563eb;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">🚀 Study System</a>
-    <div style="display:inline-flex;align-items:center;background:rgba(213,0,111,0.06);border:1px solid rgba(213,0,111,0.25);border-radius:6px;padding:1px 3px;">
-      <a href="https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard" target="_blank" rel="noopener noreferrer" class="desktop-nav-btn" onclick="launchGcsepod(event)" style="color:#d5006f;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;border:none;background:transparent;padding:3px 6px;" title="1-Click Launch: Auto-copies password (Cp@679034) &amp; opens GCSEPod">
-        <span>🎧 GCSEPod</span> <span class="badge" style="background:#d5006f;color:#fff;font-size:0.62rem;padding:1px 5px;">WA1038</span>
-      </a>
-      <button type="button" onclick="openGcsepodModal()" style="background:transparent;border:none;color:#d5006f;cursor:pointer;padding:2px 4px;font-size:0.8rem;" title="View GCSEPod Saved Password &amp; Credentials">🔑</button>
+    <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="desktop-nav-btn" style="color:#d5006f;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;" title="GCSEPod Pupil Dashboard">🎧 GCSEPod ↗</a>
+
+    <!-- Tutor Workspace Tabs (Visible when Tutor unlocks) -->
+    <div id="tutor-nav-group" style="display:none;align-items:center;gap:4px;margin-left:6px;padding-left:6px;border-left:1.5px solid var(--border);">
+      <button class="desktop-nav-btn" data-view="view-add" role="tab" aria-selected="false">➕ Log</button>
+      <button class="desktop-nav-btn" data-view="view-log" role="tab" aria-selected="false">📋 History</button>
+      <button class="desktop-nav-btn" data-view="view-report" role="tab" aria-selected="false">📊 Reports</button>
+      <button class="desktop-nav-btn" data-view="view-settings" role="tab" aria-selected="false">⚙️ Settings</button>
     </div>
-    <button class="desktop-nav-btn" data-view="view-curriculum" role="tab" aria-selected="false">📚 School Agendas (ELA/Math/Sci)</button>
-    <button class="desktop-nav-btn" data-view="view-add" role="tab" aria-selected="false">➕ Log Session</button>
-    <button class="desktop-nav-btn" data-view="view-log" role="tab" aria-selected="false">📋 History</button>
-    <button class="desktop-nav-btn" data-view="view-report" role="tab" aria-selected="false">📊 Report</button>
-    <button class="desktop-nav-btn" data-view="view-settings" role="tab" aria-selected="false">⚙️ Settings</button>
   </nav>
 
   <div class="header-stats" style="display:flex;align-items:center;gap:8px;">
@@ -963,10 +1020,10 @@
       <div class="stat-num" id="hdr-total-sar">•••• SAR</div>
       <div class="stat-label">This Month</div>
     </div>
-    <button id="btn-open-sync" class="btn-secondary" title="Sync sessions across iPhone, iPad & Mac" aria-label="Sync Devices" style="padding:5px 9px;font-size:0.75rem;font-weight:600;display:inline-flex;align-items:center;gap:4px;border-radius:6px;cursor:pointer;white-space:nowrap;background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.35);color:var(--accent);">
-      <span>🔄</span> <span>Sync</span>
+    <button id="btn-open-sync" class="btn-secondary" title="Transfer sessions manually between devices" aria-label="Transfer Devices" style="padding:5px 9px;font-size:0.75rem;font-weight:600;display:inline-flex;align-items:center;gap:4px;border-radius:6px;cursor:pointer;white-space:nowrap;background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.35);color:var(--accent);">
+      <span>📲</span> <span>Transfer</span>
     </button>
-    <button id="btn-finance-toggle" class="btn-secondary" title="Unlock financial earnings (Passcode: 1890)" aria-label="Toggle Financial Lock" style="padding:5px 9px;font-size:0.75rem;font-weight:600;display:inline-flex;align-items:center;gap:4px;border-radius:6px;cursor:pointer;white-space:nowrap;">
+    <button id="btn-finance-toggle" class="btn-secondary" title="Tutor Security Access" aria-label="Toggle Financial Lock" style="padding:5px 9px;font-size:0.75rem;font-weight:600;display:inline-flex;align-items:center;gap:4px;border-radius:6px;cursor:pointer;white-space:nowrap;">
       <span id="finance-lock-icon">🔒</span> <span id="finance-lock-text">Unlock</span>
     </button>
   </div>
@@ -1019,20 +1076,17 @@
                 <div>
                   <h2 style="font-size:1.08rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0;">
                     <span>Curriculum Review &amp; Checkpoint Masterclasses</span>
-                    <span class="badge badge-orange" id="home-yt-badge-grade">Grade 11 (Shadan - 11A)</span>
-                    <span class="badge badge-amber" id="home-yt-badge-subject">Chemistry (The Organic Chemistry Tutor)</span>
+                    <span class="badge badge-orange" id="home-yt-badge-grade">Grade 11 (Shadan)</span>
+                    <span class="badge badge-amber" id="home-yt-badge-subject">Chemistry (CrashCourse)</span>
                   </h2>
                   <p style="font-size:0.78rem;color:var(--text-2);margin:3px 0 0 0;">Verified High-Yield Video Lessons aligned with Weekly Agendas &amp; Checkpoint 1</p>
                 </div>
               </div>
             </div>
             <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-              <div style="display:inline-flex;align-items:center;background:#fdf2f8;border:1px solid #fbcfe8;border-radius:6px;">
-                <a href="https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard" target="_blank" rel="noopener noreferrer" class="btn-secondary" onclick="launchGcsepod(event)" style="font-size:.74rem;padding:5px 9px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#d5006f;font-weight:700;border:none;background:transparent;" title="Auto-copies password (Cp@679034) and opens GCSEPod">
-                  <span>🎧 GCSEPod (WA1038) ↗</span>
-                </a>
-                <button type="button" onclick="openGcsepodModal()" style="border:none;border-left:1px solid #fbcfe8;background:transparent;color:#d5006f;cursor:pointer;padding:5px 7px;font-size:0.75rem;" title="View GCSEPod Saved Password">🔑</button>
-              </div>
+              <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:.74rem;padding:5px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#d5006f;font-weight:700;border-color:#fbcfe8;background:#fdf2f8;" title="Access GCSEPod Pupil Dashboard">
+                <span>🎧 GCSEPod Dashboard ↗</span>
+              </a>
               <a id="home-yt-header-study-link" href="study_system/index.html?subject=chemistry&grade=11" class="btn-secondary" style="font-size:.74rem;padding:5px 10px;text-decoration:none;display:inline-flex;align-items:center;gap:5px;color:#2563eb;font-weight:700;border-color:#bfdbfe;background:#eff6ff;">
                 <span>🚀 Interactive Study System</span>
               </a>
@@ -1045,21 +1099,20 @@
           <!-- Embedded Responsive 16:9 YouTube Video Player -->
           <div style="margin: 0 0 14px 0;">
             <div class="home-yt-player-wrap">
-              <iframe id="home-yt-iframe" src="https://www.youtube-nocookie.com/embed/GzRzZ_V_07U?rel=0" title="Thermochemistry: Specific Heat, Calorimetry &amp; Enthalpy of Reaction" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe id="home-yt-iframe" src="https://www.youtube-nocookie.com/embed/JuWtBR-rDQk?rel=0" title="Calorimetry &amp; Specific Heat Capacity (q = mcΔT)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
             <div class="home-yt-details">
               <div class="home-yt-meta-col">
                 <div class="home-yt-playing-tag">
                   <span class="pulse-dot"></span> NOW PLAYING
-                  <span id="home-yt-tag-student" class="badge badge-orange" style="margin-left:6px;font-size:0.65rem;">Grade 11 (Shadan - 11A)</span>
-                  <span id="home-yt-tag-subject" class="badge badge-amber" style="margin-left:4px;font-size:0.65rem;">Chemistry · The Organic Chemistry Tutor</span>
+                  <span id="home-yt-tag-student" class="badge badge-orange" style="margin-left:6px;font-size:0.65rem;">Grade 11 (Shadan)</span>
+                  <span id="home-yt-tag-subject" class="badge badge-amber" style="margin-left:4px;font-size:0.65rem;">Chemistry · CrashCourse</span>
                 </div>
-                <h3 id="home-yt-title" class="home-yt-title">Thermochemistry: Specific Heat, Calorimetry &amp; Enthalpy of Reaction</h3>
-                <div id="home-yt-meta" class="home-yt-meta">Grade 11 (Shadan) · Chemistry (Ch 13 Energy &amp; Bonds) · The Organic Chemistry Tutor · 14:15</div>
+                <h3 id="home-yt-title" class="home-yt-title">Calorimetry &amp; Specific Heat Capacity (q = mcΔT)</h3>
+                <div id="home-yt-meta" class="home-yt-meta">Grade 11 (Shadan) · Chemistry (Ch 13 Energy &amp; Calorimetry) · CrashCourse · 12:02</div>
               </div>
               <div class="home-yt-actions">
-                <a id="home-yt-watch-link" href="https://youtu.be/GzRzZ_V_07U" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:.74rem;padding:6px 12px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Watch on YouTube ↗</a>
-                <a id="home-yt-study-link" href="study_system/index.html?subject=chemistry&grade=11" class="btn-secondary" style="font-size:.74rem;padding:6px 12px;text-decoration:none;color:#2563eb;font-weight:700;border-color:#bfdbfe;background:#eff6ff;display:inline-flex;align-items:center;gap:4px;">Launch Study System 🚀</a>
+                <a id="home-yt-watch-link" href="https://youtu.be/JuWtBR-rDQk" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="font-size:.74rem;padding:6px 12px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Watch on YouTube ↗</a>
               </div>
             </div>
           </div>
@@ -1276,9 +1329,6 @@
         <a href="https://arabschools.edu.sa/wp-content/uploads/2026/09/G11-Checkpoint-1-Study-Materials-2026-2027.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color:#b91c1c;border-color:#fca5a5;">
           📄 G11 Study Guide (PDF)
         </a>
-        <a href="https://arabschools.edu.sa/wp-content/uploads/2026/09/G9-Checkpoint-1-Study-Materials-2026-2027.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="color:#2563eb;border-color:#bfdbfe;">
-          📄 G9 Study Guide (PDF)
-        </a>
       </div>
     </div>
 
@@ -1370,8 +1420,8 @@
         </div>
         <p style="margin-top:2px;">Curriculum-Aligned (American / Savvas Realize Style) • Click ➔ Watch ➔ Study Rules ➔ Practice</p>
       </div>
-      <a href="study_system/index.html" class="btn-primary" style="background:#2563eb;color:#fff;display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
-        🚀 Open Full Interactive Study System
+      <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#d5006f;color:#fff;display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;padding:7px 14px;border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+        🎧 GCSEPod Pupil Dashboard ↗
       </a>
     </div>
 
@@ -1460,9 +1510,14 @@
 
   <!-- ════ VIEW 4: SESSIONS LOG (Filter & Sorting Options) ════ -->
   <section class="view" id="view-log" role="tabpanel" aria-label="Session History">
-    <div class="card-header">
+    <div class="card-header" style="flex-wrap:wrap;gap:8px;">
       <h2>Session History & Billing Log</h2>
-      <button class="btn-secondary" id="btn-log-quick-add" style="padding:6px 12px; font-size:.8rem;" onclick="switchView('view-add')">＋ Log New</button>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button class="btn-primary" id="btn-log-download-all" style="padding:6px 12px; font-size:.8rem; display:inline-flex; align-items:center; gap:5px;" title="Download all sessions Day 1 to Today as CSV">
+          <span>📥</span> <span>Download All Logs (CSV)</span>
+        </button>
+        <button class="btn-secondary" id="btn-log-quick-add" style="padding:6px 12px; font-size:.8rem;" onclick="switchView('view-add')">＋ Log New</button>
+      </div>
     </div>
 
     <!-- Filter & Sort Controls Panel -->
@@ -1628,9 +1683,10 @@
     </div>
 
     <!-- Actions & PDF Export -->
-    <div style="display:flex;gap:10px;margin-bottom:14px;">
+    <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
       <button class="btn-secondary" style="flex:1" id="btn-preview-report">👁️ Refresh Preview</button>
       <button class="btn-primary" style="flex:1.2;width:auto" id="btn-pdf">📄 Export PDF</button>
+      <button class="btn-secondary" style="flex:1.2;display:inline-flex;align-items:center;justify-content:center;gap:6px;" id="btn-report-download-all">📥 Download All Logs</button>
     </div>
 
     <!-- Report Preview Section -->
@@ -1647,34 +1703,44 @@
       <div id="students-settings"></div>
     </div>
 
-    <!-- Cross-Device Instant Sync Card -->
+    <!-- Manual Device-to-Device Transfer Card -->
     <div class="card" style="border:1.5px solid rgba(59,130,246,0.35);background:linear-gradient(180deg, var(--surface) 0%, rgba(59,130,246,0.04) 100%);">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:8px;">
-          <span style="font-size:1.3rem;">🔄</span>
+          <span style="font-size:1.3rem;">📲</span>
           <div>
-            <h3 style="margin:0;font-size:1rem;color:var(--text-1);">Cross-Device Instant Sync</h3>
-            <div style="font-size:0.78rem;color:var(--text-3);">Sync sessions seamlessly between your iPhone, Mac, or any browser</div>
+            <h3 style="margin:0;font-size:1rem;color:var(--text-1);">Manual Device-to-Device Transfer</h3>
+            <div style="font-size:0.78rem;color:var(--text-3);">Transfer sessions between your iPhone, Mac, or another browser</div>
           </div>
         </div>
         <button class="btn-primary" id="btn-settings-open-sync" style="font-size:0.8rem;padding:6px 14px;display:inline-flex;align-items:center;gap:6px;">
-          <span>⚡</span> <span>Open Sync Hub</span>
+          <span>📲</span> <span>Open Transfer Hub</span>
         </button>
       </div>
       <p style="font-size:0.82rem;color:var(--text-2);line-height:1.45;margin-bottom:12px;">
-        Browser storage (<code>localStorage</code>) is private to each device. To mirror sessions you logged on another phone or computer without needing an account, use a <strong>One-Click Magic Link</strong> or <strong>Sync Code</strong>.
+        Browser storage (<code>localStorage</code>) is private to each device. To transfer sessions you logged on another phone or computer without needing an account, use a <strong>One-Click Magic Transfer Link</strong> or <strong>Transfer Code</strong>.
       </p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <button class="btn-secondary" id="btn-settings-copy-link" style="flex:1;min-width:140px;font-size:0.8rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;">
-          <span>🔗</span> <span id="btn-settings-copy-link-text">Copy Sync Link</span>
+          <span>🔗</span> <span id="btn-settings-copy-link-text">Copy Transfer Link</span>
         </button>
         <button class="btn-secondary" id="btn-settings-copy-code" style="flex:1;min-width:140px;font-size:0.8rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;">
-          <span>📋</span> <span id="btn-settings-copy-code-text">Copy Sync Code</span>
+          <span>📋</span> <span id="btn-settings-copy-code-text">Copy Transfer Code</span>
         </button>
       </div>
     </div>
 
     <div class="card">
+      <div class="setting-row" style="background:rgba(59,130,246,0.06);border-radius:6px;padding:10px 12px;margin:-4px -4px 10px -4px;">
+        <div>
+          <div class="setting-label" style="font-weight:700;color:var(--text-1);">📥 Download All Logs (Day 1 → Today)</div>
+          <div class="setting-desc">Permanent offline backup in CSV (Excel) or Master PDF format</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-primary" id="btn-settings-download-csv" style="padding:6px 12px;font-size:0.8rem;">📥 CSV</button>
+          <button class="btn-secondary" id="btn-settings-download-pdf" style="padding:6px 12px;font-size:0.8rem;">📄 Master PDF</button>
+        </div>
+      </div>
       <div class="setting-row">
         <div>
           <div class="setting-label">Clear all data</div>
@@ -1711,38 +1777,18 @@
         <div style="display:flex;align-items:center;gap:8px;">
           <span style="font-size:1.4rem;">🎧</span>
           <div>
-            <h3 style="margin:0;font-size:0.98rem;color:#d5006f;">GCSEPod Connected Account &amp; Password</h3>
+            <h3 style="margin:0;font-size:0.98rem;color:#d5006f;">GCSEPod Pupil Access</h3>
             <div style="font-size:0.75rem;color:var(--text-3);">Pupil Dashboard Access • members.gcsepod.com</div>
           </div>
         </div>
-        <button type="button" class="btn-primary" onclick="launchGcsepod(event)" style="background:#d5006f;border-color:#be0063;font-size:0.75rem;padding:5px 12px;display:inline-flex;align-items:center;gap:5px;">
-          <span>🚀</span> <span>Open &amp; Copy Password</span>
-        </button>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:10px;margin-bottom:12px;">
-        <div style="background:var(--surface-2);padding:10px 12px;border-radius:6px;border:1px solid var(--border);">
-          <div style="font-size:0.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Username</div>
-          <div style="font-family:monospace;font-size:0.95rem;font-weight:700;margin-top:2px;display:flex;justify-content:space-between;align-items:center;">
-            <span>WA1038</span>
-            <button type="button" class="btn-secondary" onclick="copyGcsepodUser()" style="padding:2px 8px;font-size:0.7rem;">📋 Copy</button>
-          </div>
-        </div>
-        <div style="background:var(--surface-2);padding:10px 12px;border-radius:6px;border:1px solid var(--border);">
-          <div style="font-size:0.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Saved Password</div>
-          <div style="font-family:monospace;font-size:0.95rem;font-weight:700;margin-top:2px;display:flex;justify-content:space-between;align-items:center;">
-            <span id="settings-gcsepod-pass-display">•••••••••</span>
-            <div style="display:flex;gap:4px;">
-              <button type="button" class="btn-secondary" onclick="toggleSettingsGcsepodPass()" style="padding:2px 6px;font-size:0.7rem;" title="Show/Hide Password">👁️</button>
-              <button type="button" class="btn-secondary" onclick="copyGcsepodPass()" style="padding:2px 8px;font-size:0.7rem;">📋 Copy</button>
-            </div>
-          </div>
-        </div>
+        <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#d5006f;border-color:#be0063;font-size:0.75rem;padding:5px 12px;display:inline-flex;align-items:center;gap:5px;text-decoration:none;">
+          <span>🚀</span> <span>Open GCSEPod Dashboard ↗</span>
+        </a>
       </div>
 
       <div style="background:rgba(213,0,111,0.06);border-left:3px solid #d5006f;padding:8px 10px;border-radius:4px;font-size:0.78rem;color:#9d0052;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-        <span>💡 Clicking any GCSEPod link on the site automatically copies password <code>Cp@679034</code> to your clipboard.</span>
-        <button type="button" class="btn-secondary" onclick="openGcsepodModal()" style="padding:3px 8px;font-size:0.72rem;color:#d5006f;border-color:#fbcfe8;">Open Details Dialog</button>
+        <span>💡 Use your school-assigned pupil login to access GCSEPod video pods, assessments, and study lists.</span>
+        <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding:3px 8px;font-size:0.72rem;color:#d5006f;border-color:#fbcfe8;text-decoration:none;">Launch Portal ↗</a>
       </div>
     </div>
 
@@ -1754,43 +1800,27 @@
 
 </main>
 
-<!-- ────────────────── BOTTOM NAVIGATION (MOBILE) ────────────────── -->
+<!-- ────────────────── BOTTOM NAVIGATION (MOBILE - STREAMLINED TO 4 TABS) ────────────────── -->
 <nav class="bottom-nav" role="tablist" aria-label="Mobile Navigation">
   <button class="nav-item active" data-view="view-dashboard" role="tab" aria-selected="true">
     <span class="nav-icon">🏠</span>
-    <span>Dashboard</span>
-  </button>
-  <button class="nav-item checkpoint-nav-item" data-view="view-checkpoints" role="tab" aria-selected="false">
-    <span class="nav-icon" style="color:#ef4444;">🎯</span>
-    <span style="color:#b91c1c;font-weight:700;">Exams</span>
-  </button>
-  <button class="nav-item" data-view="view-resources" role="tab" aria-selected="false">
-    <span class="nav-icon" style="color:#0284c7;">🎥</span>
-    <span style="color:#0284c7;font-weight:700;">Resources</span>
+    <span>Home</span>
   </button>
   <button class="nav-item" data-view="view-curriculum" role="tab" aria-selected="false">
     <span class="nav-icon">📚</span>
     <span>Agendas</span>
   </button>
-  <button class="nav-item" data-view="view-add" role="tab" aria-selected="false">
-    <span class="nav-icon">＋</span>
-    <span>Log</span>
+  <button class="nav-item" data-view="view-resources" role="tab" aria-selected="false">
+    <span class="nav-icon" style="color:#0284c7;">🎥</span>
+    <span style="color:#0284c7;font-weight:700;">Resources</span>
   </button>
-  <button class="nav-item" data-view="view-log" role="tab" aria-selected="false">
-    <span class="nav-icon">📋</span>
-    <span>History</span>
-  </button>
-  <button class="nav-item" data-view="view-report" role="tab" aria-selected="false">
-    <span class="nav-icon">📊</span>
-    <span>Report</span>
-  </button>
-  <button class="nav-item" data-view="view-settings" role="tab" aria-selected="false">
-    <span class="nav-icon">⚙️</span>
-    <span>Settings</span>
+  <button class="nav-item" id="mobile-tutor-nav-btn" data-view="view-log" role="tab" aria-selected="false">
+    <span class="nav-icon" id="mobile-lock-icon">🔒</span>
+    <span id="mobile-lock-text">Tutor</span>
   </button>
 </nav>
 
-<!-- ────────────────── MODAL: 3-QUESTION QUIZ ────────────────── -->
+<!-- ────────────────── MODAL: 3-QUESTION QUIZ (LARGE MOBILE TOUCH CARDS) ────────────────── -->
 <div class="modal-backdrop" id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title">
   <div class="modal-card">
     <button class="modal-close" id="btn-close-quiz" aria-label="Close quiz dialog">×</button>
@@ -1798,39 +1828,39 @@
       <h2 id="quiz-modal-title">📝 Context Clues Detective Quiz</h2>
       <span class="badge badge-orange">ELA & Reading</span>
     </div>
-    <p style="margin-bottom:16px;">Test your knowledge after watching the 5-minute video lesson:</p>
+    <p style="margin-bottom:16px;">Test your knowledge after watching the video lesson:</p>
     
     <form id="quiz-form">
       <div class="field" style="margin-bottom:14px;">
-        <label><strong>Question 1:</strong> "The nocturnal animal only hunted at night." Which context clue type tells you what <em>nocturnal</em> means?</label>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q1" value="definition" /> Definition clue ("only hunted at night")</label>
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q1" value="antonym" /> Antonym clue</label>
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q1" value="synonym" /> Synonym clue</label>
+        <label style="font-weight:700;display:block;margin-bottom:6px;">Question 1: "The nocturnal animal only hunted at night." Which context clue type tells you what <em>nocturnal</em> means?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+          <label class="quiz-opt-card"><input type="radio" name="q1" value="definition" /> <span>Definition clue ("only hunted at night")</span></label>
+          <label class="quiz-opt-card"><input type="radio" name="q1" value="antonym" /> <span>Antonym clue</span></label>
+          <label class="quiz-opt-card"><input type="radio" name="q1" value="synonym" /> <span>Synonym clue</span></label>
         </div>
       </div>
 
       <div class="field" style="margin-bottom:14px;">
-        <label><strong>Question 2:</strong> "Unlike his sluggish brother, Mark was extremely energetic." The word <em>sluggish</em> is contrasted with <em>energetic</em>. What type of clue is this?</label>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q2" value="antonym" /> Antonym (opposite) clue</label>
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q2" value="definition" /> Definition clue</label>
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q2" value="inference" /> Inference clue</label>
+        <label style="font-weight:700;display:block;margin-bottom:6px;">Question 2: "Unlike his sluggish brother, Mark was extremely energetic." The word <em>sluggish</em> is contrasted with <em>energetic</em>. What type of clue is this?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+          <label class="quiz-opt-card"><input type="radio" name="q2" value="antonym" /> <span>Antonym (opposite) clue</span></label>
+          <label class="quiz-opt-card"><input type="radio" name="q2" value="definition" /> <span>Definition clue</span></label>
+          <label class="quiz-opt-card"><input type="radio" name="q2" value="inference" /> <span>Inference clue</span></label>
         </div>
       </div>
 
       <div class="field" style="margin-bottom:16px;">
-        <label><strong>Question 3:</strong> What is the first thing a reader should do when encountering an unfamiliar word?</label>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q3" value="read_around" /> Read the sentences right before and after the word</label>
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q3" value="skip" /> Skip the whole paragraph</label>
-          <label style="font-weight:normal;display:flex;align-items:center;gap:6px;"><input type="radio" name="q3" value="guess" /> Guess randomly without checking clues</label>
+        <label style="font-weight:700;display:block;margin-bottom:6px;">Question 3: What is the first thing a reader should do when encountering an unfamiliar word?</label>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+          <label class="quiz-opt-card"><input type="radio" name="q3" value="read_around" /> <span>Read the sentences right before and after the word</span></label>
+          <label class="quiz-opt-card"><input type="radio" name="q3" value="skip" /> <span>Skip the whole paragraph</span></label>
+          <label class="quiz-opt-card"><input type="radio" name="q3" value="guess" /> <span>Guess randomly without checking clues</span></label>
         </div>
       </div>
 
       <div id="quiz-result" style="display:none;margin-bottom:12px;padding:10px;border-radius:var(--radius-sm);"></div>
 
-      <button type="button" class="btn-primary" id="btn-submit-quiz">Submit Answers</button>
+      <button type="button" class="btn-primary" id="btn-submit-quiz" style="min-height:48px;font-size:0.95rem;">Submit Answers</button>
     </form>
   </div>
 </div>
@@ -1870,7 +1900,7 @@
   </div>
 </div>
 
-<!-- ────────────────── MODAL: GCSEPod LOGIN & CREDENTIALS ────────────────── -->
+<!-- ────────────────── MODAL: GCSEPod ACCESS ────────────────── -->
 <div class="modal-backdrop" id="gcsepod-modal" role="dialog" aria-modal="true" aria-labelledby="gcsepod-modal-title">
   <div class="modal-card" style="max-width:440px;">
     <button class="modal-close" onclick="closeGcsepodModal()" aria-label="Close dialog">×</button>
@@ -1879,41 +1909,26 @@
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:1.8rem;" aria-hidden="true">🎧</span>
         <div>
-          <h2 id="gcsepod-modal-title" style="font-size:1.15rem;margin:0;color:#d5006f;">GCSEPod Account Login</h2>
-          <div style="font-size:0.76rem;color:var(--text-3);">members.gcsepod.com • Saved Password Vault</div>
+          <h2 id="gcsepod-modal-title" style="font-size:1.15rem;margin:0;color:#d5006f;">GCSEPod Pupil Access</h2>
+          <div style="font-size:0.76rem;color:var(--text-3);">members.gcsepod.com • Student Portal</div>
         </div>
       </div>
     </div>
 
-    <!-- Credential Card -->
     <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:14px;">
-      <div style="margin-bottom:12px;">
-        <label style="font-size:0.75rem;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Username</label>
-        <div style="display:flex;gap:6px;align-items:center;">
-          <input type="text" id="gcsepod-user-val" value="WA1038" readonly style="flex:1;font-family:monospace;font-weight:700;padding:8px 10px;font-size:0.95rem;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;color:var(--text);" />
-          <button type="button" class="btn-secondary" onclick="copyGcsepodUser()" style="padding:8px 12px;font-size:0.8rem;white-space:nowrap;">📋 Copy</button>
-        </div>
-      </div>
-
-      <div style="margin-bottom:14px;">
-        <label style="font-size:0.75rem;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px;">Saved Password</label>
-        <div style="display:flex;gap:6px;align-items:center;">
-          <input type="password" id="gcsepod-pass-val" value="Cp@679034" readonly style="flex:1;font-family:monospace;font-weight:700;padding:8px 10px;font-size:0.95rem;background:var(--surface);border:1.5px solid var(--border);border-radius:6px;color:var(--text);" />
-          <button type="button" class="btn-secondary" id="btn-toggle-gcsepod-pass" onclick="toggleGcsepodPassVisibility()" style="padding:8px 10px;font-size:0.8rem;" title="Show/Hide Password">👁️</button>
-          <button type="button" class="btn-secondary" onclick="copyGcsepodPass()" style="padding:8px 12px;font-size:0.8rem;white-space:nowrap;">📋 Copy</button>
-        </div>
-      </div>
-
+      <p style="font-size:0.84rem;color:var(--text-2);margin:0 0 10px 0;line-height:1.5;">
+        GCSEPod provides audio-visual pods, assessment quizzes, and check &amp; challenge tasks. Log in using your assigned pupil credentials or school Single Sign-On (Google / Microsoft 365).
+      </p>
       <div style="background:rgba(213,0,111,0.08);border-left:3px solid #d5006f;border-radius:4px;padding:8px 10px;font-size:0.78rem;color:#9d0052;line-height:1.45;">
-        💡 <strong>1-Click Sign In:</strong> Clicking the launch button below copies your password <code>Cp@679034</code> to your clipboard and opens the GCSEPod login page in a new tab. When it loads, simply paste (Ctrl+V or ⌘V) into the password box!
+        💡 <strong>Tip:</strong> If accessing from home, select <em>Sign in with Google</em> or enter your school student username on the GCSEPod portal.
       </div>
     </div>
 
     <!-- Actions -->
     <div style="display:flex;gap:8px;flex-direction:column;">
-      <button type="button" class="btn-primary" onclick="launchGcsepod(event)" style="background:#d5006f;border-color:#be0063;padding:10px;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700;cursor:pointer;">
-        <span>🚀</span> <span>Copy Password &amp; Open GCSEPod</span>
-      </button>
+      <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#d5006f;border-color:#be0063;padding:10px;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700;text-decoration:none;">
+        <span>🚀</span> <span>Open GCSEPod Pupil Dashboard ↗</span>
+      </a>
       <button type="button" class="btn-secondary" onclick="closeGcsepodModal()" style="padding:7px;font-size:0.8rem;">
         Close
       </button>
@@ -1943,31 +1958,39 @@
   </div>
 </div>
 
-<!-- ────────────────── MODAL: CROSS-DEVICE DATA SYNC ────────────────── -->
+<!-- ────────────────── MODAL: MANUAL DEVICE-TO-DEVICE TRANSFER ────────────────── -->
 <div class="modal-backdrop" id="sync-modal" role="dialog" aria-modal="true" aria-labelledby="sync-modal-title">
   <div class="modal-card" style="max-width:540px;">
-    <button class="modal-close" id="btn-close-sync-modal" aria-label="Close sync modal">×</button>
+    <button class="modal-close" id="btn-close-sync-modal" aria-label="Close transfer modal">×</button>
     
     <div class="card-header" style="margin-bottom:12px;">
       <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:1.6rem;" aria-hidden="true">🔄</span>
+        <span style="font-size:1.6rem;" aria-hidden="true">📲</span>
         <div>
-          <h2 id="sync-modal-title" style="font-size:1.15rem;margin:0;">Cross-Device Instant Sync</h2>
+          <h2 id="sync-modal-title" style="font-size:1.15rem;margin:0;">📲 Manual Device-to-Device Transfer</h2>
           <div style="font-size:0.76rem;color:var(--text-3);" id="sync-modal-status-text">Keep your iPhone, Mac, and iPad in sync</div>
         </div>
       </div>
     </div>
 
-    <!-- Explainer Callout -->
-    <div style="background:rgba(59,130,246,0.08);border-left:3px solid var(--accent);border-radius:6px;padding:10px 12px;font-size:0.82rem;color:var(--text-2);margin-bottom:16px;line-height:1.45;">
-      💡 <strong>Why is sync needed?</strong> All sessions are saved securely inside this browser's local sandbox (<code>localStorage</code>). To mirror sessions onto another device without logging into a cloud account, choose an option below:
+    <!-- Notice: Manual Transfer Warning & 1-Click Permanent Record Downloads -->
+    <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-left:4px solid #ef4444;border-radius:6px;padding:12px 14px;font-size:0.82rem;color:var(--text-1);margin-bottom:16px;line-height:1.45;">
+      ⚠️ <strong>Notice:</strong> This is a manual transfer between two browser tabs, NOT an automated cloud backup. If you clear browser history or switch browsers without transferring, records are lost. To keep permanent records, click <strong>"📥 Download All Logs"</strong>.
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-primary" id="btn-sync-modal-download-csv" style="padding:7px 12px;font-size:0.8rem;display:inline-flex;align-items:center;gap:6px;">
+          <span>📥</span> <span>Download All Logs (CSV)</span>
+        </button>
+        <button class="btn-secondary" id="btn-sync-modal-download-pdf" style="padding:7px 12px;font-size:0.8rem;display:inline-flex;align-items:center;gap:6px;">
+          <span>📄</span> <span>Download Master PDF</span>
+        </button>
+      </div>
     </div>
 
     <!-- Option 1: Magic Link -->
     <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:14px;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px;flex-wrap:wrap;">
         <div style="font-weight:700;font-size:0.88rem;color:var(--text-1);display:flex;align-items:center;gap:6px;">
-          <span>🔗 Option 1: One-Click Magic Link</span>
+          <span>🔗 Option 1: One-Click Magic Transfer Link</span>
         </div>
         <span class="badge badge-green" style="font-size:0.65rem;">Fastest • Recommended</span>
       </div>
@@ -1976,7 +1999,7 @@
       </p>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <button class="btn-primary" id="btn-copy-sync-link" style="flex:1;min-width:140px;padding:8px 12px;font-size:0.82rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;">
-          <span>🔗</span> <span id="btn-copy-sync-link-text">Copy Sync Link</span>
+          <span>🔗</span> <span id="btn-copy-sync-link-text">Copy Transfer Link</span>
         </button>
         <button class="btn-secondary" id="btn-share-sync-link" style="padding:8px 14px;font-size:0.82rem;display:inline-flex;align-items:center;gap:6px;">
           <span>📲</span> <span>AirDrop / Share</span>
@@ -1988,10 +2011,10 @@
     <!-- Option 2: Code Snippet -->
     <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;margin-bottom:14px;">
       <div style="font-weight:700;font-size:0.88rem;color:var(--text-1);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
-        <span>📋 Option 2: Sync Code (Copy &amp; Paste)</span>
+        <span>📋 Option 2: Transfer Code (Copy &amp; Paste)</span>
       </div>
       <p style="font-size:0.8rem;color:var(--text-2);margin-bottom:8px;line-height:1.4;">
-        Copy the sync code from this device, or paste a code from another device to import:
+        Copy the transfer code from this device, or paste a code from another device to import:
       </p>
       <div style="display:flex;gap:8px;margin-bottom:8px;">
         <button class="btn-secondary" id="btn-copy-sync-code" style="flex:1;padding:7px 10px;font-size:0.78rem;">
@@ -1999,7 +2022,7 @@
         </button>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <textarea id="sync-code-input" placeholder="Paste Sync Code or Magic Link from your other device here..." rows="2" style="width:100%;font-size:0.75rem;font-family:monospace;padding:8px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);resize:none;"></textarea>
+        <textarea id="sync-code-input" placeholder="Paste Transfer Code or Magic Transfer Link from your other device here..." rows="2" style="width:100%;font-size:0.75rem;font-family:monospace;padding:8px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);resize:none;"></textarea>
         <button class="btn-primary" id="btn-apply-sync-code" style="padding:8px 12px;font-size:0.82rem;display:inline-flex;align-items:center;justify-content:center;gap:6px;">
           <span>📥</span> <span>Import From Pasted Code</span>
         </button>
@@ -2020,14 +2043,14 @@
   </div>
 </div>
 
-<!-- ────────────────── MODAL: SYNC IMPORT PROMPT ────────────────── -->
+<!-- ────────────────── MODAL: DEVICE TRANSFER IMPORT PROMPT ────────────────── -->
 <div class="modal-backdrop" id="sync-import-modal" role="dialog" aria-modal="true" aria-labelledby="sync-import-title">
   <div class="modal-card" style="max-width:440px;">
     <button class="modal-close" id="btn-close-sync-import" aria-label="Close dialog">×</button>
     <div style="font-size:2.2rem;text-align:center;margin-bottom:6px;">📥</div>
-    <h2 id="sync-import-title" style="font-size:1.15rem;text-align:center;margin-bottom:6px;">Incoming Sessions Detected</h2>
+    <h2 id="sync-import-title" style="font-size:1.15rem;text-align:center;margin-bottom:6px;">Incoming Transfer Detected</h2>
     <p id="sync-import-desc" style="font-size:0.84rem;color:var(--text-2);text-align:center;margin-bottom:14px;line-height:1.4;">
-      A cross-device sync payload with updated tutoring records was received!
+      A device-to-device transfer payload with updated tutoring records was received!
     </p>
     
     <div id="sync-import-stats" style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;margin-bottom:16px;font-size:0.84rem;line-height:1.6;">
@@ -2043,6 +2066,30 @@
       </button>
       <button class="btn-secondary" id="btn-sync-cancel" style="width:100%;padding:8px;font-size:0.82rem;">
         Dismiss
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ────────────────── MODAL: DOWNLOAD ALL LOGS PROMPT ────────────────── -->
+<div class="modal-backdrop" id="download-logs-modal" role="dialog" aria-modal="true" aria-labelledby="download-logs-modal-title">
+  <div class="modal-card" style="max-width:480px;">
+    <button class="modal-close" id="btn-close-download-logs-modal" aria-label="Close dialog">×</button>
+    <div style="font-size:2rem;text-align:center;margin-bottom:6px;">📥</div>
+    <h2 id="download-logs-modal-title" style="font-size:1.15rem;text-align:center;margin-bottom:6px;">Download All Logs (Day 1 → Today)</h2>
+    <p style="font-size:0.84rem;color:var(--text-2);text-align:center;margin-bottom:16px;line-height:1.45;">
+      Export complete tutoring records across all students and dates (from earliest date to today) for permanent backup or accounting:
+    </p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <button class="btn-primary" id="btn-prompt-download-csv" style="width:100%;padding:11px;font-size:0.88rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <span>📊</span> <span>Download All Logs (CSV with UTF-8 BOM)</span>
+      </button>
+      <button class="btn-secondary" id="btn-prompt-download-pdf" style="width:100%;padding:11px;font-size:0.88rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+        <span>📄</span> <span>Download Master PDF Report</span>
+      </button>
+      <button class="btn-secondary" id="btn-prompt-download-cancel" style="width:100%;padding:8px;font-size:0.82rem;margin-top:4px;">
+        Cancel
       </button>
     </div>
   </div>
@@ -2075,14 +2122,14 @@ function fmtRate(rate) {
   if (isFinanceUnlocked) {
     return (rate != null ? rate : '0') + ' SAR/hr';
   }
-  return '••••/hr';
+  return '•••• SAR/hr';
 }
 
 function fmtRateShort(rate) {
   if (isFinanceUnlocked) {
-    return (rate != null ? rate : '0') + ' SAR/h';
+    return (rate != null ? rate : '0') + ' SAR/hr';
   }
-  return '••••/h';
+  return '•••• SAR/hr';
 }
 
 function updateFinanceUI() {
@@ -2100,11 +2147,27 @@ function updateFinanceUI() {
     } else {
       lockIcon.textContent = '🔒';
       lockText.textContent = 'Unlock';
-      btnToggle.setAttribute('title', 'Unlock financial figures (Passcode: 1890)');
+      btnToggle.setAttribute('title', 'Unlock financial figures');
       btnToggle.style.borderColor = 'var(--border)';
       btnToggle.style.background = 'var(--surface)';
       btnToggle.style.color = 'var(--text)';
     }
+  }
+
+  // Reveal Tutor Workspace tabs on desktop when unlocked
+  const tutorGroup = document.getElementById('tutor-nav-group');
+  if (tutorGroup) {
+    tutorGroup.style.display = isFinanceUnlocked ? 'inline-flex' : 'none';
+  }
+
+  // Update mobile bottom nav tutor indicator
+  const mobileLockIcon = document.getElementById('mobile-lock-icon');
+  const mobileLockText = document.getElementById('mobile-lock-text');
+  if (mobileLockIcon) {
+    mobileLockIcon.textContent = isFinanceUnlocked ? '🔓' : '🔒';
+  }
+  if (mobileLockText) {
+    mobileLockText.textContent = 'Tutor';
   }
 
   updateHeader();
@@ -2155,7 +2218,7 @@ function submitFinancePasscode() {
     } catch (e) {}
     closeFinanceModal();
     updateFinanceUI();
-    toast('🔓 Financial figures unlocked');
+    toast('🔓 Tutor Workspace & Financial figures unlocked');
   } else {
     if (err) {
       err.style.display = 'block';
@@ -2172,8 +2235,12 @@ function lockFinance() {
   try {
     sessionStorage.removeItem('tutoring_finance_unlocked');
   } catch (e) {}
+  const currentView = document.querySelector('.view.active');
+  if (currentView && ['view-add', 'view-log', 'view-report', 'view-settings'].includes(currentView.id)) {
+    switchView('view-dashboard');
+  }
   updateFinanceUI();
-  toast('🔒 Financial figures hidden');
+  toast('🔒 Tutor Workspace & Financial figures locked');
 }
 
 // Financial Passcode Event Listeners
@@ -2226,8 +2293,193 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-/* ─── Homepage Video Switcher ─── */
+/* ─── High-Yield Curriculum Review Videos Database & Showcase ─── */
+const CURRICULUM_VIDEOS = [
+  // 1. Grade 11 Chemistry Calorimetry (CrashCourse: JuWtBR-rDQk)
+  {
+    id: 'v-g11-chem-calorimetry',
+    videoId: 'JuWtBR-rDQk',
+    title: 'Calorimetry & Specific Heat Capacity (q = mcΔT)',
+    grade: '11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    subject: 'Chemistry',
+    channel: 'CrashCourse',
+    duration: '12:02',
+    meta: 'Grade 11 (Shadan) · Chemistry (Ch 13 Energy & Calorimetry) · CrashCourse · 12:02',
+    watchUrl: 'https://youtu.be/JuWtBR-rDQk'
+  },
+  // 2. Grade 11 Math Limits (Khan Academy: riXcZT2ICjA)
+  {
+    id: 'v-g11-math-limits',
+    videoId: 'riXcZT2ICjA',
+    title: 'Introduction to Limits & Continuity',
+    grade: '11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    subject: 'Math',
+    channel: 'Khan Academy',
+    duration: '11:45',
+    meta: 'Grade 11 (Shadan) · Math (Functions & Limits) · Khan Academy · 11:45',
+    watchUrl: 'https://youtu.be/riXcZT2ICjA'
+  },
+  // 3. Grade 11 Physics Density & Fluids (Tyler DeWitt: 7tVebi3TSsg)
+  {
+    id: 'v-g11-phys-fluids',
+    videoId: '7tVebi3TSsg',
+    title: 'Density Practice Problems & Fluid Mechanics',
+    grade: '11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    subject: 'Physics',
+    channel: 'Physical Sciences',
+    duration: '09:30',
+    meta: 'Grade 11 (Shadan) · Physics (Ch 12 Density & Fluids) · Physical Sciences · 09:30',
+    watchUrl: 'https://youtu.be/7tVebi3TSsg'
+  },
+  // 4. Grade 11 Biology Viruses (Amoeba Sisters: 8FqlTslU22s)
+  {
+    id: 'v-g11-bio-viruses',
+    videoId: '8FqlTslU22s',
+    title: 'Viruses: Lytic vs. Lysogenic Reproductive Cycles',
+    grade: '11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    subject: 'Biology',
+    channel: 'Amoeba Sisters',
+    duration: '08:14',
+    meta: 'Grade 11 (Shadan) · Biology (Ch 19 Microbiology & Viruses) · Amoeba Sisters · 08:14',
+    watchUrl: 'https://youtu.be/8FqlTslU22s'
+  },
+  // 5. Grade 11 ELA & SAT Advanced Morphology (Smart Path Academy: wsPny7bOhes)
+  {
+    id: 'v-g11-ela-sat-morphology',
+    videoId: 'wsPny7bOhes',
+    title: 'Morphology Toolkit: Word Roots & Connotation',
+    grade: '11',
+    gradeLabel: 'Grade 11 (Shadan)',
+    subject: 'ELA',
+    channel: 'Smart Path Academy',
+    duration: '01:00',
+    meta: 'Grade 11 (Shadan) · ELA & SAT (Root Words & Context) · Smart Path Academy · 01:00',
+    watchUrl: 'https://youtube.com/shorts/wsPny7bOhes'
+  },
+  // 6. Grade 9 Chemistry Enthalpy & Matter (CrashCourse: SV7U4yAXL5I)
+  {
+    id: 'v-g9-chem-matter',
+    videoId: 'SV7U4yAXL5I',
+    title: 'Enthalpy & The Nature of Matter',
+    grade: '9',
+    gradeLabel: 'Grade 9 (Elyana, Talal & Nawaf)',
+    subject: 'Chemistry',
+    channel: 'CrashCourse',
+    duration: '10:42',
+    meta: 'Grade 9 (Elyana, Talal & Nawaf) · Chemistry (Ch 2 Matter & Energy) · CrashCourse · 10:42',
+    watchUrl: 'https://youtu.be/SV7U4yAXL5I'
+  },
+  // 7. Grade 9 Math Linear Equations (Khan Academy: 1c5HY3z4k8M)
+  {
+    id: 'v-g9-math-equations',
+    videoId: '1c5HY3z4k8M',
+    title: 'Solving Linear Equations with Variables on Both Sides',
+    grade: '9',
+    gradeLabel: 'Grade 9 (Elyana, Talal & Nawaf)',
+    subject: 'Math',
+    channel: 'Khan Academy',
+    duration: '08:50',
+    meta: 'Grade 9 (Elyana, Talal & Nawaf) · Math (Algebra 1 Linear Equations) · Khan Academy · 08:50',
+    watchUrl: 'https://youtu.be/1c5HY3z4k8M'
+  },
+  // 8. Grade 9 ELA Morphology (Smart Path Academy: L6mGhJ42klk)
+  {
+    id: 'v-g9-ela-layers',
+    videoId: 'L6mGhJ42klk',
+    title: 'Word Anatomy: Syllables vs. Morphemes in CATS',
+    grade: '9',
+    gradeLabel: 'Grade 9 (Elyana, Talal & Nawaf)',
+    subject: 'ELA',
+    channel: 'Smart Path Academy',
+    duration: '01:00',
+    meta: 'Grade 9 · ELA (Morphology & Inflectional Suffixes) · Smart Path Academy · 01:00',
+    watchUrl: 'https://youtube.com/shorts/L6mGhJ42klk'
+  },
+  // 9. Secondary Prep ELA Word Study & Vocabulary (Mr. Hisham: V6Fcv6ckR-8)
+  {
+    id: 'v-prep-ela-word-study',
+    videoId: 'V6Fcv6ckR-8',
+    title: 'Word Study: Syllables, Phonemes & Morphemes',
+    grade: 'prep',
+    gradeLabel: 'Secondary Prep & G9',
+    subject: 'ELA',
+    channel: 'Smart Path Academy - Mr. Hisham',
+    duration: '07:15',
+    meta: 'Secondary Prep & G9 · ELA (Word Study & Morphology) · Smart Path Academy - Mr. Hisham · 07:15',
+    watchUrl: 'https://youtu.be/V6Fcv6ckR-8'
+  },
+  // 10. Secondary Prep ELA Decoding Challenge (Smart Path Academy: _1mjN6AbUJ8)
+  {
+    id: 'v-prep-ela-beat-challenge',
+    videoId: '_1mjN6AbUJ8',
+    title: 'Micro-Short: Beat, Sound, or Meaning Part?',
+    grade: 'prep',
+    gradeLabel: 'Secondary Prep (Abdullah)',
+    subject: 'ELA',
+    channel: 'Smart Path Academy',
+    duration: '01:00',
+    meta: 'Secondary Prep (Abdullah) · ELA (Decoding Challenge) · Smart Path Academy · 01:00',
+    watchUrl: 'https://youtube.com/shorts/_1mjN6AbUJ8'
+  }
+];
+
+let activeCurriculumVideoGrade = 'all';
+let activeCurriculumVideoSubj = 'all';
+
+window.selectCurriculumVideo = function(videoId, el) {
+  const vid = CURRICULUM_VIDEOS.find(v => v.videoId === videoId);
+  if (!vid) return;
+
+  const iframe = document.getElementById('home-yt-iframe');
+  const titleEl = document.getElementById('home-yt-title');
+  const metaEl = document.getElementById('home-yt-meta');
+  const linkEl = document.getElementById('home-yt-watch-link');
+  const tagStudent = document.getElementById('home-yt-tag-student');
+  const tagSubject = document.getElementById('home-yt-tag-subject');
+  const badgeGrade = document.getElementById('home-yt-badge-grade');
+  const badgeSubject = document.getElementById('home-yt-badge-subject');
+
+  if (iframe) {
+    iframe.src = `https://www.youtube-nocookie.com/embed/${vid.videoId}?autoplay=1&rel=0`;
+    iframe.title = vid.title;
+  }
+  if (titleEl) titleEl.textContent = vid.title;
+  if (metaEl) metaEl.textContent = vid.meta;
+  if (linkEl) {
+    linkEl.href = vid.watchUrl || `https://youtu.be/${vid.videoId}`;
+  }
+  if (tagStudent) tagStudent.textContent = vid.gradeLabel;
+  if (tagSubject) tagSubject.textContent = `${vid.subject} · ${vid.channel}`;
+  if (badgeGrade) badgeGrade.textContent = vid.gradeLabel;
+  if (badgeSubject) badgeSubject.textContent = `${vid.subject} (${vid.channel})`;
+
+  document.querySelectorAll('.home-yt-thumb').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-pressed', 'false');
+  });
+
+  if (el) {
+    el.classList.add('active');
+    el.setAttribute('aria-pressed', 'true');
+  } else {
+    const matchingEl = document.querySelector(`.home-yt-thumb[data-vid="${vid.videoId}"]`);
+    if (matchingEl) {
+      matchingEl.classList.add('active');
+      matchingEl.setAttribute('aria-pressed', 'true');
+    }
+  }
+};
+
 window.switchHomeVideo = function(videoId, title, meta, url, el) {
+  const vid = CURRICULUM_VIDEOS.find(v => v.videoId === videoId);
+  if (vid) {
+    window.selectCurriculumVideo(videoId, el);
+    return;
+  }
   const iframe = document.getElementById('home-yt-iframe');
   const titleEl = document.getElementById('home-yt-title');
   const metaEl = document.getElementById('home-yt-meta');
@@ -2245,14 +2497,6 @@ window.switchHomeVideo = function(videoId, title, meta, url, el) {
     el.classList.add('active');
     el.setAttribute('aria-pressed', 'true');
   }
-};
-
-
-/* ─── GCSEPod Saved Credentials Vault & 1-Click Launcher ─── */
-const GCSEPOD_CONFIG = {
-  username: 'WA1038',
-  password: 'Cp@679034',
-  loginUrl: 'https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard'
 };
 
 window.copyToClipboardSafe = function(text, successMsg) {
@@ -2284,127 +2528,74 @@ function fallbackCopy(text, successMsg) {
   document.body.removeChild(ta);
 }
 
-window.copyGcsepodUser = function() {
-  copyToClipboardSafe(GCSEPOD_CONFIG.username, `📋 Username "${GCSEPOD_CONFIG.username}" copied to clipboard!`);
-};
-
-window.copyGcsepodPass = function() {
-  copyToClipboardSafe(GCSEPOD_CONFIG.password, `🔑 Password "${GCSEPOD_CONFIG.password}" copied to clipboard!`);
-};
-
-window.launchGcsepod = function(e) {
-  if (e && e.preventDefault) e.preventDefault();
-  // 1. Copy password to clipboard
-  copyToClipboardSafe(GCSEPOD_CONFIG.password, `🔑 Password (${GCSEPOD_CONFIG.password}) copied! User: ${GCSEPOD_CONFIG.username} • Opening GCSEPod...`);
-  
-  // 2. Open login page in new tab
-  setTimeout(() => {
-    window.open(GCSEPOD_CONFIG.loginUrl, '_blank', 'noopener,noreferrer');
-  }, 150);
-};
-
-window.openGcsepodModal = function() {
-  const modal = document.getElementById('gcsepod-modal');
-  if (modal) modal.classList.add('active');
-};
-
-window.closeGcsepodModal = function() {
-  const modal = document.getElementById('gcsepod-modal');
-  if (modal) modal.classList.remove('active');
-};
-
-let isGcsepodPassVisible = false;
-window.toggleGcsepodPassVisibility = function() {
-  const input = document.getElementById('gcsepod-pass-val');
-  const btn = document.getElementById('btn-toggle-gcsepod-pass');
-  if (!input) return;
-  isGcsepodPassVisible = !isGcsepodPassVisible;
-  input.type = isGcsepodPassVisible ? 'text' : 'password';
-  if (btn) btn.textContent = isGcsepodPassVisible ? '🙈' : '👁️';
-};
-
-let isSettingsPassVisible = false;
-window.toggleSettingsGcsepodPass = function() {
-  const display = document.getElementById('settings-gcsepod-pass-display');
-  if (!display) return;
-  isSettingsPassVisible = !isSettingsPassVisible;
-  display.textContent = isSettingsPassVisible ? GCSEPOD_CONFIG.password : '•••••••••';
-};
-
-document.getElementById('gcsepod-modal')?.addEventListener('click', (e) => {
-  if (e.target.id === 'gcsepod-modal') {
-    closeGcsepodModal();
+window.filterCurriculumVideos = function(grade, subj, el) {
+  if (grade !== null && grade !== undefined) {
+    activeCurriculumVideoGrade = grade;
+    document.querySelectorAll('#curriculum-video-grade-bar .filter-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.vgrade === grade);
+    });
   }
-});
-
-/* ─── Homepage Curriculum Video Showcase Renderer ─── */
-let activeVideoGrade = 'all';
-let activeVideoSubject = 'all';
-
-window.filterCurriculumVideos = function(grade, subject, el) {
-  if (grade !== null) {
-    activeVideoGrade = grade;
-    document.querySelectorAll('#curriculum-video-grade-bar .filter-chip').forEach(b => b.classList.remove('active'));
-    if (el) el.classList.add('active');
-  }
-  if (subject !== null) {
-    activeVideoSubject = subject;
-    document.querySelectorAll('#curriculum-video-subject-bar .filter-chip').forEach(b => b.classList.remove('active'));
-    if (el) el.classList.add('active');
+  if (subj !== null && subj !== undefined) {
+    activeCurriculumVideoSubj = subj;
+    document.querySelectorAll('#curriculum-video-subject-bar .filter-chip').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.vsubj === subj);
+    });
   }
   renderCurriculumVideos();
 };
 
 function renderCurriculumVideos() {
   const container = document.getElementById('home-yt-playlist');
-  const countBadge = document.getElementById('home-yt-count-badge');
   if (!container) return;
 
-  const filtered = HIGH_VIEW_RESOURCES.filter(item => {
-    if (activeVideoGrade !== 'all') {
-      if (activeVideoGrade === '11' && item.grade !== 'g11' && item.grade !== 'all') return false;
-      if (activeVideoGrade === '9' && item.grade !== 'g9' && item.grade !== 'all') return false;
-      if (activeVideoGrade === 'prep' && item.grade !== 'g9' && item.grade !== 'all') return false;
-    }
-    if (activeVideoSubject !== 'all') {
-      const s = (item.subject || '').toLowerCase();
-      const target = activeVideoSubject.toLowerCase();
-      if (target === 'ela' && s !== 'ela') return false;
-      if (target === 'math' && s !== 'math') return false;
-      if (target === 'physics' && s !== 'physics') return false;
-      if (target === 'chemistry' && s !== 'chemistry') return false;
-      if (target === 'biology' && s !== 'biology') return false;
-    }
-    return true;
+  const filtered = CURRICULUM_VIDEOS.filter(v => {
+    const matchGrade = activeCurriculumVideoGrade === 'all' || 
+                       v.grade === activeCurriculumVideoGrade ||
+                       (activeCurriculumVideoGrade === 'prep' && (v.grade === 'prep' || v.grade === 'all'));
+    const matchSubj = activeCurriculumVideoSubj === 'all' || 
+                      v.subject.toLowerCase() === activeCurriculumVideoSubj.toLowerCase();
+    return matchGrade && matchSubj;
   });
 
+  const countBadge = document.getElementById('home-yt-count-badge');
   if (countBadge) {
-    countBadge.textContent = `${filtered.length} Lessons Available`;
+    countBadge.textContent = `${filtered.length} Lesson${filtered.length === 1 ? '' : 's'} Available`;
   }
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div style="grid-column:1/-1;padding:16px;text-align:center;color:var(--text-3);font-size:.82rem;">No curriculum videos match this filter.</div>';
+    container.innerHTML = `
+      <div style="grid-column:1/-1;padding:24px 16px;text-align:center;color:var(--text-3);background:var(--surface);border-radius:var(--radius-sm);border:1px dashed var(--border);">
+        <div style="font-size:1.5rem;margin-bottom:6px;">🎬</div>
+        <div style="font-weight:600;font-size:0.85rem;color:var(--text-2);">No video lessons match this filter</div>
+        <div style="font-size:0.75rem;margin-top:2px;">Switch grade or subject filters above to explore available lessons.</div>
+      </div>
+    `;
     return;
   }
 
-  container.innerHTML = filtered.map(item => {
-    const primaryWatch = item.watch && item.watch[0] ? item.watch[0] : {};
-    let ytId = 'GzRzZ_V_07U';
-    if (primaryWatch.url) {
-      const match = primaryWatch.url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
-      if (match) ytId = match[1];
-    }
-    const metaStr = `${item.gradeLabel} · ${item.subjectLabel || item.subject} · ${primaryWatch.platform || 'Curriculum Video'}`;
-    const safeTitle = (item.topic || '').replace(/'/g, "\\'");
-    const safeMeta = metaStr.replace(/'/g, "\\'");
-    const safeUrl = (primaryWatch.url || '').replace(/'/g, "\\'");
+  const iframe = document.getElementById('home-yt-iframe');
+  const currentSrc = iframe ? iframe.src : '';
 
+  container.innerHTML = filtered.map(v => {
+    const isPlaying = currentSrc.includes(v.videoId);
     return `
-      <div class="home-yt-thumb" role="button" tabindex="0" onclick="switchHomeVideo('${ytId}', '${safeTitle}', '${safeMeta}', '${safeUrl}', this)">
-        <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" alt="${item.topic}" style="width:78px;height:48px;object-fit:cover;border-radius:4px;" onerror="this.src='https://placehold.co/78x48/1e293b/white?text=Video';" />
-        <div style="flex:1;min-width:0;">
-          <div style="font-size:.76rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.topic}</div>
-          <div style="font-size:.68rem;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.gradeLabel} • ${(item.subject || '').toUpperCase()}</div>
+      <div class="home-yt-thumb ${isPlaying ? 'active' : ''}"
+           role="button"
+           tabindex="0"
+           aria-pressed="${isPlaying ? 'true' : 'false'}"
+           data-vid="${v.videoId}"
+           onclick="selectCurriculumVideo('${v.videoId}', this)"
+           onkeydown="if(event.key==='Enter'||event.key===' '){selectCurriculumVideo('${v.videoId}', this);event.preventDefault();}">
+        <div class="home-yt-thumb-media">
+          <img src="https://img.youtube.com/vi/${v.videoId}/mqdefault.jpg" alt="${v.title}" loading="lazy">
+          <span class="yt-play-icon" aria-hidden="true">▶</span>
+          <span class="home-yt-thumb-duration">${v.duration}</span>
+        </div>
+        <div class="home-yt-thumb-content">
+          <div class="home-yt-thumb-label" title="${v.title}">${v.title}</div>
+          <div class="home-yt-thumb-sub">${v.gradeLabel} · ${v.subject}</div>
+          <div class="home-yt-thumb-sub" style="font-size:0.65rem;color:var(--text-3);">${v.channel}</div>
+          <span class="yt-playing-pill">▶ Playing</span>
         </div>
       </div>
     `;
@@ -2797,37 +2988,37 @@ const RESTORED_SEED_SESSIONS = [
   }
 ];
 
+const INIT_FLAG_KEY = 'tutoring_tracker_initialized_v2';
+
 function loadSessions() {
   try {
+    const initialized = localStorage.getItem(INIT_FLAG_KEY);
     const raw = localStorage.getItem(STORAGE_KEY);
-    let parsed = [];
-    if (raw) {
-      try {
-        parsed = JSON.parse(raw);
-      } catch (e) {
-        parsed = [];
+
+    if (!initialized) {
+      localStorage.setItem(INIT_FLAG_KEY, 'true');
+      let initial = [...RESTORED_SEED_SESSIONS];
+      if (raw) {
+        try {
+          const parsedRaw = JSON.parse(raw);
+          if (Array.isArray(parsedRaw) && parsedRaw.length > 0) {
+            initial = parsedRaw;
+          }
+        } catch (_) {}
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
+      return initial;
+    }
+
+    if (raw !== null) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed;
       }
     }
-    if (!Array.isArray(parsed)) parsed = [];
-
-    // Auto-heal & auto-merge: Ensure all 27 foundational sessions (Sept - Oct 2026) are never lost
-    const existingIds = new Set(parsed.map(s => s.id));
-    let hasNew = false;
-    RESTORED_SEED_SESSIONS.forEach(seed => {
-      if (!existingIds.has(seed.id)) {
-        parsed.push({ ...seed });
-        existingIds.add(seed.id);
-        hasNew = true;
-      }
-    });
-
-    if (hasNew || !raw) {
-      parsed.sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || ''));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
-    }
-    return parsed;
+    return [];
   } catch {
-    return [...RESTORED_SEED_SESSIONS];
+    return [];
   }
 }
 function saveSessions(arr) {
@@ -2981,7 +3172,7 @@ function switchView(viewId) {
     targetView.classList.add('active');
   }
 
-  if (viewId === 'view-dashboard')   { renderDashboard(); }
+  if (viewId === 'view-dashboard')   { renderDashboard(); renderCurriculumVideos(); }
   if (viewId === 'view-checkpoints') { renderCheckpointsView(); }
   if (viewId === 'view-resources')   { renderResourcesHub(); }
   if (viewId === 'view-curriculum')  { renderCurriculumHub(); }
@@ -2994,11 +3185,21 @@ function switchView(viewId) {
 
 document.querySelectorAll('.nav-item, .desktop-nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
+    if ((btn.id === 'mobile-tutor-nav-btn' || btn.closest('#tutor-nav-group')) && !isFinanceUnlocked) {
+      openFinanceModal();
+      toast('🔒 Tutor passcode required');
+      return;
+    }
     switchView(btn.dataset.view);
   });
 });
 
 document.getElementById('dash-btn-quick-log')?.addEventListener('click', () => {
+  if (!isFinanceUnlocked) {
+    openFinanceModal();
+    toast('🔒 Tutor passcode required to log sessions');
+    return;
+  }
   switchView('view-add');
 });
 
@@ -3022,7 +3223,7 @@ function renderDashboard() {
           <div class="roster-title">${st.name}</div>
           <div class="roster-grade">${st.grade} • ${st.subjects || 'All Subjects'}</div>
         </div>
-        <span class="badge badge-orange">${fmtRateShort(st.rate)}</span>
+        <span class="badge ${isFinanceUnlocked ? 'badge-orange' : 'badge-gray'}">${fmtRateShort(st.rate)}</span>
       </div>
       <div>
         <div style="display:flex;justify-content:space-between;font-size:.74rem;color:var(--text-2);margin-bottom:3px;">
@@ -3043,6 +3244,11 @@ function renderDashboard() {
 }
 
 window.quickLogForStudent = function(studentId) {
+  if (!isFinanceUnlocked) {
+    openFinanceModal();
+    toast('🔒 Passcode required to log sessions');
+    return;
+  }
   selectedStudents.clear();
   selectedStudents.add(studentId);
   buildStudentGrid();
@@ -4831,12 +5037,12 @@ function closeSyncModal() {
 
 function copySyncLink() {
   if (!sessions || sessions.length === 0) {
-    toast('⚠️ No sessions recorded to sync yet');
+    toast('⚠️ No sessions recorded to transfer yet');
     return;
   }
   const link = generateSyncLink();
   navigator.clipboard.writeText(link).then(() => {
-    toast('🔗 Magic Sync Link copied to clipboard!');
+    toast('🔗 Magic Transfer Link copied to clipboard!');
     const btnText = document.getElementById('btn-copy-sync-link-text');
     if (btnText) {
       const orig = btnText.textContent;
@@ -4855,20 +5061,20 @@ function copySyncLink() {
       preview.textContent = link;
     }
   }).catch(() => {
-    prompt('Copy this Sync Link to open on your other device:', link);
+    prompt('Copy this Transfer Link to open on your other device:', link);
   });
 }
 
 function shareSyncLink() {
   if (!sessions || sessions.length === 0) {
-    toast('⚠️ No sessions recorded to sync yet');
+    toast('⚠️ No sessions recorded to transfer yet');
     return;
   }
   const link = generateSyncLink();
   if (navigator.share) {
     navigator.share({
-      title: 'Tutoring Tracker Sync',
-      text: `Sync ${sessions.length} tutoring sessions across devices:`,
+      title: 'Tutoring Tracker Transfer',
+      text: `Transfer ${sessions.length} tutoring sessions across devices:`,
       url: link
     }).catch(() => {
       copySyncLink();
@@ -4880,12 +5086,12 @@ function shareSyncLink() {
 
 function copySyncCode() {
   if (!sessions || sessions.length === 0) {
-    toast('⚠️ No sessions recorded to sync yet');
+    toast('⚠️ No sessions recorded to transfer yet');
     return;
   }
   const code = generateSyncCode();
   navigator.clipboard.writeText(code).then(() => {
-    toast('📋 Sync Code copied to clipboard!');
+    toast('📋 Transfer Code copied to clipboard!');
     const settingsBtnText = document.getElementById('btn-settings-copy-code-text');
     if (settingsBtnText) {
       const orig = settingsBtnText.textContent;
@@ -4893,7 +5099,7 @@ function copySyncCode() {
       setTimeout(() => { settingsBtnText.textContent = orig; }, 2200);
     }
   }).catch(() => {
-    prompt('Copy this Sync Code:', code);
+    prompt('Copy this Transfer Code:', code);
   });
 }
 
@@ -4902,12 +5108,12 @@ function applyPastedSyncCode() {
   if (!inputEl) return;
   const raw = inputEl.value.trim();
   if (!raw) {
-    toast('⚠️ Please paste a Sync Code or Link first');
+    toast('⚠️ Please paste a Transfer Code or Link first');
     return;
   }
   const payload = parseSyncInput(raw);
   if (!payload || !Array.isArray(payload.sessions) || payload.sessions.length === 0) {
-    toast('⚠️ Invalid Sync Code or unreadable format');
+    toast('⚠️ Invalid Transfer Code or unreadable format');
     return;
   }
   closeSyncModal();
@@ -4932,8 +5138,8 @@ function showSyncImportModal(incomingSessions, source = 'link') {
 
   if (descEl) {
     descEl.textContent = source === 'link'
-      ? 'A Magic Sync Link was detected with tutoring sessions from another device.'
-      : 'Pasted sync code verified successfully with updated session records.';
+      ? 'A Magic Transfer Link was detected with tutoring sessions from another device.'
+      : 'Pasted transfer code verified successfully with updated session records.';
   }
 
   statsEl.innerHTML = `
@@ -4984,7 +5190,7 @@ function confirmSyncImport(mode) {
 
   toast(mode === 'replace'
     ? `✅ Replaced with ${result.total} sessions from other device!`
-    : `✅ Synced! Added ${result.addedCount} new, updated ${result.updatedCount} sessions.`
+    : `✅ Transferred! Added ${result.addedCount} new, updated ${result.updatedCount} sessions.`
   );
 }
 
@@ -4998,14 +5204,273 @@ function checkIncomingSyncLink() {
   const rawCode = match[1];
   const payload = parseSyncInput(rawCode);
   if (!payload || !Array.isArray(payload.sessions) || payload.sessions.length === 0) {
-    toast('⚠️ Invalid or corrupted sync link');
+    toast('⚠️ Invalid or corrupted transfer link');
     return;
   }
 
   showSyncImportModal(payload.sessions, 'link');
 }
 
-// Event Listeners for Cross-Device Sync
+/* ─── 1-Click Download of All Logs (Day 1 → Today) ─── */
+
+function downloadAllLogsCSV() {
+  if (!sessions || sessions.length === 0) {
+    toast('⚠️ No sessions recorded to download');
+    return;
+  }
+
+  // Sort chronologically (earliest to latest)
+  const allData = [...sessions].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  const headers = [
+    'Session ID',
+    'Date (Gregorian)',
+    'Weekday',
+    'Date (Hijri)',
+    'Student Name',
+    'Grade',
+    'Hours',
+    'Hourly Rate (SAR)',
+    'Total Amount (SAR)',
+    'Subject / Curriculum Topic',
+    'Notes / Details'
+  ];
+
+  const escapeCSV = (val) => {
+    if (val === null || val === undefined) return '""';
+    const s = String(val).replace(/"/g, '""');
+    return `"${s}"`;
+  };
+
+  const rows = [headers.map(escapeCSV).join(',')];
+
+  allData.forEach(s => {
+    const student = STUDENTS.find(st => st.id === s.studentId || st.name.toLowerCase() === (s.studentName || '').toLowerCase());
+    const dayInfo = getWeekdayInfo(s.date);
+    const hijri = s.date ? getHijriDate(new Date(s.date + 'T00:00:00')) : '';
+    const grade = student?.grade || s.grade || '—';
+
+    const row = [
+      escapeCSV(s.id || ''),
+      escapeCSV(s.date || ''),
+      escapeCSV(dayInfo.name || ''),
+      escapeCSV(hijri || ''),
+      escapeCSV(s.studentName || student?.name || ''),
+      escapeCSV(grade),
+      escapeCSV(s.hours != null ? s.hours : 0),
+      escapeCSV(s.rate != null ? s.rate : 0),
+      escapeCSV(s.amount != null ? s.amount : 0),
+      escapeCSV(s.subject || ''),
+      escapeCSV(s.notes || '')
+    ];
+    rows.push(row.join(','));
+  });
+
+  const BOM = '\uFEFF';
+  const csvContent = BOM + rows.join('\r\n');
+  const today = todayISO();
+  const filename = `Tutoring_Logs_Day1_to_${today}.csv`;
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  toast(`📥 Downloaded ${allData.length} logs as CSV!`);
+}
+
+function downloadAllLogsPDF() {
+  if (!window.jspdf) {
+    toast('PDF library loading…');
+    return;
+  }
+  if (!sessions || sessions.length === 0) {
+    toast('⚠️ No sessions recorded to download');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+  // Chronological sort: earliest date to latest
+  const allData = [...sessions].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  const totalHrs = allData.reduce((a, b) => a + (b.hours || 0), 0);
+  const totalAmt = allData.reduce((a, b) => a + (b.amount || 0), 0);
+  const uniqueDates = [...new Set(allData.map(s => s.date).filter(Boolean))];
+  const earliestDate = uniqueDates[0] || '2026-09-06';
+  const latestDate = uniqueDates[uniqueDates.length - 1] || todayISO();
+
+  const ORANGE   = [194, 103, 42];
+  const DARK     = [28, 25, 23];
+  const GRAY     = [87, 83, 78];
+  const LTGRAY   = [245, 242, 238];
+  const LTORANGE = [253, 238, 227];
+
+  function drawMasterHeader() {
+    doc.setFillColor(...ORANGE);
+    doc.rect(0, 0, 210, 30, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Tutoring Master Billing & Academic Log', 15, 13);
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Complete History: Day 1 (${formatDateSimple(earliestDate)}) → Today (${formatDateSimple(latestDate)})`, 15, 22);
+    doc.text('Prepared by Hisham Mohamed', 195, 22, { align: 'right' });
+  }
+
+  function drawMasterFooters() {
+    const pageCount = doc.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFillColor(...ORANGE);
+      doc.rect(0, 287, 210, 10, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Private Tutoring Tracking & Academic Hub — Master Record', 15, 293.5);
+      doc.text(`Page ${i} of ${pageCount}`, 195, 293.5, { align: 'right' });
+    }
+  }
+
+  drawMasterHeader();
+  let y = 37;
+
+  // KPI Summary Card
+  doc.setFillColor(...LTGRAY);
+  doc.roundedRect(15, y, 180, 22, 2.5, 2.5, 'F');
+  doc.setTextColor(...DARK);
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.text(`Total Earnings: ${totalAmt.toLocaleString()} SAR`, 20, y + 8);
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...GRAY);
+  const studentsCount = new Set(allData.map(s => s.studentName)).size;
+  doc.text(`${allData.length} total sessions   ·   ${totalHrs} hours   ·   ${uniqueDates.length} tutoring days   ·   ${studentsCount} students`, 20, y + 16);
+  y += 28;
+
+  // Group by Date for day-by-day listing
+  const byDate = {};
+  allData.forEach(s => {
+    if (!byDate[s.date]) byDate[s.date] = [];
+    byDate[s.date].push(s);
+  });
+
+  Object.entries(byDate).forEach(([dateStr, dSessions]) => {
+    const dayInfo = getWeekdayInfo(dateStr);
+    const dayHrs = dSessions.reduce((a, b) => a + (b.hours || 0), 0);
+    const dayAmt = dSessions.reduce((a, b) => a + (b.amount || 0), 0);
+    const hijriStr = getHijriDate(new Date(dateStr + 'T00:00:00'));
+
+    if (y > 235) {
+      doc.addPage();
+      y = 20;
+    }
+
+    // Date Header Banner (ORANGE)
+    doc.setFillColor(...ORANGE);
+    doc.rect(15, y, 180, 8, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(9.5);
+    doc.setFont('helvetica', 'bold');
+    const headerTitle = `${dayInfo.name}, ${formatDateSimple(dateStr)}${hijriStr ? ` (${hijriStr})` : ''}`;
+    doc.text(headerTitle, 18, y + 5.5);
+    doc.text(`${dayAmt.toLocaleString()} SAR`, 192, y + 5.5, { align: 'right' });
+    y += 9.5;
+
+    // Table Column Header (LTGRAY)
+    doc.setFillColor(235, 230, 222);
+    doc.rect(15, y, 180, 6.5, 'F');
+    doc.setTextColor(...GRAY);
+    doc.setFontSize(7.5);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Student & Grade', 18, y + 4.5);
+    doc.text('Curriculum Topic / Notes', 75, y + 4.5);
+    doc.text('Hours', 145, y + 4.5);
+    doc.text('Amount', 192, y + 4.5, { align: 'right' });
+    y += 8;
+
+    // Session Rows
+    dSessions.forEach((s, idx) => {
+      if (y > 265) {
+        doc.addPage();
+        y = 20;
+      }
+
+      if (idx % 2 === 0) {
+        doc.setFillColor(252, 250, 248);
+        doc.rect(15, y - 1, 180, 7.5, 'F');
+      }
+
+      const st = STUDENTS.find(x => x.id === s.studentId || x.name.toLowerCase() === (s.studentName || '').toLowerCase());
+      const studentLabel = `${s.studentName}${st?.section ? ` (${st.section})` : ''}`;
+
+      doc.setTextColor(...DARK);
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica', 'bold');
+      doc.text(studentLabel, 18, y + 4);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...GRAY);
+      const subjNotes = s.subject || s.notes || 'Tutoring session';
+      const truncatedNotes = subjNotes.length > 42 ? subjNotes.substring(0, 40) + '…' : subjNotes;
+      doc.text(truncatedNotes, 75, y + 4);
+
+      doc.text(fmtHours(s.hours), 145, y + 4);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...ORANGE);
+      doc.text(`${(s.amount || 0).toLocaleString()} SAR`, 192, y + 4, { align: 'right' });
+      y += 7.5;
+    });
+
+    // Daily Subtotal Row
+    doc.setFillColor(...LTORANGE);
+    doc.rect(15, y, 180, 7, 'F');
+    doc.setTextColor(...ORANGE);
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Daily Subtotal: ${dayHrs} hr   ·   ${dSessions.length} session${dSessions.length > 1 ? 's' : ''}`, 18, y + 4.8);
+    doc.text(`${dayAmt.toLocaleString()} SAR`, 192, y + 4.8, { align: 'right' });
+    y += 12;
+  });
+
+  drawMasterFooters();
+  const today = todayISO();
+  doc.save(`Tutoring_Master_Report_Day1_to_${today}.pdf`);
+  toast('📄 Master PDF report downloaded!');
+}
+
+function downloadAllLogsPrompt() {
+  const modal = document.getElementById('download-logs-modal');
+  if (modal) {
+    modal.classList.add('active');
+  } else {
+    if (confirm('Download as CSV spreadsheet? (Click Cancel for Master PDF)')) {
+      downloadAllLogsCSV();
+    } else {
+      downloadAllLogsPDF();
+    }
+  }
+}
+
+function closeDownloadLogsModal() {
+  const modal = document.getElementById('download-logs-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+// Global exposure for direct invocation
+window.downloadAllLogsCSV = downloadAllLogsCSV;
+window.downloadAllLogsPDF = downloadAllLogsPDF;
+window.downloadAllLogsPrompt = downloadAllLogsPrompt;
+
+// Event Listeners for Cross-Device Transfer & Data Downloads
 document.getElementById('btn-open-sync')?.addEventListener('click', openSyncModal);
 document.getElementById('btn-settings-open-sync')?.addEventListener('click', openSyncModal);
 document.getElementById('btn-close-sync-modal')?.addEventListener('click', closeSyncModal);
@@ -5034,6 +5499,28 @@ document.getElementById('btn-sync-confirm-replace')?.addEventListener('click', (
   }
 });
 
+// Download All Logs Handlers
+document.getElementById('btn-log-download-all')?.addEventListener('click', downloadAllLogsCSV);
+document.getElementById('btn-report-download-all')?.addEventListener('click', downloadAllLogsPrompt);
+document.getElementById('btn-settings-download-csv')?.addEventListener('click', downloadAllLogsCSV);
+document.getElementById('btn-settings-download-pdf')?.addEventListener('click', downloadAllLogsPDF);
+document.getElementById('btn-sync-modal-download-csv')?.addEventListener('click', downloadAllLogsCSV);
+document.getElementById('btn-sync-modal-download-pdf')?.addEventListener('click', downloadAllLogsPDF);
+
+document.getElementById('btn-close-download-logs-modal')?.addEventListener('click', closeDownloadLogsModal);
+document.getElementById('btn-prompt-download-cancel')?.addEventListener('click', closeDownloadLogsModal);
+document.getElementById('btn-prompt-download-csv')?.addEventListener('click', () => {
+  closeDownloadLogsModal();
+  downloadAllLogsCSV();
+});
+document.getElementById('btn-prompt-download-pdf')?.addEventListener('click', () => {
+  closeDownloadLogsModal();
+  downloadAllLogsPDF();
+});
+document.getElementById('download-logs-modal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'download-logs-modal') closeDownloadLogsModal();
+});
+
 document.getElementById('sync-modal')?.addEventListener('click', (e) => {
   if (e.target.id === 'sync-modal') closeSyncModal();
 });
@@ -5045,6 +5532,8 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeSyncModal();
     closeSyncImportModal();
+    closeFinanceModal();
+    closeDownloadLogsModal();
   }
 });
 /* ─── Video Hub Interactive Features ─── */
@@ -5433,13 +5922,13 @@ document.getElementById('btn-sync-curriculum')?.addEventListener('click', async 
         CURRICULUM_DATA = data;
         renderCurriculumHub();
         populateQuickAgendaTopics();
-        toast('🔄 Synced with latest school agenda!');
       }
+      toast('✅ Synced with Arab Schools: Week 7 (Oct 11 – 15)');
     } else {
-      toast('✅ Current agenda is up to date.');
+      toast('⚠️ School server unreachable. Showing cached Week 7 agenda.');
     }
   } catch (e) {
-    toast('✅ Current agenda is up to date.');
+    toast('⚠️ School server unreachable. Showing cached Week 7 agenda.');
   } finally {
     if (syncBtn) syncBtn.innerHTML = `
       <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
@@ -5488,8 +5977,8 @@ const HIGH_VIEW_RESOURCES = [
       }
     ],
     study: {
-      title: 'GCSEPod Pupil Dashboard (User: WA1038 | Pass: Cp@679034)',
-      url: 'https://members.gcsepod.com/login?redirect_to=https%3A%2F%2Fmembers.gcsepod.com%2Fpupils%2Fdashboard',
+      title: 'GCSEPod Pupil Dashboard',
+      url: 'https://members.gcsepod.com/pupils/dashboard',
       secondaryUrl: 'https://youtube.com/shorts/wsPny7bOhes',
       rules: [
         'Layer 1 (Syllables): Spoken rhythm beats (e.g., "in-ter-na-tion-al" = 5 syllables). Useful for pacing and pronunciation.',
@@ -5805,6 +6294,12 @@ const HIGH_VIEW_RESOURCES = [
     unit: 'Vol 2 Ch 13 Thermochemistry (pp. 92–101)',
     watch: [
       {
+        title: 'Calorimetry & Specific Heat Capacity (q = mcΔT) — CrashCourse Chemistry #19',
+        platform: 'CrashCourse Chemistry',
+        url: 'https://youtu.be/JuWtBR-rDQk',
+        note: 'Complete guide to solving q = mcΔT, calorimetry coffee-cup experiments, and enthalpy calculations.'
+      },
+      {
         title: 'Thermochemistry, Specific Heat & Calorimetry Problems',
         platform: 'The Organic Chemistry Tutor – Chemistry',
         url: 'https://www.youtube.com/c/TheOrganicChemistryTutor',
@@ -6023,11 +6518,18 @@ function renderResourcesHub() {
         </div>
       </div>
 
-      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
         <span style="font-size:.72rem;color:var(--text-3);">Savvas Realize Aligned</span>
-        <a href="study_system/index.html" style="font-size:.76rem;color:var(--accent);font-weight:700;text-decoration:none;">
-          Study in Full Platform ➔
-        </a>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          ${item.subject === 'chemistry' ? `
+            <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" style="font-size:.74rem;color:#d5006f;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:3px;" title="GCSEPod Chemistry Revision Pods">
+              🎧 GCSEPod Chem ↗
+            </a>
+          ` : ''}
+          <a href="${item.subject === 'chemistry' ? 'study_system/index.html?subject=chemistry&view=chem-lab' : item.subject === 'physics' ? 'study_system/index.html?subject=physics&view=physics-lab' : item.subject === 'math' ? 'study_system/index.html?subject=math&view=math-lab' : item.subject === 'biology' ? 'study_system/index.html?subject=biology&view=bio-lab' : (item.id === 'res-ela-grammar' ? 'study_system/index.html?subject=grammar&view=writing' : 'study_system/index.html?subject=literature&view=home')}" style="font-size:.76rem;color:var(--accent);font-weight:700;text-decoration:none;">
+            ${item.subject === 'chemistry' ? 'Study Chem Lab ➔' : item.subject === 'physics' ? 'Study Physics Lab ➔' : item.subject === 'math' ? 'Study Math Lab ➔' : item.subject === 'biology' ? 'Study Biology Lab ➔' : 'Study in Full Platform ➔'}
+          </a>
+        </div>
       </div>
     </div>
   `).join('');
@@ -6770,6 +7272,7 @@ async function init() {
   updateAmountPreview();
   updateHeader();
   renderDashboard();
+  renderCurriculumVideos();
   renderCheckpointsView();
   renderCurriculumHub();
   if (typeof renderCurriculumVideos === 'function') {

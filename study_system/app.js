@@ -11,7 +11,20 @@ window.StudyApp = (function () {
 
   function init() {
     bindGlobalControls();
-    updateSubjectView(currentSubject);
+    if (typeof window !== 'undefined' && window.location && window.location.search) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const subParam = urlParams.get('subject');
+      const viewParam = urlParams.get('view');
+      if (subParam && ['literature', 'grammar', 'math', 'physics', 'chemistry', 'biology'].includes(subParam)) {
+        currentSubject = subParam;
+      }
+      updateSubjectView(currentSubject);
+      if (viewParam) {
+        switchView(viewParam);
+      }
+    } else {
+      updateSubjectView(currentSubject);
+    }
   }
 
   function bindGlobalControls() {
