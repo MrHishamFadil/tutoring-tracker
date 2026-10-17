@@ -11,6 +11,9 @@
 
   <!-- jsPDF for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- SheetJS for rich multi-sheet Excel (.xlsx) export -->
+  <script src="xlsx.full.min.js"></script>
+  <script>if (typeof XLSX === 'undefined') { document.write('<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"><\/script>'); }</script>
 
   <style>
     /* ── Reset & Design Tokens ── */
@@ -1002,6 +1005,7 @@
   <nav class="desktop-nav" role="tablist" aria-label="Main Navigation">
     <button class="desktop-nav-btn active" data-view="view-dashboard" role="tab" aria-selected="true">🏠 Home &amp; Videos</button>
     <button class="desktop-nav-btn" data-view="view-curriculum" role="tab" aria-selected="false">📚 School Agendas &amp; Exams</button>
+    <a href="revision_dashboard.html" class="desktop-nav-btn" style="color:#0f766e;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;background:#e6f4f2;border-radius:999px;padding:6px 12px;box-shadow:0 1px 4px rgba(15,118,110,0.15);" title="MIS Grade 9 English Mid-Term Revision Dashboard & WhatsApp Sharer">🎯 G9 Revision Hub (78Q)</a>
     <button class="desktop-nav-btn" data-view="view-resources" role="tab" aria-selected="false" style="color:#0284c7;font-weight:700;">🎥 Resources</button>
     <a href="study_system/index.html" class="desktop-nav-btn" style="color:#2563eb;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">🚀 Study System</a>
     <a href="https://members.gcsepod.com/pupils/dashboard" target="_blank" rel="noopener noreferrer" class="desktop-nav-btn" style="color:#d5006f;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px;" title="GCSEPod Pupil Dashboard">🎧 GCSEPod ↗</a>
@@ -1060,6 +1064,26 @@
       <button class="btn-secondary" style="padding:6px 12px;font-size:.76rem;color:#991b1b;border-color:#fca5a5;background:#fff;white-space:nowrap;">
         View Exam Schedules &amp; Study Guides →
       </button>
+    </div>
+
+    <!-- 🌟 MIS Grade 9 English Mid-Term 1 Interactive Revision Hub & WhatsApp Dispatcher Banner -->
+    <div style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 1.5px solid #10b981; border-radius: var(--radius); padding: 14px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15); flex-wrap: wrap;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:1.8rem;" aria-hidden="true">📖</span>
+        <div>
+          <div style="font-weight:700; color:#065f46; font-size:.95rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span>MIS Grade 9 English Mid-Term 1 Interactive Revision Hub</span>
+            <span class="badge" style="background:#059669; color:#fff; font-size:.65rem; font-weight:800;">78 QUESTIONS • ANSWER KEY + HINTS</span>
+            <span class="badge" style="background:#25d366; color:#fff; font-size:.65rem; font-weight:800;">WHATSAPP SHARABLE 📱</span>
+          </div>
+          <div style="font-size:.78rem; color:#047857; margin-top:3px;">
+            Full official preparation pack: Unseen Reading, Literature ("The Others" & "The Open Window"), 20 Vault Vocabulary words, and Grammar (Irregular Verbs, Tenses, Clauses) with auto-grading & hints.
+          </div>
+        </div>
+      </div>
+      <a href="revision_dashboard.html" class="btn-primary" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px; background:#0f766e; color:#fff; padding:8px 16px; border-radius:var(--radius-pill); font-size:.82rem; font-weight:700; white-space:nowrap; box-shadow:0 2px 6px rgba(15,118,110,0.3);">
+        <span>Launch Revision Hub</span> 🚀
+      </a>
     </div>
 
     <!-- Responsive Bento Layout -->
@@ -1450,6 +1474,87 @@
 
   <!-- ════ VIEW 3: ADD SESSION (Existing Logging Logic Intact) ════ -->
   <section class="view" id="view-add" role="tabpanel" aria-label="Log Session">
+    <!-- ════ OFFICIAL WEEKLY TUTORING SCHEDULE & AUTO-LOGGER ════ -->
+    <div class="card" style="border:1.5px solid rgba(194,103,42,0.3);background:linear-gradient(180deg, var(--surface) 0%, rgba(194,103,42,0.03) 100%);margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.4rem;">🗓️</span>
+          <div>
+            <h3 style="margin:0;font-size:1.02rem;color:var(--text-1);">Weekly Tutoring Schedule &amp; Automated Logging</h3>
+            <div style="font-size:.76rem;color:var(--text-3);">Official timings for Abdullah &amp; Alloush Family (Shadan, Elyana, Talal, Nawaf)</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span id="auto-schedule-status-badge" class="badge badge-green" style="font-size:.74rem;">🟢 Auto-Log Active</span>
+          <button type="button" class="btn-secondary" id="btn-toggle-auto-schedule" style="padding:5px 9px;font-size:.74rem;">Toggle Auto-Log</button>
+          <button type="button" class="btn-primary" id="btn-trigger-auto-schedule" style="padding:5px 12px;font-size:.74rem;background:#c2672a;border-color:#9a4e1e;">⚡ Check &amp; Auto-Log</button>
+        </div>
+      </div>
+
+      <!-- Weekly Schedule Grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(135px, 1fr));gap:8px;margin-bottom:12px;">
+        <!-- Saturday -->
+        <div class="schedule-day-box" id="sched-box-sat" style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:.78rem;color:var(--accent);margin-bottom:4px;">
+            <span>Sat السبت</span>
+            <span style="font-size:.7rem;color:var(--text-3);">1 hr</span>
+          </div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">Abdullah</div>
+          <div style="font-size:.72rem;color:var(--text-2);font-weight:600;">2:00 – 3:00 PM</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;margin-top:3px;">150 SAR</div>
+        </div>
+
+        <!-- Sunday -->
+        <div class="schedule-day-box" id="sched-box-sun" style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:.78rem;color:var(--accent);margin-bottom:4px;">
+            <span>Sun الأحد</span>
+            <span style="font-size:.7rem;color:var(--text-3);">2 hrs</span>
+          </div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">Girls (Shadan &amp; Elyana)</div>
+          <div style="font-size:.72rem;color:var(--text-2);font-weight:600;">5:30 – 7:30 PM</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;margin-top:3px;">250 SAR (125/ea)</div>
+        </div>
+
+        <!-- Monday -->
+        <div class="schedule-day-box" id="sched-box-mon" style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:.78rem;color:var(--accent);margin-bottom:4px;">
+            <span>Mon الاثنين</span>
+            <span style="font-size:.7rem;color:var(--text-3);">2 hrs</span>
+          </div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">Boys (Talal &amp; Nawaf)</div>
+          <div style="font-size:.72rem;color:var(--text-2);font-weight:600;">5:30 – 7:30 PM</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;margin-top:3px;">250 SAR (125/ea)</div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="schedule-day-box" id="sched-box-tue" style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:.78rem;color:var(--accent);margin-bottom:4px;">
+            <span>Tue الثلاثاء</span>
+            <span style="font-size:.7rem;color:var(--text-3);">3 hrs</span>
+          </div>
+          <div style="font-size:.78rem;font-weight:700;color:var(--text-1);margin-bottom:2px;">• Abdullah (4–5 PM)</div>
+          <div style="font-size:.78rem;font-weight:700;color:var(--text-1);">• Girls (5:30–7:30 PM)</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;margin-top:3px;">400 SAR total</div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="schedule-day-box" id="sched-box-wed" style="background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 10px;">
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:.78rem;color:var(--accent);margin-bottom:4px;">
+            <span>Wed الأربعاء</span>
+            <span style="font-size:.7rem;color:var(--text-3);">2 hrs</span>
+          </div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--text-1);">Boys (Talal &amp; Nawaf)</div>
+          <div style="font-size:.72rem;color:var(--text-2);font-weight:600;">5:30 – 7:30 PM</div>
+          <div style="font-size:.68rem;color:var(--green);font-weight:600;margin-top:3px;">250 SAR (125/ea)</div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:.75rem;color:var(--text-3);">
+        <div>💡 <em>Sessions auto-record on their scheduled date. Click <strong>✏️ Edit / Add Time</strong> to adjust timing or <strong>🗑️ Delete</strong> if cancelled (deleted sessions will not be re-added).</em></div>
+        <button type="button" class="btn-secondary" id="btn-prefill-today-sched" style="padding:3px 8px;font-size:.72rem;">Fill Form for Today's Class</button>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <h2>Select Students</h2>
@@ -1684,11 +1789,12 @@
       </div>
     </div>
 
-    <!-- Actions & PDF Export -->
+    <!-- Actions, Excel & PDF Export -->
     <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
       <button class="btn-secondary" style="flex:1" id="btn-preview-report">👁️ Refresh Preview</button>
       <button class="btn-primary" style="flex:1.2;width:auto" id="btn-pdf">📄 Export PDF</button>
-      <button class="btn-secondary" style="flex:1.2;display:inline-flex;align-items:center;justify-content:center;gap:6px;" id="btn-report-download-all">📥 Download All Logs</button>
+      <button class="btn-primary" style="flex:1.3;width:auto;background:#15803d;border-color:#166534;display:inline-flex;align-items:center;justify-content:center;gap:6px;" id="btn-report-export-excel">📊 Export to Excel (.xlsx)</button>
+      <button class="btn-secondary" style="flex:1.2;display:inline-flex;align-items:center;justify-content:center;gap:6px;" id="btn-report-download-all">📥 Download All Logs (CSV)</button>
     </div>
 
     <!-- Report Preview Section -->
@@ -1739,6 +1845,7 @@
           <div class="setting-desc">Permanent offline backup in CSV (Excel) or Master PDF format</div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-primary" id="btn-settings-download-excel" style="background:#15803d;border-color:#166534;padding:6px 12px;font-size:0.8rem;">📊 Excel (.xlsx)</button>
           <button class="btn-primary" id="btn-settings-download-csv" style="padding:6px 12px;font-size:0.8rem;">📥 CSV</button>
           <button class="btn-secondary" id="btn-settings-download-pdf" style="padding:6px 12px;font-size:0.8rem;">📄 Master PDF</button>
         </div>
@@ -3064,6 +3171,10 @@ function saveSessions(arr) {
 }
 
 let sessions = loadSessions();
+setTimeout(() => {
+  checkAndApplyAutoSchedule('2026-10-12', todayISO(), true);
+  updateScheduleUIHighlight();
+}, 100);
 
 /* ─── State ─── */
 let selectedStudents = new Set();
@@ -3768,17 +3879,28 @@ function renderSessions() {
     });
   }
 
-  // Bind delete handlers
+  // Bind edit & delete handlers
+  list.querySelectorAll('[data-edit]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openEditSessionModal(btn.dataset.edit);
+    });
+  });
+
   list.querySelectorAll('[data-delete]').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (!confirm('Delete this session record?')) return;
-      sessions = sessions.filter(s => s.id !== btn.dataset.delete);
+      const targetId = btn.dataset.delete;
+      const targetSession = sessions.find(s => s.id === targetId);
+      if (!confirm(`Delete this session record for ${targetSession ? targetSession.studentName : ''}?`)) return;
+      if (targetSession) {
+        addScheduleDeletedSlot(targetSession.date, targetSession.studentId);
+      }
+      sessions = sessions.filter(s => s.id !== targetId);
       saveSessions(sessions);
       updateHeader();
       renderSessions();
       renderDashboard();
       renderReportStudentList();
-      toast('🗑️ Record deleted');
+      toast('🗑️ Record deleted (will not be auto-scheduled again)');
     });
   });
 }
@@ -3806,8 +3928,14 @@ function createSessionCard(s, rank) {
       ${s.subject ? `<span class="badge badge-gray">${s.subject}</span>` : ''}
     </div>
     ${s.notes ? `<div class="session-notes">${s.notes}</div>` : ''}
-    <div class="session-actions">
-      <button class="btn-danger" style="padding:5px 12px;font-size:.76rem" data-delete="${s.id}">Delete</button>
+    <div class="session-actions" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;">
+      <button class="btn-secondary" style="padding:5px 12px;font-size:.76rem;display:inline-flex;align-items:center;gap:4px;color:var(--text-1);border-color:var(--border);" data-edit="${s.id}">
+        <span>✏️</span> <span>Edit Timing / Add Time</span>
+      </button>
+      <button class="btn-danger" style="padding:5px 12px;font-size:.76rem;" data-delete="${s.id}">
+        <span>🗑️</span> <span>Delete</span>
+      </button>
+      ${s.isAutoScheduled ? '<span class="badge" style="background:rgba(194,103,42,0.1);color:var(--accent);font-size:.68rem;padding:2px 6px;">🗓️ Scheduled</span>' : ''}
     </div>
   `;
   return el;
@@ -5514,6 +5642,549 @@ window.downloadAllLogsCSV = downloadAllLogsCSV;
 window.downloadAllLogsPDF = downloadAllLogsPDF;
 window.downloadAllLogsPrompt = downloadAllLogsPrompt;
 
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   WEEKLY TUTORING SCHEDULE & AUTOMATED RECORDING ENGINE
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+const WEEKLY_SCHEDULE = [
+  // Saturday (Day 6): Abdullah 2:00 PM – 3:00 PM (1 hr, 150 SAR)
+  {
+    dayIndex: 6,
+    dayName: 'Saturday',
+    studentId: 'abdullah',
+    studentName: 'Abdullah AlRubiyan',
+    timeDisplay: '2:00 PM – 3:00 PM',
+    hours: 1.0,
+    rate: 150,
+    subject: 'Grade 9 American (MIS) English & Tutoring / Secondary Prep'
+  },
+  // Sunday (Day 0): Alloush Girls — Shadan (1 hr, 125 SAR) & Elyana (1 hr, 125 SAR) (5:30 – 7:30 PM)
+  {
+    dayIndex: 0,
+    dayName: 'Sunday',
+    studentId: 'shadan',
+    studentName: 'Shadan',
+    timeDisplay: '5:30 PM – 7:30 PM (Girls Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 11A (Girls) English & Academic Tutoring'
+  },
+  {
+    dayIndex: 0,
+    dayName: 'Sunday',
+    studentId: 'elyana',
+    studentName: 'Elyana',
+    timeDisplay: '5:30 PM – 7:30 PM (Girls Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 9A (Girls) English & Academic Tutoring'
+  },
+  // Monday (Day 1): Alloush Boys — Talal (1 hr, 125 SAR) & Nawaf (1 hr, 125 SAR) (5:30 – 7:30 PM)
+  {
+    dayIndex: 1,
+    dayName: 'Monday',
+    studentId: 'talal',
+    studentName: 'Talal',
+    timeDisplay: '5:30 PM – 7:30 PM (Boys Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 9B (Boys) English, Math & Science Tutoring'
+  },
+  {
+    dayIndex: 1,
+    dayName: 'Monday',
+    studentId: 'nawaf',
+    studentName: 'Nawaf',
+    timeDisplay: '5:30 PM – 7:30 PM (Boys Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 9B (Boys) English, Math & Science Tutoring'
+  },
+  // Tuesday (Day 2): Abdullah 4:00 PM – 5:00 PM (1 hr, 150 SAR)
+  {
+    dayIndex: 2,
+    dayName: 'Tuesday',
+    studentId: 'abdullah',
+    studentName: 'Abdullah AlRubiyan',
+    timeDisplay: '4:00 PM – 5:00 PM',
+    hours: 1.0,
+    rate: 150,
+    subject: 'Grade 9 American (MIS) English & Tutoring / Secondary Prep'
+  },
+  // Tuesday (Day 2): Alloush Girls — Shadan (1 hr, 125 SAR) & Elyana (1 hr, 125 SAR) (5:30 – 7:30 PM)
+  {
+    dayIndex: 2,
+    dayName: 'Tuesday',
+    studentId: 'shadan',
+    studentName: 'Shadan',
+    timeDisplay: '5:30 PM – 7:30 PM (Girls Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 11A (Girls) English & Academic Tutoring'
+  },
+  {
+    dayIndex: 2,
+    dayName: 'Tuesday',
+    studentId: 'elyana',
+    studentName: 'Elyana',
+    timeDisplay: '5:30 PM – 7:30 PM (Girls Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 9A (Girls) English & Academic Tutoring'
+  },
+  // Wednesday (Day 3): Alloush Boys — Talal (1 hr, 125 SAR) & Nawaf (1 hr, 125 SAR) (5:30 – 7:30 PM)
+  {
+    dayIndex: 3,
+    dayName: 'Wednesday',
+    studentId: 'talal',
+    studentName: 'Talal',
+    timeDisplay: '5:30 PM – 7:30 PM (Boys Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 9B (Boys) English, Math & Science Tutoring'
+  },
+  {
+    dayIndex: 3,
+    dayName: 'Wednesday',
+    studentId: 'nawaf',
+    studentName: 'Nawaf',
+    timeDisplay: '5:30 PM – 7:30 PM (Boys Session)',
+    hours: 1.0,
+    rate: 125,
+    subject: 'Grade 9B (Boys) English, Math & Science Tutoring'
+  }
+];
+
+const SCHEDULE_CONFIG_KEY = 'tutoring_schedule_config_v1';
+const SCHEDULE_DELETED_KEY = 'tutoring_schedule_deleted_v1';
+
+function getScheduleConfig() {
+  try {
+    const raw = localStorage.getItem(SCHEDULE_CONFIG_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return { autoRecordEnabled: true, startDate: '2026-10-12' };
+}
+
+function saveScheduleConfig(cfg) {
+  localStorage.setItem(SCHEDULE_CONFIG_KEY, JSON.stringify(cfg));
+}
+
+function getScheduleDeletedSlots() {
+  try {
+    const raw = localStorage.getItem(SCHEDULE_DELETED_KEY);
+    if (raw) return new Set(JSON.parse(raw));
+  } catch (e) {}
+  return new Set();
+}
+
+function addScheduleDeletedSlot(dateStr, studentId) {
+  if (!dateStr || !studentId) return;
+  const set = getScheduleDeletedSlots();
+  set.add(`${dateStr}_${studentId}`);
+  localStorage.setItem(SCHEDULE_DELETED_KEY, JSON.stringify([...set]));
+}
+
+function isScheduleSlotDeleted(dateStr, studentId) {
+  const set = getScheduleDeletedSlots();
+  return set.has(`${dateStr}_${studentId}`);
+}
+
+function checkAndApplyAutoSchedule(startDateStr, endDateStr, silent) {
+  const cfg = getScheduleConfig();
+  if (!cfg.autoRecordEnabled) return 0;
+
+  const start = new Date((startDateStr || cfg.startDate || '2026-10-12') + 'T00:00:00');
+  const end = new Date((endDateStr || todayISO()) + 'T00:00:00');
+  
+  if (start > end) return 0;
+
+  let addedCount = 0;
+  const existingSet = new Set(sessions.map(s => `${s.date}_${s.studentId}`));
+  const newSessions = [];
+
+  const cur = new Date(start);
+  while (cur <= end) {
+    const dStr = cur.toISOString().slice(0, 10);
+    const dayIdx = cur.getDay();
+
+    const matchedSlots = WEEKLY_SCHEDULE.filter(slot => slot.dayIndex === dayIdx);
+    matchedSlots.forEach(slot => {
+      const slotKey = `${dStr}_${slot.studentId}`;
+      if (!existingSet.has(slotKey) && !isScheduleSlotDeleted(dStr, slot.studentId)) {
+        const student = STUDENTS.find(s => s.id === slot.studentId);
+        const rate = student ? student.rate : slot.rate;
+        const newS = {
+          id: 'sched_' + dStr.replace(/-/g, '') + '_' + slot.studentId,
+          studentId: slot.studentId,
+          studentName: student ? student.name : slot.studentName,
+          rate: rate,
+          hours: slot.hours,
+          amount: rate * slot.hours,
+          date: dStr,
+          subject: slot.subject,
+          notes: `🗓️ Auto-Scheduled Session (${slot.timeDisplay})`,
+          createdAt: `${dStr}T18:00:00.000Z`,
+          isAutoScheduled: true,
+          scheduledTime: slot.timeDisplay
+        };
+        newSessions.push(newS);
+        existingSet.add(slotKey);
+        addedCount++;
+      }
+    });
+
+    cur.setDate(cur.getDate() + 1);
+  }
+
+  if (newSessions.length > 0) {
+    sessions = [...newSessions, ...sessions];
+    sessions.sort((a, b) => (b.date || '').localeCompare(a.date || '') || (b.createdAt || '').localeCompare(a.createdAt || ''));
+    saveSessions(sessions);
+    updateHeader();
+    renderSessions();
+    renderDashboard();
+    renderReportStudentList();
+    if (!silent) {
+      toast(`🗓️ Auto-recorded ${newSessions.length} scheduled session${newSessions.length > 1 ? 's' : ''}!`);
+    }
+  }
+
+  updateScheduleUIHighlight();
+  return addedCount;
+}
+
+function updateScheduleUIHighlight() {
+  const now = new Date();
+  const dayIdx = now.getDay();
+  const boxIds = ['sched-box-sun', 'sched-box-mon', 'sched-box-tue', 'sched-box-wed', '', '', 'sched-box-sat'];
+  
+  boxIds.forEach((id, idx) => {
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (idx === dayIdx) {
+      el.style.borderColor = 'var(--accent)';
+      el.style.background = 'var(--accent-lt)';
+      el.style.boxShadow = '0 2px 8px rgba(194,103,42,0.18)';
+    } else {
+      el.style.borderColor = 'var(--border)';
+      el.style.background = 'var(--surface-2)';
+      el.style.boxShadow = 'none';
+    }
+  });
+
+  const cfg = getScheduleConfig();
+  const badge = document.getElementById('auto-schedule-status-badge');
+  if (badge) {
+    badge.textContent = cfg.autoRecordEnabled ? '🟢 Auto-Log Active' : '⏸️ Auto-Log Paused';
+    badge.className = cfg.autoRecordEnabled ? 'badge badge-green' : 'badge badge-gray';
+  }
+}
+
+function toggleAutoSchedule() {
+  const cfg = getScheduleConfig();
+  cfg.autoRecordEnabled = !cfg.autoRecordEnabled;
+  saveScheduleConfig(cfg);
+  updateScheduleUIHighlight();
+  toast(cfg.autoRecordEnabled ? '🟢 Auto-recording enabled' : '⏸️ Auto-recording paused');
+  if (cfg.autoRecordEnabled) {
+    checkAndApplyAutoSchedule(null, null, false);
+  }
+}
+
+function prefillFormForTodaySchedule() {
+  const now = new Date();
+  const dayIdx = now.getDay();
+  const todaySlots = WEEKLY_SCHEDULE.filter(s => s.dayIndex === dayIdx);
+  if (todaySlots.length === 0) {
+    toast('🏖️ Today is a scheduled rest day!');
+    return;
+  }
+
+  selectedStudents.clear();
+  todaySlots.forEach(s => selectedStudents.add(s.studentId));
+  selectedDuration = todaySlots[0].hours;
+  
+  const dateInput = document.getElementById('session-date');
+  if (dateInput) dateInput.value = todayISO();
+  
+  const subjInput = document.getElementById('session-subject');
+  if (subjInput) subjInput.value = todaySlots.map(s => `${s.studentName}: ${s.subject}`).join(' • ');
+
+  buildStudentGrid();
+  buildDurationGrid();
+  updateAmountPreview();
+  toast(`⚡ Filled form for ${todaySlots.length} scheduled student${todaySlots.length > 1 ? 's' : ''}!`);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   EDIT TIMING & EXTRA TIME MODAL CONTROLLERS
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+let currentEditingSessionId = null;
+
+function openEditSessionModal(sessionId) {
+  const session = sessions.find(s => s.id === sessionId);
+  if (!session) {
+    toast('⚠️ Session not found');
+    return;
+  }
+  currentEditingSessionId = sessionId;
+
+  const modal = document.getElementById('edit-session-modal');
+  const studentEl = document.getElementById('edit-modal-student');
+  const dateEl = document.getElementById('edit-modal-date');
+  const rateEl = document.getElementById('edit-modal-rate');
+  const hoursInput = document.getElementById('edit-modal-hours');
+  const subjectInput = document.getElementById('edit-modal-subject');
+  const notesInput = document.getElementById('edit-modal-notes');
+  const amtPreview = document.getElementById('edit-modal-amount-preview');
+
+  const student = STUDENTS.find(st => st.id === session.studentId || st.name === session.studentName);
+  const rate = session.rate || (student ? student.rate : 125);
+  const hours = session.hours != null ? session.hours : 1.0;
+
+  if (studentEl) studentEl.textContent = `${session.studentName} (${student ? student.grade : 'Tutoring'})`;
+  if (dateEl) {
+    const dayInfo = getWeekdayInfo(session.date);
+    dateEl.textContent = `${dayInfo.name}, ${session.date}`;
+  }
+  if (rateEl) rateEl.textContent = `Rate: ${rate} SAR/hr`;
+  if (hoursInput) hoursInput.value = hours;
+  if (subjectInput) subjectInput.value = session.subject || '';
+  if (notesInput) notesInput.value = session.notes || '';
+
+  const updatePreview = () => {
+    const h = parseFloat(hoursInput.value) || 0;
+    const tot = h * rate;
+    if (amtPreview) amtPreview.textContent = `${tot.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} SAR`;
+  };
+
+  if (hoursInput) {
+    hoursInput.oninput = updatePreview;
+  }
+  updatePreview();
+
+  if (modal) modal.classList.add('active');
+}
+
+function closeEditModal() {
+  const modal = document.getElementById('edit-session-modal');
+  if (modal) modal.classList.remove('active');
+  currentEditingSessionId = null;
+}
+
+function adjustEditModalHours(delta) {
+  const input = document.getElementById('edit-modal-hours');
+  if (!input) return;
+  let val = (parseFloat(input.value) || 0) + delta;
+  if (val < 0.25) val = 0.25;
+  input.value = (Math.round(val * 100) / 100).toFixed(2).replace(/\.00$/, '');
+  input.dispatchEvent(new Event('input'));
+}
+
+function setEditModalHours(val) {
+  const input = document.getElementById('edit-modal-hours');
+  if (!input) return;
+  input.value = val;
+  input.dispatchEvent(new Event('input'));
+}
+
+function saveEditModalChanges() {
+  if (!currentEditingSessionId) return;
+  const session = sessions.find(s => s.id === currentEditingSessionId);
+  if (!session) return;
+
+  const hoursInput = document.getElementById('edit-modal-hours');
+  const subjectInput = document.getElementById('edit-modal-subject');
+  const notesInput = document.getElementById('edit-modal-notes');
+
+  const newHours = parseFloat(hoursInput?.value) || session.hours || 1.0;
+  const newSubject = subjectInput ? subjectInput.value.trim() : (session.subject || '');
+  const newNotes = notesInput ? notesInput.value.trim() : (session.notes || '');
+
+  session.hours = newHours;
+  session.amount = (session.rate || 125) * newHours;
+  session.subject = newSubject;
+  session.notes = newNotes;
+  session.isEdited = true;
+
+  saveSessions(sessions);
+  updateHeader();
+  renderSessions();
+  renderDashboard();
+  renderReportStudentList();
+  closeEditModal();
+  toast(`✅ Timing saved: ${newHours} hrs (${session.amount.toLocaleString()} SAR)`);
+}
+
+window.adjustEditModalHours = adjustEditModalHours;
+window.setEditModalHours = setEditModalHours;
+window.openEditSessionModal = openEditSessionModal;
+window.closeEditModal = closeEditModal;
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   RICH MULTI-SHEET EXCEL (.XLSX) EXPORT ENGINE
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+function exportSessionsToExcel(sessionsToExport, customFilename) {
+  if (!sessionsToExport || sessionsToExport.length === 0) {
+    toast('⚠️ No sessions matching criteria to export');
+    return;
+  }
+
+  const allData = [...sessionsToExport].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  const today = todayISO();
+  const filename = customFilename || `Tutoring_Export_${today}.xlsx`;
+
+  if (window.XLSX && XLSX.utils) {
+    const wb = XLSX.utils.book_new();
+
+    // ── Sheet 1: Sessions Log ──
+    const sheet1Data = [
+      ['Item #', 'Date (Gregorian)', 'Weekday', 'Date (Hijri)', 'Student Name', 'Grade / Section', 'Duration (hrs)', 'Hourly Rate (SAR)', 'Total Amount (SAR)', 'Subject / Curriculum Topic', 'Notes / Details', 'Session ID']
+    ];
+
+    let totalHrs = 0;
+    let totalAmt = 0;
+
+    allData.forEach((s, idx) => {
+      const student = STUDENTS.find(st => st.id === s.studentId || st.name.toLowerCase() === (s.studentName || '').toLowerCase());
+      const dayInfo = getWeekdayInfo(s.date);
+      const hijri = s.date ? getHijriDate(new Date(s.date + 'T00:00:00')) : '';
+      const grade = student?.grade || s.grade || '—';
+      const hours = parseFloat(s.hours) || 0;
+      const rate = parseFloat(s.rate) || (student ? student.rate : 0);
+      const amount = parseFloat(s.amount) || (hours * rate);
+
+      totalHrs += hours;
+      totalAmt += amount;
+
+      sheet1Data.push([
+        idx + 1,
+        s.date || '',
+        dayInfo.name || '',
+        hijri || '',
+        s.studentName || student?.name || '',
+        grade,
+        hours,
+        rate,
+        amount,
+        s.subject || '',
+        s.notes || '',
+        s.id || ''
+      ]);
+    });
+
+    sheet1Data.push(['TOTALS', '', '', '', '', '', totalHrs, '', totalAmt, '', '', '']);
+
+    const ws1 = XLSX.utils.aoa_to_sheet(sheet1Data);
+    ws1['!cols'] = [
+      { wch: 8 },  { wch: 16 }, { wch: 12 }, { wch: 18 },
+      { wch: 22 }, { wch: 25 }, { wch: 14 }, { wch: 16 },
+      { wch: 18 }, { wch: 45 }, { wch: 35 }, { wch: 16 }
+    ];
+    XLSX.utils.book_append_sheet(wb, ws1, 'Sessions Log');
+
+    // ── Sheet 2: Student Summary ──
+    const summaryData = [
+      ['Student Name', 'Grade / Curriculum', 'Hourly Rate (SAR)', 'Total Sessions', 'Total Hours', 'Total Amount (SAR)', 'Share %']
+    ];
+
+    const studentMap = {};
+    allData.forEach(s => {
+      const name = s.studentName || 'Unknown';
+      if (!studentMap[name]) {
+        const student = STUDENTS.find(st => st.id === s.studentId || st.name.toLowerCase() === name.toLowerCase());
+        studentMap[name] = {
+          grade: student?.grade || s.grade || '—',
+          rate: s.rate || (student ? student.rate : 0),
+          count: 0,
+          hours: 0,
+          amount: 0
+        };
+      }
+      studentMap[name].count += 1;
+      studentMap[name].hours += (parseFloat(s.hours) || 0);
+      studentMap[name].amount += (parseFloat(s.amount) || 0);
+    });
+
+    Object.entries(studentMap).forEach(([name, info]) => {
+      const share = totalAmt > 0 ? (info.amount / totalAmt) : 0;
+      summaryData.push([
+        name,
+        info.grade,
+        info.rate,
+        info.count,
+        info.hours,
+        info.amount,
+        `${(share * 100).toFixed(1)}%`
+      ]);
+    });
+
+    summaryData.push(['GRAND TOTAL', '', '', allData.length, totalHrs, totalAmt, '100.0%']);
+    const ws2 = XLSX.utils.aoa_to_sheet(summaryData);
+    ws2['!cols'] = [
+      { wch: 22 }, { wch: 25 }, { wch: 16 },
+      { wch: 14 }, { wch: 14 }, { wch: 18 }, { wch: 12 }
+    ];
+    XLSX.utils.book_append_sheet(wb, ws2, 'Student Summary');
+
+    // ── Sheet 3: Daily Calendar Breakdown ──
+    const dayMap = {};
+    allData.forEach(s => {
+      const d = s.date || 'Unknown';
+      if (!dayMap[d]) {
+        const dayInfo = getWeekdayInfo(d);
+        const hijri = d ? getHijriDate(new Date(d + 'T00:00:00')) : '';
+        dayMap[d] = {
+          weekday: dayInfo.name,
+          hijri,
+          students: [],
+          hours: 0,
+          amount: 0
+        };
+      }
+      dayMap[d].students.push(`${s.studentName} (${s.hours}h)`);
+      dayMap[d].hours += (parseFloat(s.hours) || 0);
+      dayMap[d].amount += (parseFloat(s.amount) || 0);
+    });
+
+    const dailyData = [
+      ['Date (Gregorian)', 'Weekday', 'Date (Hijri)', 'Students Taught', 'Total Hours', 'Daily Amount (SAR)']
+    ];
+
+    Object.keys(dayMap).sort().forEach(d => {
+      const info = dayMap[d];
+      dailyData.push([
+        d,
+        info.weekday,
+        info.hijri,
+        info.students.join(', '),
+        info.hours,
+        info.amount
+      ]);
+    });
+    dailyData.push(['TOTAL', '', '', '', totalHrs, totalAmt]);
+
+    const ws3 = XLSX.utils.aoa_to_sheet(dailyData);
+    ws3['!cols'] = [
+      { wch: 16 }, { wch: 12 }, { wch: 18 },
+      { wch: 40 }, { wch: 14 }, { wch: 18 }
+    ];
+    XLSX.utils.book_append_sheet(wb, ws3, 'Daily Schedule');
+
+    XLSX.writeFile(wb, filename);
+    toast(`📊 Exported ${allData.length} sessions to Excel (.xlsx)!`);
+  } else {
+    downloadAllLogsCSV();
+  }
+}
+
+window.exportSessionsToExcel = exportSessionsToExcel;
+
 // Event Listeners for Cross-Device Transfer & Data Downloads
 document.getElementById('btn-open-sync')?.addEventListener('click', openSyncModal);
 document.getElementById('btn-settings-open-sync')?.addEventListener('click', openSyncModal);
@@ -5550,6 +6221,35 @@ document.getElementById('btn-settings-download-csv')?.addEventListener('click', 
 document.getElementById('btn-settings-download-pdf')?.addEventListener('click', downloadAllLogsPDF);
 document.getElementById('btn-sync-modal-download-csv')?.addEventListener('click', downloadAllLogsCSV);
 document.getElementById('btn-sync-modal-download-pdf')?.addEventListener('click', downloadAllLogsPDF);
+
+// Wire Excel Export Buttons
+document.getElementById('btn-report-export-excel')?.addEventListener('click', () => {
+  const data = getReportData();
+  if (data.length === 0) {
+    toast('⚠️ No sessions matching criteria');
+    return;
+  }
+  exportSessionsToExcel(data, `Tutoring_Report_${todayISO()}.xlsx`);
+});
+document.getElementById('btn-settings-download-excel')?.addEventListener('click', () => {
+  exportSessionsToExcel(sessions, `Tutoring_Master_Backup_Day1_to_${todayISO()}.xlsx`);
+});
+
+// Wire Edit Modal Buttons
+document.getElementById('btn-close-edit-modal')?.addEventListener('click', closeEditModal);
+document.getElementById('btn-cancel-edit-modal')?.addEventListener('click', closeEditModal);
+document.getElementById('btn-save-edit-modal')?.addEventListener('click', saveEditModalChanges);
+
+// Wire Schedule Card Buttons
+document.getElementById('btn-toggle-auto-schedule')?.addEventListener('click', toggleAutoSchedule);
+document.getElementById('btn-trigger-auto-schedule')?.addEventListener('click', () => {
+  const count = checkAndApplyAutoSchedule(null, null, false);
+  if (count === 0) {
+    toast('✅ Schedule is up to date for all students!');
+  }
+});
+document.getElementById('btn-prefill-today-sched')?.addEventListener('click', prefillFormForTodaySchedule);
+
 
 document.getElementById('btn-close-download-logs-modal')?.addEventListener('click', closeDownloadLogsModal);
 document.getElementById('btn-prompt-download-cancel')?.addEventListener('click', closeDownloadLogsModal);
@@ -7347,5 +8047,73 @@ async function init() {
 
 init();
 </script>
+
+<!-- ════ MODAL: EDIT SESSION TIMING & DETAILS ════ -->
+<div class="modal-backdrop" id="edit-session-modal" role="dialog" aria-modal="true" aria-labelledby="edit-session-title">
+  <div class="modal-card" style="max-width:480px;">
+    <button class="modal-close" id="btn-close-edit-modal" aria-label="Close edit dialog">✕</button>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <span style="font-size:1.5rem;">⏱️</span>
+      <div>
+        <h3 id="edit-session-title" style="margin:0;font-size:1.05rem;color:var(--text-1);">Edit Timing &amp; Add Extra Time</h3>
+        <div id="edit-session-subtitle" style="font-size:.78rem;color:var(--text-3);">Adjust hours spent, add extra minutes, or modify notes</div>
+      </div>
+    </div>
+
+    <!-- Student & Date Info Banner -->
+    <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div id="edit-modal-student" style="font-weight:700;font-size:.95rem;color:var(--text-1);">Student Name</div>
+        <div id="edit-modal-date" style="font-size:.78rem;color:var(--text-2);">Date</div>
+      </div>
+      <div style="text-align:right;">
+        <div id="edit-modal-rate" style="font-size:.75rem;color:var(--text-3);">Rate: 125 SAR/hr</div>
+        <div id="edit-modal-amount-preview" style="font-weight:700;font-size:1.05rem;color:var(--green);">0.00 SAR</div>
+      </div>
+    </div>
+
+    <!-- Quick Extra Time Buttons -->
+    <div style="margin-bottom:14px;">
+      <div style="font-size:.78rem;font-weight:700;color:var(--text-2);margin-bottom:6px;">⚡ Quick Adjust Duration:</div>
+      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;margin-bottom:6px;">
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="adjustEditModalHours(0.25)">+15 min</button>
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="adjustEditModalHours(0.5)">+30 min</button>
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="adjustEditModalHours(0.75)">+45 min</button>
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="adjustEditModalHours(1.0)">+1 hr</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:6px;">
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="adjustEditModalHours(-0.25)">-15 min</button>
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="adjustEditModalHours(-0.5)">-30 min</button>
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="setEditModalHours(1.0)">1.0 hr</button>
+        <button type="button" class="btn-secondary" style="padding:6px;font-size:.76rem;" onclick="setEditModalHours(2.0)">2.0 hr</button>
+      </div>
+    </div>
+
+    <!-- Exact Hours Field -->
+    <div class="field" style="margin-bottom:12px;">
+      <label for="edit-modal-hours">Total Duration (Hours):</label>
+      <input type="number" id="edit-modal-hours" step="0.25" min="0.25" max="8" style="font-size:1.05rem;font-weight:700;padding:8px 12px;" />
+    </div>
+
+    <!-- Subject Field -->
+    <div class="field" style="margin-bottom:12px;">
+      <label for="edit-modal-subject">Subject / Curriculum Topic:</label>
+      <input type="text" id="edit-modal-subject" />
+    </div>
+
+    <!-- Notes Field -->
+    <div class="field" style="margin-bottom:16px;">
+      <label for="edit-modal-notes">Teacher Observations &amp; Timing Notes:</label>
+      <textarea id="edit-modal-notes" rows="2" placeholder="e.g. Added 30 mins extra for chemistry revision..."></textarea>
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button type="button" class="btn-secondary" id="btn-cancel-edit-modal">Cancel</button>
+      <button type="button" class="btn-primary" id="btn-save-edit-modal" style="background:var(--accent);border-color:var(--accent-dk);">💾 Save Timing Changes</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
