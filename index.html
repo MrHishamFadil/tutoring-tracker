@@ -3190,6 +3190,7 @@ function loadSessions() {
           }
         } catch (_) {}
       }
+      initial = initial.filter(s => s.date !== '2026-10-18' && !s.id.startsWith('sched_20261018'));
       localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
       return initial;
     }
@@ -3197,7 +3198,12 @@ function loadSessions() {
     if (raw !== null) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
-        return parsed;
+        // Enforce cleanup: strictly remove any session on Sunday 18/10/2026 or auto-scheduled 18/10
+        const cleaned = parsed.filter(s => s.date !== '2026-10-18' && !s.id.startsWith('sched_20261018'));
+        if (cleaned.length !== parsed.length) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cleaned));
+        }
+        return cleaned;
       }
     }
     return [];
@@ -3206,12 +3212,13 @@ function loadSessions() {
   }
 }
 function saveSessions(arr) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+  // Never persist Sunday 18/10
+  const safe = (arr || []).filter(s => s.date !== '2026-10-18' && !s.id.startsWith('sched_20261018'));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(safe));
 }
 
 let sessions = loadSessions();
 setTimeout(() => {
-  checkAndApplyAutoSchedule('2026-10-12', todayISO(), true);
   updateScheduleUIHighlight();
 }, 100);
 
@@ -5807,9 +5814,12 @@ const SCHEDULE_DELETED_KEY = 'tutoring_schedule_deleted_v1';
 function getScheduleConfig() {
   try {
     const raw = localStorage.getItem(SCHEDULE_CONFIG_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return { autoRecordEnabled: false, startDate: parsed.startDate || '2026-10-12' };
+    }
   } catch (e) {}
-  return { autoRecordEnabled: true, startDate: '2026-10-12' };
+  return { autoRecordEnabled: false, startDate: '2026-10-12' };
 }
 
 function saveScheduleConfig(cfg) {
@@ -5817,11 +5827,15 @@ function saveScheduleConfig(cfg) {
 }
 
 function getScheduleDeletedSlots() {
+  const defaultDeleted = new Set(['2026-10-18_shadan', '2026-10-18_elyana', '2026-10-18_talal', '2026-10-18_nawaf']);
   try {
     const raw = localStorage.getItem(SCHEDULE_DELETED_KEY);
-    if (raw) return new Set(JSON.parse(raw));
+    if (raw) {
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) arr.forEach(k => defaultDeleted.add(k));
+    }
   } catch (e) {}
-  return new Set();
+  return defaultDeleted;
 }
 
 function addScheduleDeletedSlot(dateStr, studentId) {
