@@ -1,5 +1,41 @@
 [
   {
+    "id": "rec_20261019_talal",
+    "studentId": "talal",
+    "studentName": "Talal",
+    "rate": 125.0,
+    "hours": 1.0,
+    "amount": 125.0,
+    "date": "2026-10-19",
+    "subject": "Grade 9B (Boys) English, Math & Science Tutoring",
+    "notes": "Boys Session: 5:30 – 7:30 PM (1 hr Talal)",
+    "createdAt": "2026-10-19T17:30:00.000Z"
+  },
+  {
+    "id": "rec_20261019_nawaf",
+    "studentId": "nawaf",
+    "studentName": "Nawaf",
+    "rate": 125.0,
+    "hours": 1.0,
+    "amount": 125.0,
+    "date": "2026-10-19",
+    "subject": "Grade 9B (Boys) English, Math & Science Tutoring",
+    "notes": "Boys Session: 5:30 – 7:30 PM (1 hr Nawaf)",
+    "createdAt": "2026-10-19T18:30:00.000Z"
+  },
+  {
+    "id": "mvcozpvwrubb",
+    "studentId": "abdullah",
+    "studentName": "Abdullah AlRubiyan",
+    "rate": 150.0,
+    "hours": 1.0,
+    "amount": 150.0,
+    "date": "2026-10-17",
+    "subject": "Grade 9 American (MIS) English & Tutoring",
+    "notes": "We studied English for the coming English test.",
+    "createdAt": "2026-10-17T18:00:00.000Z"
+  },
+  {
     "id": "mv444x8tsqc4",
     "studentId": "talal",
     "studentName": "Talal",

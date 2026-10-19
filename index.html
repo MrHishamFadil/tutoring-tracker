@@ -1730,6 +1730,9 @@
       <button class="report-mode-btn" data-mode="student" id="report-mode-student" role="tab" aria-selected="false">
         👤 By Student
       </button>
+      <button class="report-mode-btn" data-mode="checklist" id="report-mode-checklist" role="tab" aria-selected="false" style="color:#047857;font-weight:700;">
+        ☑️ Interactive Checklist Tracker
+      </button>
     </div>
 
     <!-- Student Selection Card -->
@@ -1874,8 +1877,8 @@
       </div>
       <div class="setting-row">
         <div>
-          <div class="setting-label">Restore All 34 Sessions (Sept – Oct 2026)</div>
-          <div class="setting-desc" id="setting-restore-desc">Reload all 34 recorded sessions (•••• SAR) from backup</div>
+          <div class="setting-label">Restore All 37 Sessions (Sept – Oct 2026)</div>
+          <div class="setting-desc" id="setting-restore-desc">Reload all 37 recorded sessions (•••• SAR) from backup</div>
         </div>
         <button class="btn-secondary" id="btn-restore-default" style="color:var(--accent);border-color:var(--accent);">Restore</button>
       </div>
@@ -2723,6 +2726,42 @@ const STUDENTS = [
 const STORAGE_KEY = 'tutoring_sessions_v1';
 
 const RESTORED_SEED_SESSIONS = [
+  {
+    "id": "rec_20261019_talal",
+    "studentId": "talal",
+    "studentName": "Talal",
+    "rate": 125.0,
+    "hours": 1.0,
+    "amount": 125.0,
+    "date": "2026-10-19",
+    "subject": "Grade 9B (Boys) English, Math & Science Tutoring",
+    "notes": "Boys Session: 5:30 – 7:30 PM (1 hr Talal)",
+    "createdAt": "2026-10-19T17:30:00.000Z"
+  },
+  {
+    "id": "rec_20261019_nawaf",
+    "studentId": "nawaf",
+    "studentName": "Nawaf",
+    "rate": 125.0,
+    "hours": 1.0,
+    "amount": 125.0,
+    "date": "2026-10-19",
+    "subject": "Grade 9B (Boys) English, Math & Science Tutoring",
+    "notes": "Boys Session: 5:30 – 7:30 PM (1 hr Nawaf)",
+    "createdAt": "2026-10-19T18:30:00.000Z"
+  },
+  {
+    "id": "mvcozpvwrubb",
+    "studentId": "abdullah",
+    "studentName": "Abdullah AlRubiyan",
+    "rate": 150.0,
+    "hours": 1.0,
+    "amount": 150.0,
+    "date": "2026-10-17",
+    "subject": "Grade 9 American (MIS) English & Tutoring",
+    "notes": "We studied English for the coming English test.",
+    "createdAt": "2026-10-17T18:00:00.000Z"
+  },
   {
     "id": "mv444x8tsqc4",
     "studentId": "talal",
@@ -4433,6 +4472,12 @@ function renderReportPreview() {
     return;
   }
 
+  // MODE 4: INTERACTIVE CHECKLIST TRACKER (Updatable by ticking)
+  if (reportMode === 'checklist') {
+    renderInteractiveChecklistReport(data);
+    return;
+  }
+
   // MODE 3: BY STUDENT (Per-student Breakdown)
   if (reportMode === 'student') {
     const perStudent = {};
@@ -4941,8 +4986,8 @@ function renderSettings() {
   const restoreDesc = document.getElementById('setting-restore-desc');
   if (restoreDesc) {
     restoreDesc.textContent = isFinanceUnlocked
-      ? 'Reload all 34 recorded sessions (4,137.50 SAR) from backup'
-      : 'Reload all 34 recorded sessions (•••• SAR) from backup';
+      ? 'Reload all 37 recorded sessions (4,537.50 SAR) from backup'
+      : 'Reload all 37 recorded sessions (•••• SAR) from backup';
   }
 }
 
@@ -5029,7 +5074,7 @@ document.getElementById('btn-restore-default')?.addEventListener('click', () => 
   renderDashboard();
   renderReportStudentList();
   renderSettings();
-  toast(count > 0 ? `✅ Restored ${count} sessions (Sept – Oct 2026)!` : '✅ All 34 recorded sessions are already loaded!');
+  toast(count > 0 ? `✅ Restored ${count} sessions (Sept – Oct 2026)!` : '✅ All 37 recorded sessions are already loaded!');
 });
 
 /* ─── Cross-Device State Sync (Zero-Friction URL Hash & Code Sync) ─── */
@@ -6184,6 +6229,240 @@ function exportSessionsToExcel(sessionsToExport, customFilename) {
 }
 
 window.exportSessionsToExcel = exportSessionsToExcel;
+
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   INTERACTIVE ATTENDANCE & BILLING CHECKLIST (UPDATABLE BY TICKING)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+const CHECKLIST_STORAGE_KEY = 'tutoring_checklist_state_v1';
+
+function getChecklistState() {
+  try {
+    const raw = localStorage.getItem(CHECKLIST_STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return {};
+}
+
+function saveChecklistState(state) {
+  localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(state));
+}
+
+function toggleChecklistSession(sessionId) {
+  const state = getChecklistState();
+  // If not explicitly set, was true; now becomes false
+  const current = state[sessionId] !== false;
+  state[sessionId] = !current;
+  saveChecklistState(state);
+  
+  // Re-calculate totals live without full re-render
+  updateChecklistMetrics();
+}
+
+function setAllChecklistSessions(checked, sessionIds) {
+  const state = getChecklistState();
+  sessionIds.forEach(id => {
+    state[id] = checked;
+  });
+  saveChecklistState(state);
+  renderReportPreview();
+  toast(checked ? '☑️ Ticked all sessions' : '⬜ Unticked all sessions');
+}
+
+function updateChecklistMetrics() {
+  const state = getChecklistState();
+  const checkboxes = document.querySelectorAll('.checklist-row-checkbox');
+  let checkedCount = 0;
+  let checkedHrs = 0;
+  let checkedAmt = 0;
+
+  checkboxes.forEach(cb => {
+    const row = cb.closest('tr');
+    const sid = cb.dataset.sid;
+    const isChecked = state[sid] !== false;
+    cb.checked = isChecked;
+    
+    const hrs = parseFloat(cb.dataset.hours) || 0;
+    const amt = parseFloat(cb.dataset.amount) || 0;
+    
+    if (isChecked) {
+      checkedCount++;
+      checkedHrs += hrs;
+      checkedAmt += amt;
+      if (row) {
+        row.style.opacity = '1';
+        row.style.background = '';
+      }
+      const badge = row ? row.querySelector('.checklist-status-badge') : null;
+      if (badge) {
+        badge.textContent = '✅ Attended';
+        badge.className = 'badge badge-green checklist-status-badge';
+      }
+    } else {
+      if (row) {
+        row.style.opacity = '0.45';
+        row.style.background = 'rgba(0,0,0,0.02)';
+      }
+      const badge = row ? row.querySelector('.checklist-status-badge') : null;
+      if (badge) {
+        badge.textContent = '⏸️ Excluded';
+        badge.className = 'badge badge-gray checklist-status-badge';
+      }
+    }
+  });
+
+  const cntEl = document.getElementById('checklist-kpi-count');
+  const hrsEl = document.getElementById('checklist-kpi-hrs');
+  const amtEl = document.getElementById('checklist-kpi-amt');
+  const totHrsEl = document.getElementById('checklist-table-total-hrs');
+  const totAmtEl = document.getElementById('checklist-table-total-amt');
+
+  if (cntEl) cntEl.textContent = `${checkedCount} of ${checkboxes.length}`;
+  if (hrsEl) hrsEl.textContent = `${checkedHrs} hr`;
+  if (amtEl) amtEl.textContent = fmtMoney(checkedAmt);
+  if (totHrsEl) totHrsEl.textContent = `${checkedHrs} hr`;
+  if (totAmtEl) totAmtEl.textContent = fmtMoney(checkedAmt);
+}
+
+function renderInteractiveChecklistReport(data) {
+  const preview = document.getElementById('report-preview');
+  if (!preview) return;
+
+  const state = getChecklistState();
+  const allIds = data.map(s => s.id);
+  
+  // Chronological sort
+  const sorted = [...data].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  let checkedCount = 0;
+  let checkedHrs = 0;
+  let checkedAmt = 0;
+
+  let rowsHTML = '';
+  sorted.forEach((s, idx) => {
+    const isChecked = state[s.id] !== false;
+    const hrs = parseFloat(s.hours) || 0;
+    const amt = parseFloat(s.amount) || 0;
+    if (isChecked) {
+      checkedCount++;
+      checkedHrs += hrs;
+      checkedAmt += amt;
+    }
+
+    const dayInfo = getWeekdayInfo(s.date);
+    const dual = formatDualDate(s.date);
+
+    rowsHTML += `
+      <tr style="${isChecked ? '' : 'opacity:0.45;background:rgba(0,0,0,0.02);'}" data-row-sid="${s.id}">
+        <td style="text-align:center;width:48px;">
+          <input type="checkbox" class="checklist-row-checkbox" data-sid="${s.id}" data-hours="${hrs}" data-amount="${amt}" ${isChecked ? 'checked' : ''} onchange="toggleChecklistSession('${s.id}')" style="width:20px;height:20px;cursor:pointer;accent-color:#059669;" />
+        </td>
+        <td style="font-weight:700;color:var(--text-3);text-align:center;width:44px;">#${idx+1}</td>
+        <td>
+          <div style="font-weight:700;color:var(--text);font-size:.86rem;">${s.date}</div>
+          <div style="font-size:.72rem;color:var(--text-3);">${dayInfo.name} ${dual.hijri ? '• 🌙 ' + dual.hijri : ''}</div>
+        </td>
+        <td>
+          <div style="font-weight:700;color:var(--text);font-size:.88rem;">${s.studentName}</div>
+          <div style="font-size:.72rem;color:var(--text-2);">${s.grade || (STUDENTS.find(st => st.id === s.studentId)?.grade) || '—'}</div>
+        </td>
+        <td style="text-align:center;font-weight:700;">${fmtHours(hrs)}</td>
+        <td style="text-align:right;color:var(--text-3);">${fmtRate(s.rate)}</td>
+        <td style="text-align:right;font-weight:700;color:var(--accent);">${fmtMoney(amt)}</td>
+        <td>
+          <div style="font-size:.78rem;color:var(--text-1);font-weight:600;">${s.subject || 'Tutoring session'}</div>
+          ${s.notes ? `<div style="font-size:.72rem;color:var(--text-3);margin-top:2px;">${s.notes}</div>` : ''}
+        </td>
+        <td style="text-align:center;">
+          <span class="badge ${isChecked ? 'badge-green' : 'badge-gray'} checklist-status-badge" style="font-size:.7rem;">
+            ${isChecked ? '✅ Attended' : '⏸️ Excluded'}
+          </span>
+        </td>
+      </tr>
+    `;
+  });
+
+  preview.innerHTML = `
+    <!-- Top Interactive Checklist Banner & KPIs -->
+    <div class="card" style="border:1.5px solid rgba(5,150,105,0.35);background:linear-gradient(180deg, var(--surface) 0%, rgba(5,150,105,0.04) 100%);margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.5rem;">☑️</span>
+          <div>
+            <h3 style="margin:0;font-size:1.02rem;color:#065f46;">Interactive Attendance &amp; Billing Checklist</h3>
+            <div style="font-size:.76rem;color:var(--text-3);">Tick or untick sessions below to update live billable hours and fees dynamically</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button type="button" class="btn-secondary" style="padding:5px 10px;font-size:.76rem;" onclick='setAllChecklistSessions(true, ${JSON.stringify(allIds)})'>☑️ Tick All</button>
+          <button type="button" class="btn-secondary" style="padding:5px 10px;font-size:.76rem;" onclick='setAllChecklistSessions(false, ${JSON.stringify(allIds)})'>⬜ Untick All</button>
+          <button type="button" class="btn-primary" style="background:#059669;border-color:#047857;padding:5px 12px;font-size:.76rem;display:inline-flex;align-items:center;gap:4px;" onclick="exportCheckedChecklistExcel()">📊 Export Ticked to Excel</button>
+        </div>
+      </div>
+
+      <!-- Live KPI Stat Boxes -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;">
+          <div style="font-size:.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Ticked Classes</div>
+          <div id="checklist-kpi-count" style="font-size:1.25rem;font-weight:800;color:#047857;">${checkedCount} of ${data.length}</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;">
+          <div style="font-size:.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Billable Hours</div>
+          <div id="checklist-kpi-hrs" style="font-size:1.25rem;font-weight:800;color:var(--text-1);">${checkedHrs} hr</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 12px;">
+          <div style="font-size:.7rem;font-weight:700;color:var(--text-3);text-transform:uppercase;">Billable Total</div>
+          <div id="checklist-kpi-amt" style="font-size:1.3rem;font-weight:800;color:var(--accent);">${fmtMoney(checkedAmt)}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Checklist Table -->
+    <div class="report-table-card">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th style="text-align:center;width:48px;">Tick</th>
+            <th style="text-align:center;width:44px;">#</th>
+            <th>Date &amp; Day</th>
+            <th>Student</th>
+            <th style="text-align:center;">Hours</th>
+            <th style="text-align:right;">Rate</th>
+            <th style="text-align:right;">Amount</th>
+            <th>Curriculum Topic / Notes</th>
+            <th style="text-align:center;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHTML}
+          <tr style="background:var(--surface-2);font-weight:800;border-top:2px solid var(--border-2);">
+            <td colspan="4" style="text-transform:uppercase;letter-spacing:.04em;">Ticked Billable Totals</td>
+            <td id="checklist-table-total-hrs" style="text-align:center;color:var(--text);font-size:.92rem;">${checkedHrs} hr</td>
+            <td>—</td>
+            <td id="checklist-table-total-amt" style="text-align:right;color:var(--accent);font-size:1.05rem;">${fmtMoney(checkedAmt)}</td>
+            <td colspan="2" style="font-size:.74rem;color:var(--text-3);font-weight:500;">Live updated by ticking/unticking rows above</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function exportCheckedChecklistExcel() {
+  const state = getChecklistState();
+  const currentData = getReportData();
+  const checkedData = currentData.filter(s => state[s.id] !== false);
+  if (checkedData.length === 0) {
+    toast('⚠️ No sessions currently ticked');
+    return;
+  }
+  exportSessionsToExcel(checkedData, `Tutoring_Checklist_Ticked_${todayISO()}.xlsx`);
+}
+
+window.toggleChecklistSession = toggleChecklistSession;
+window.setAllChecklistSessions = setAllChecklistSessions;
+window.exportCheckedChecklistExcel = exportCheckedChecklistExcel;
 
 // Event Listeners for Cross-Device Transfer & Data Downloads
 document.getElementById('btn-open-sync')?.addEventListener('click', openSyncModal);
